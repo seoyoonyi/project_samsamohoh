@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WebprojectApplication {
 
 	public static void main(String[] args) {
+		System.out.println("여기실행");
 		SpringApplication.run(WebprojectApplication.class, args);
 	}
 
