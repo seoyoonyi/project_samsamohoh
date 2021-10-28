@@ -19,7 +19,7 @@ public class LoginController {
 
 	@RequestMapping("/hi")
 	@ResponseBody
-	public Map<Integer,Object> login() {
+	public Map<Integer,Object> memberList1() {
 
 		Map<Integer,Object> members = new HashMap<>();
 		
@@ -49,7 +49,7 @@ public class LoginController {
 	}
 	
 	@GetMapping("/memberList")
-	public List<Member> memberList(){
+	public List<Member> memberList2(){
 		List<Member> memberList = new ArrayList<>();
 		
 		for(int i = 1; i<=10; i++) {
