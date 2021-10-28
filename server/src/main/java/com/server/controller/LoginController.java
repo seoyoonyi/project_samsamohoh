@@ -17,7 +17,7 @@ import com.server.domain.Member;
 @RestController
 public class LoginController {
 
-	@RequestMapping("/hi")
+	@RequestMapping("/getMemberList1")
 	@ResponseBody
 	public Map<Integer,Object> memberList1() {
 
@@ -41,14 +41,17 @@ public class LoginController {
 		return "반갑습니다";
 	}
 	
-	@PostMapping("/member")
-	public void member(@RequestBody Member member) {
-		System.out.println(member.getId());
-		System.out.println(member.getName());
-		System.out.println(member.getPassword());
+	@GetMapping("/member")
+	public Member getMember( ) {
+		Member member = new Member();
+		member.setId("koma1416");
+		member.setName("이재원");
+		member.setPassword("123456");
+		
+		return member;
 	}
 	
-	@GetMapping("/memberList")
+	@GetMapping("/getMemberList2")
 	public List<Member> memberList2(){
 		List<Member> memberList = new ArrayList<>();
 		
