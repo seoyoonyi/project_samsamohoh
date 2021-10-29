@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Router from "next/router";
 import fetcher from "../common/fetcher";
+import Button from "../components/button";
+import Modal from "./modal";
 
 const Intro = () => {
   const [item, setItem] = useState(null);
@@ -18,6 +20,12 @@ const Intro = () => {
   const goToMainPage = () => {
     Router.push("/mainpage");
   };
+  
+  const goToModalPage = () => {
+    Router.push("/modal");
+  };
+
+
   if (item) {
     console.log("서버로부터 넘어오는 데이터 ", item);
   }
@@ -36,6 +44,12 @@ const Intro = () => {
       <button className="goto_mainpage_Btn" onClick={goToMainPage}>
         입장하기
       </button>
+      <Button/>
+
+      <button className="goto-modalpage-Btn" onClick={goToModalPage} >
+        move page
+      </button>
+    
     </>
   );
 };

@@ -2,9 +2,11 @@
 // import "../../public/fonts/font-face.scss";
 import "./index.scss";
 import Head from "next/head";
-import "../components/intro.scss";
+import "./intro.scss";
 import "./footer.scss";
 import "./mainpage.scss";
+import "../components/button.scss";
+import "./modal.scss";
 
 const App = ({ Component, pageProps }) => {
   return (
