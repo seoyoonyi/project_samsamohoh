@@ -1,10 +1,10 @@
-// import "../../public/fonts/base.css";
-// import "../../public/fonts/font-face.css";
-import "./index.css";
+// import "../../public/fonts/base.scss";
+// import "../../public/fonts/font-face.scss";
+import "./index.scss";
 import Head from "next/head";
-import "../components/intro.css";
-import "./footer.css";
-import "./mainpage.css";
+import "../components/intro.scss";
+import "./footer.scss";
+import "./mainpage.scss";
 
 const App = ({ Component, pageProps }) => {
   return (

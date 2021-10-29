@@ -8,7 +8,7 @@ const Intro = () => {
   useEffect(async () => {
     const response = await fetcher(
       "get",
-      `http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline`
+      `https://leejeawon.herokuapp.com/getMemberList2`
     );
     if (response) {
       setItem(response);
@@ -27,7 +27,10 @@ const Intro = () => {
       <h1>인트로 페이지</h1>
       <ul>
         {item?.map((item) => (
-          <li key={item.id}>{item.price}</li>
+          <li key={item.id}>
+            이름:{item.name}
+            <span>비밀번호:{item.password}</span>
+          </li>
         ))}
       </ul>
       <button className="goto_mainpage_Btn" onClick={goToMainPage}>
