@@ -1,5 +1,5 @@
-// import "../../public/fonts/base.scss";
-// import "../../public/fonts/font-face.scss";
+import "../../public/fonts/base.scss";
+import "../../public/fonts/font-face.scss";
 import "./index.scss";
 import Head from "next/head";
 import "./intro.scss";
