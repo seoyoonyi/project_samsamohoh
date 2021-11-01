@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: com.webproject.WebprojectApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.603 s <<< FAILURE! - in com.webproject.WebprojectApplicationTests
+com.webproject.WebprojectApplicationTests  Time elapsed: 0.593 s  <<< ERROR!
+java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test
+
