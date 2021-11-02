@@ -1,4 +1,9 @@
-/home/ubuntu/apps/witchProject/server/src/main/java/com/server/controller/LoginController.java
-/home/ubuntu/apps/witchProject/server/src/main/java/com/server/domain/Member.java
-/home/ubuntu/apps/witchProject/server/src/main/java/com/server/config/WebConfig.java
-/home/ubuntu/apps/witchProject/server/src/main/java/com/server/WebprojectApplication.java
+/home/ubuntu/git/witchProject/server/src/main/java/com/server/service/MemberServiceImpl.java
+/home/ubuntu/git/witchProject/server/src/main/java/com/server/service/MemberService.java
+/home/ubuntu/git/witchProject/server/src/main/java/com/server/domain/Member.java
+/home/ubuntu/git/witchProject/server/src/main/java/com/server/controller/LoginController.java
+/home/ubuntu/git/witchProject/server/src/main/java/com/server/config/WebConfig.java
+/home/ubuntu/git/witchProject/server/src/main/java/com/server/repository/MemberRepository.java
+/home/ubuntu/git/witchProject/server/src/main/java/com/server/responsecode/ResponseCode.java
+/home/ubuntu/git/witchProject/server/src/main/java/com/server/WebprojectApplication.java
+/home/ubuntu/git/witchProject/server/src/main/java/com/server/responsecode/Data.java
