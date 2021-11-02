@@ -1,5 +1,7 @@
 package com.server.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,19 +19,20 @@ public class LoginController {
 
 	@PostMapping("/login")
 	public ResponseCode login(Member member) {
-		Member mem = memberService.getMember(member);
+		Optional<Member> option = memberService.getMember(member);
 		ResponseCode rc = new ResponseCode();
-		if(mem==null) {
+	
+		if (option.isPresent() && option.get().getPassword().equals(member.getPassword())) {
+			rc.setCode("0");
+			rc.setMessage("ok");
+			rc.setData(new Data(option.get().getName()));
+			return rc;
+		} else {
 			rc.setCode("-1");
 			rc.setMessage("fail");
 			return rc;
-		}else {
-			rc.setCode("0");
-			rc.setMessage("ok");
-			rc.setData(new Data(mem.getName()));
-			return rc;
 		}
-		
+
 	}
 
 	/*
