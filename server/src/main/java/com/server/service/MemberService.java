@@ -1,8 +1,10 @@
 package com.server.service;
 
+import java.util.Optional;
+
 import com.server.domain.Member;
 
 
 public interface MemberService {
-	public Member getMember(Member member);
+	public Optional<Member> getMember(Member member);
 }
