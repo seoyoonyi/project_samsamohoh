@@ -1,14 +1,11 @@
 import React from "react";
-import Intro from "./intro";
-
+import Mainpage from "./mainpage";
 
 const App = () => {
   return (
     <>
-      <Intro/>
-
+      <Mainpage />
     </>
-
   );
 };
 

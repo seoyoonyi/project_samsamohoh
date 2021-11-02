@@ -1,12 +1,12 @@
 import "../public/base_style/base.scss";
 import "../public/fonts/font-face.scss";
-import "./index.scss";
-import Head from "next/head";
-import "./intro.scss";
 import "./footer.scss";
 import "./mainpage.scss";
 import "../components/button.scss";
 import "./modal.scss";
+import "./antd_test.scss";
+
+import Head from "next/head";
 
 const App = ({ Component, pageProps }) => {
   return (
