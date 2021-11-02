@@ -15,6 +15,8 @@ public class MemberServiceImpl implements MemberService {
 	MemberRepository memberRepo;
 	
 	public Optional<Member> getMember(Member member) {
+		System.out.println(member.getId());
+		
 		return memberRepo.findById(member.getId());
 	}
 }
