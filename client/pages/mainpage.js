@@ -25,7 +25,7 @@ const Mainpage = () => {
   };
 
   if (item) {
-    console.log("서버로부터 넘어오는 데이터 ", item);
+    console.log("서버로부터 넘어오는 데이터", item);
   }
 
   return (
