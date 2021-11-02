@@ -39,7 +39,7 @@ public class LoginController {
 
 	@RequestMapping("/hello")
 	public String hello() {
-		return "반갑습니다";
+		return "반갑습니다!!";
 	}
 
 }
