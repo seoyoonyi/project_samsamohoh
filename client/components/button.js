@@ -1,15 +1,11 @@
-import React from 'react';
+import { Button, Radio } from 'antd'
 
 const Button = () => {
-    return (
-        <>
-        <div className="button-wrap">
+  return (
+    <>
+      <Button type="login-btn">로그인</Button>
+    </>
+  )
+}
 
-            <button>버튼</button>
-
-            </div>
-        </>
-    );
-};
-
-export default Button;
+export default Button

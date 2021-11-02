@@ -1,10 +1,14 @@
 import React from "react";
-import Mainpage from "./mainpage";
+import Header from "./header";
+
 
 const App = () => {
+
   return (
     <>
-      <Mainpage />
+      <div className="index-wrap">
+    <Header />
+      </div>
     </>
   );
 };

@@ -3,8 +3,7 @@ import "../public/fonts/font-face.scss";
 import "./footer.scss";
 import "./mainpage.scss";
 import "../components/button.scss";
-import "./modal.scss";
-import "./antd_test.scss";
+import "./index.scss"
 
 import Head from "next/head";
 
