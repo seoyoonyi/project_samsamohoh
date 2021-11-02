@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class LoginController {
 	MemberService memberService;
 
 	@PostMapping("/login")
-	public ResponseCode login(Member member) {
+	public ResponseCode login(@RequestBody Member member) {
 		Optional<Member> option = memberService.getMember(member);
 		ResponseCode rc = new ResponseCode();
 
