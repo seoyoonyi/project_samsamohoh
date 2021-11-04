@@ -13,11 +13,13 @@ const Headerlayout = () => {
   };
   return (
     <>
-      <Header>
-        <Button type="primary" onClick={goToLoginpage}>
-          로그인
-        </Button>
-      </Header>
+      <div className="header-wrap">
+        <Header>
+          <Button type="primary" onClick={goToLoginpage}>
+            로그인
+          </Button>
+        </Header>
+      </div>
     </>
   );
 };

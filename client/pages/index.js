@@ -4,7 +4,7 @@ import Mainpage from './mainpage';
 const Index = () => {
   return (
     <>
-      <div className="index-wrap">
+      <div id="wrap">
         <Headerlayout />
         <Mainpage />
       </div>
