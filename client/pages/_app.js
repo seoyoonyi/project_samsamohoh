@@ -1,9 +1,6 @@
 import "../public/base_style/base.scss";
 import "../public/fonts/font-face.scss";
-import "./footer.scss";
-import "./mainpage.scss";
-import "../components/button.scss";
-import "./index.scss"
+import "../public/styles/headerlayout.scss";
 
 import Head from "next/head";
 

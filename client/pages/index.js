@@ -1,13 +1,14 @@
-import React from "react";
-import Header from "./header";
+import { Layout } from 'antd';
+import Headerlayout from './headerlayout';
+
 
 
 const App = () => {
-
+  const { Header, Footer, Sider, Content } = Layout;
   return (
     <>
       <div className="index-wrap">
-    <Header />
+        <Headerlayout/>
       </div>
     </>
   );
