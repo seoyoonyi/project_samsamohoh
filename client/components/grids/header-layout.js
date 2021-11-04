@@ -9,7 +9,7 @@ import Login from '../../pages/login';
 const Headerlayout = () => {
   const { Header, Footer, Sider, Content } = Layout;
   const goToLoginpage = () => {
-    Router.push('../../pages/login.js');
+    Router.push('/login');
   };
   return (
     <>
