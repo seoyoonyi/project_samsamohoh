@@ -46,6 +46,7 @@ const Mainpage = () => {
       <button className="goto-antd-Btn" onClick={goToAndtdPage}>
         move ant-design test Page
       </button>
+      <Tag />
 
       {/* <Footer /> */}
     </>
