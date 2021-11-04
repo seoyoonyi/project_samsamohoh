@@ -1,7 +1,7 @@
-import Headerlayout from './headerlayout';
+import Headerlayout from '../components/grids/header-layout';
 import Mainpage from './mainpage';
 
-const App = () => {
+const Index = () => {
   return (
     <>
       <div className="index-wrap">
