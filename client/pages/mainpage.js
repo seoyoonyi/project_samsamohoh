@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Router from "next/router";
 import fetcher from "../common/fetcher";
-import Footer from "./footer";
+// import Footer from "./footer";
 
 const Mainpage = () => {
   // const [item, setItem] = useState(null);
@@ -17,7 +17,7 @@ const Mainpage = () => {
   // }, []);
 
   const goToModalPage = () => {
-          Router.push("/modal");
+    Router.push("/modal");
   };
 
   const goToAndtdPage = () => {
@@ -47,7 +47,7 @@ const Mainpage = () => {
         move ant-design test Page
       </button>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
