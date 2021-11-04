@@ -13,3 +13,7 @@ yarn-error.log
 
 # ASDF
 .tool-versions
+
+
+# prettier
+.prettierrc
