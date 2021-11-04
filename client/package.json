@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "next",
+    "build": "next build",
     "netlify-deploy": "next build && next export"
   },
   "dependencies": {
