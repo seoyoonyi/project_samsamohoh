@@ -1,12 +1,12 @@
-import { Layout } from 'antd';
-import Headerlayout from '../components/grids/header-layout';
+import Headerlayout from './headerlayout';
+import Mainpage from './mainpage';
 
-const Index = () => {
-  const { Header, Footer, Sider, Content } = Layout;
+const App = () => {
   return (
     <>
-      <div className="wrap">
+      <div className="index-wrap">
         <Headerlayout />
+        <Mainpage />
       </div>
     </>
   );

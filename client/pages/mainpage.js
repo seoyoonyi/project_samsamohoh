@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
 import fetcher from '../common/fetcher';
+import Tag from './tag';
 // import Footer from "./footer";
 
 const Mainpage = () => {
@@ -15,14 +16,6 @@ const Mainpage = () => {
   //     setItem(response);
   //   }
   // }, []);
-
-  const goToModalPage = () => {
-    Router.push('/modal');
-  };
-
-  const goToAndtdPage = () => {
-    Router.push('/antd_test');
-  };
 
   // if (item) {
   //   console.log("서버로부터 넘어오는 데이터", item);
@@ -40,12 +33,7 @@ const Mainpage = () => {
         ))}
       </ul> */}
 
-      <button className="goto-modalpage-Btn" onClick={goToModalPage}>
-        move page
-      </button>
-      <button className="goto-antd-Btn" onClick={goToAndtdPage}>
-        move ant-design test Page
-      </button>
+      <Tag />
 
       {/* <Footer /> */}
     </>
