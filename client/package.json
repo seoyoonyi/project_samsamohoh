@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "next"
+    "start": "next",
+    "netlify-deploy": "next build && next export"
   },
   "dependencies": {
     "antd": "^4.16.13",
