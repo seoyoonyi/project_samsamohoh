@@ -13,7 +13,7 @@ const App = ({ Component, pageProps }) => {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
-        <title>위치프로젝트</title>
+        <title>삼삼오오</title>
       </Head>
       <Component {...pageProps} />
     </>
