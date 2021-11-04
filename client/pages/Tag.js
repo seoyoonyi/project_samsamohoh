@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Tag = () => {
-  return (
-    <div>
-      <button>최신</button>
-      <button>인기</button>
+    const [content, setContent] = useState(false);
 
-      <div>최신내용</div>
-      <div>인기내용</div>
-    </div>
+    const latest = () => {
+        setContent();
+    }
+
+    const popul = () => {
+        setContent();
+    }
+
+  return (
+    <>
+        <div>
+            <button onClick={() => setContent(!content)}>최신</button>
+            {content && (<div>최신내용</div>)}
+        </div>
+        <div>
+            <button onClick={() => setContent(!content)}>인기</button>
+            {content && (<div>인기내용</div>)}
+        </div>
+    </>
   );
 };
 
