@@ -1,8 +1,6 @@
-import "../public/base_style/base.scss";
-import "../public/fonts/font-face.scss";
-import "../public/styles/headerlayout.scss";
+import '../public/main.scss';
 
-import Head from "next/head";
+import Head from 'next/head';
 
 const App = ({ Component, pageProps }) => {
   return (

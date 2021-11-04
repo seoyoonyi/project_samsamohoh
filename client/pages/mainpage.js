@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Router from "next/router";
-import fetcher from "../common/fetcher";
+import React, { useEffect, useState } from 'react';
+import Router from 'next/router';
+import fetcher from '../common/fetcher';
 // import Footer from "./footer";
 
 const Mainpage = () => {
@@ -17,11 +17,11 @@ const Mainpage = () => {
   // }, []);
 
   const goToModalPage = () => {
-    Router.push("/modal");
+    Router.push('/modal');
   };
 
   const goToAndtdPage = () => {
-    Router.push("/antd_test");
+    Router.push('/antd_test');
   };
 
   // if (item) {
