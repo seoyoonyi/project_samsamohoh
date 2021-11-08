@@ -11,13 +11,23 @@ const Headerlayout = () => {
   const goToLoginpage = () => {
     Router.push('/login');
   };
+  const goToRegisterpage = () => {
+    Router.push('/register');
+  };
   return (
     <>
       <div className="header-wrap">
         <Header>
-          <Button type="primary" onClick={goToLoginpage}>
-            로그인
-          </Button>
+          <h1 className="logo">삼삼오오</h1>
+          <nav className="navigation">
+            <Button type="primary">새글쓰기</Button>
+            <Button type="primary" onClick={goToLoginpage}>
+              로그인
+            </Button>
+            <Button type="primary" onClick={goToRegisterpage}>
+              회원가입
+            </Button>
+          </nav>
         </Header>
       </div>
     </>
