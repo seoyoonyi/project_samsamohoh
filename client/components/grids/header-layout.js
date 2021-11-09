@@ -18,7 +18,9 @@ const Headerlayout = () => {
     <>
       <div className="header-wrap">
         <Header>
-          <h1 className="logo">삼삼오오</h1>
+          <h1 className="logo">
+            <img src="../../public/images/logo.png" alt="삼삼오오 로고" />
+          </h1>
           <nav className="navigation">
             <Button type="primary">새글쓰기</Button>
             <Button type="primary" onClick={goToLoginpage}>
