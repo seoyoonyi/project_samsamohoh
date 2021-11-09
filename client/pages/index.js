@@ -1,12 +1,15 @@
-import React from "react";
-import Mainpage from "./mainpage";
+import Headerlayout from '../components/grids/header-layout';
+import Mainpage from './mainpage';
 
-const App = () => {
+const Index = () => {
   return (
     <>
-      <Mainpage />
+      <div id="wrap">
+        <Headerlayout />
+        <Mainpage />
+      </div>
     </>
   );
 };
 
-export default App;
+export default Index;

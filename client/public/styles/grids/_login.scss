@@ -1,0 +1,10 @@
+.main-wrap {
+  .ant-layout-content {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    .ant-btn-primary {
+      width: 100%;
+    }
+  }
+}

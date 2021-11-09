@@ -1,12 +1,6 @@
-import "../public/base_style/base.scss";
-import "../public/fonts/font-face.scss";
-import "./footer.scss";
-import "./mainpage.scss";
-import "../components/button.scss";
-import "./modal.scss";
-import "./antd_test.scss";
+import '../public/main.scss';
 
-import Head from "next/head";
+import Head from 'next/head';
 
 const App = ({ Component, pageProps }) => {
   return (
@@ -17,7 +11,7 @@ const App = ({ Component, pageProps }) => {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
-        <title>위치프로젝트</title>
+        <title>삼삼오오</title>
       </Head>
       <Component {...pageProps} />
     </>
