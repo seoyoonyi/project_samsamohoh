@@ -3,14 +3,18 @@ package com.server.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.domain.Member;
-import com.server.responsecode.Data;
-import com.server.responsecode.ResponseCode;
+import com.server.responsecode.DefaultRes;
+import com.server.responsecode.ResponseMessage;
+import com.server.responsecode.StatusCode;
+import com.server.securityconfig.JwtTokenProvider;
 import com.server.service.MemberService;
 
 @RestController
@@ -18,28 +22,23 @@ public class LoginController {
 
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	JwtTokenProvider jwtTokenProvider;
 
 	@PostMapping("/login")
-	public ResponseCode login(@RequestBody Member member) {
+	public ResponseEntity login(@RequestBody Member member) {
 		Optional<Member> option = memberService.getMember(member);
-		ResponseCode rc = new ResponseCode();
-
+		
 		if (option.isPresent() && option.get().getPassword().equals(member.getPassword())) {
-			rc.setCode("0");
-			rc.setMessage("ok");
-			rc.setData(new Data(option.get().getName()));
-			return rc;
+			
+			return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.LOGIN_SUCCESS,jwtTokenProvider.createToken(member.getId(), member.getRole())),HttpStatus.OK);
 		} else {
-			rc.setCode("-1");
-			rc.setMessage("fail");
-			return rc;
+			
+			return new ResponseEntity(DefaultRes.res(StatusCode.OK,ResponseMessage.LOGIN_FAIL),HttpStatus.OK);
 		}
 
 	}
 
-	@RequestMapping("/hello")
-	public String hello() {
-		return "반갑습니다!!";
-	}
 
 }
