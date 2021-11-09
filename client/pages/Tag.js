@@ -15,7 +15,7 @@ const Tag = () => {
             </button>
         </div>
     </>
-  );
+  )
 };
 
-export default Tag;
+  export default Tag;
