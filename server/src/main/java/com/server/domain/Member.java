@@ -1,6 +1,8 @@
 package com.server.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
 import lombok.Getter;
@@ -13,7 +15,11 @@ import lombok.ToString;
 @Entity
 public class Member {
 	@Id
-	String id;
-	String password;
-	String name;
+	private String id;
+	private String password;
+	private String name;
+	@Enumerated(EnumType.STRING)
+	private Role role;
+	private boolean enabled;
+
 }
