@@ -1,0 +1,16 @@
+@mixin text-style-16() {
+  font-size: $font-size-16;
+  line-height: $line-height-16;
+  letter-spacing: $letter-spacing-16;
+  font-weight: $font-weight-16;
+}
+
+@mixin text-style($size, $color: false) {
+  @if $size == 16 {
+    @include text-style-16;
+  }
+
+  @if type-of($color) == color {
+    color: $color;
+  }
+}

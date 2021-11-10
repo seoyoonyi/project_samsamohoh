@@ -1,11 +1,58 @@
 .header-wrap {
-  .ant-layout-header {
+  .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 100px;
+    border-bottom: 1px solid $border;
     background-color: transparent;
-    .ant-btn-primary {
-      margin-left: 10px;
+    .logo {
+      display: flex;
+      align-items: center;
+      width: 160px;
+      // margin: 0px;
+      // outline: 1px solid red;
+      img {
+        display: block;
+        width: 100%;
+      }
+    }
+
+    nav {
+      ul {
+        display: flex;
+        align-items: center;
+        // margin: 0;
+        li {
+          .ant-btn {
+            @include text-style(16, $black);
+            &:hover {
+              color: $main-color;
+            }
+          }
+          .ant-btn:not(.new-writing) {
+            border: none;
+            box-shadow: none;
+            text-shadow: none;
+            background-color: transparent;
+          }
+          .ant-btn.register::before {
+            content: ' ';
+            top: 50%;
+            transform: translateY(-50%);
+            display: block;
+            height: 60%;
+            border-left: 2px solid $secondary;
+          }
+          .new-writing {
+            padding: 0 30px;
+            background-color: $main-color;
+            border-color: $main-color;
+            border-radius: 50px;
+            color: $white;
+          }
+        }
+      }
     }
   }
 }

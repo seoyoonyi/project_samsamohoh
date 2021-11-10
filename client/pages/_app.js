@@ -10,7 +10,7 @@ const App = ({ Component, pageProps }) => {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <link rel="icon" type="image/png" href="../public/images/favicon.png" />
+        <link rel="icon" type="image/png" href="/images/favicon.png" />
         <title>삼삼오오</title>
       </Head>
       <Component {...pageProps} />

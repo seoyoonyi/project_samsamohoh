@@ -2,7 +2,14 @@
 
 @import '~antd/dist/antd.css'; //ant-design
 @import './base_style/base';
+// @import './base_style/normalize';
+@import './base_style/colors';
+
 @import './fonts/font-face';
+@import './fonts/typography';
+
+@import './styles/mixin/text-styles';
+
 @import './styles/grids/header-layout';
 @import './styles/grids/login';
 @import './styles/grids/register';
