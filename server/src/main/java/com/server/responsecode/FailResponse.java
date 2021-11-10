@@ -7,7 +7,7 @@ public class FailResponse {
 	private int code;
 	private String message;
 	
-	public FailResponse(final int code,final String message) {
+	public FailResponse(final int code,String message) {
 		this.code = code;
 		this.message = message;
 	}

@@ -19,4 +19,12 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberRepo.findById(member.getId());
 	}
+
+	
+	public void saveMember(Member member) {
+		memberRepo.save(member);
+		
+	}
+	
+	
 }
