@@ -1,0 +1,22 @@
+# Dependency directories
+node_modules/
+
+# npm
+package-lock.json
+
+# Yarn
+yarn.lock
+yarn-error.log
+
+# Next.js build output
+.next/
+
+# ASDF
+.tool-versions
+
+
+# prettier
+.prettierrc
+
+# deploy
+out/ 
