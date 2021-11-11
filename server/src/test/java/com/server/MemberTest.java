@@ -21,6 +21,7 @@ public class MemberTest {
 		member.setId("admin");
 		member.setName("이재원");
 		member.setPassword("5931as!");
+		member.setEmail("koma1416@naver.com");
 		memberRepo.save(member);
 	}
 }
