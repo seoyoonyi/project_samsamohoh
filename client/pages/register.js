@@ -19,6 +19,14 @@ const Register = () => {
                     <li>
                       <p>아이디</p>
                       <Input />
+                      <div className="confirm">
+                        <Button type="primary" className="confirm-btn">
+                          중복확인
+                        </Button>
+                        <span className="red-txt">
+                          중복된 아이디가 있습니다.
+                        </span>
+                      </div>
                     </li>
                     <li>
                       <p>비밀번호</p>

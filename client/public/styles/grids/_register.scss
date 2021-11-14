@@ -4,6 +4,16 @@
     form {
       li {
         margin-bottom: 30px;
+        .confirm {
+          margin-top: 10px;
+          .confirm-btn {
+            margin-right: 10px;
+          }
+          .red-txt {
+            display: none;
+            color: rgb(255, 38, 0);
+          }
+        }
       }
     }
   }
