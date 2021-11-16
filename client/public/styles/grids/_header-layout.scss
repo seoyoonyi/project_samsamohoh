@@ -1,3 +1,5 @@
+$user-gap: 12px;
+
 .header-wrap {
   .header {
     display: flex;
@@ -10,8 +12,6 @@
       display: flex;
       align-items: center;
       width: 150px;
-      // margin: 0px;
-      // outline: 1px solid red;
       img {
         display: block;
         width: 100%;
@@ -22,38 +22,41 @@
       ul {
         display: flex;
         align-items: center;
-        // margin: 0;
-        li {
-          .ant-btn {
-            @include text-style(16, $black);
-            &:hover {
-              color: $main-color;
-            }
+        flex-wrap: nowrap;
+        gap: 0 20px;
+        a {
+          @include text-style(16, $black);
+        }
+        li.user-group {
+          display: flex;
+          flex-wrap: nowrap;
+          gap: 0 $user-gap * 2;
+          div a:hover {
+            color: $main-color;
           }
-          .ant-btn:not(.new-writing) {
-            border: none;
-            box-shadow: none;
-            text-shadow: none;
-            background-color: transparent;
+          .login a {
+            position: relative;
           }
-          .ant-btn.register::before {
+          .login a::after {
             content: ' ';
-            top: 50%;
-            transform: translateY(-50%);
-            display: block;
-            height: 60%;
-            border-left: 2px solid $secondary;
-            background-color: transparent;
-          }
-          .new-writing {
-            padding: 0 30px;
-            background-color: $main-color;
-            border-color: $main-color;
-            border-radius: 50px;
-            color: $white;
+            position: absolute;
+            top: 4px;
+            right: -$user-gap;
+            width: 1px;
+            height: 20px;
+            background-color: $secondary;
           }
         }
+        li.new-writing a {
+          padding: 8px 30px;
+          border-radius: 100px;
+          color: $white;
+          background-color: $main-color;
+        }
       }
+    }
+    @include responsive(M) {
+      background-color: #ff0;
     }
   }
 }

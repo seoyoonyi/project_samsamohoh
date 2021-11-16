@@ -1,19 +1,12 @@
-.main-wrap.register {
-  .ant-layout-content {
-    flex-direction: column;
-    form {
-      li {
-        margin-bottom: 30px;
-        .confirm {
-          margin-top: 10px;
-          .confirm-btn {
-            margin-right: 10px;
-          }
-          .red-txt {
-            display: none;
-            color: rgb(255, 38, 0);
-          }
-        }
+.main-wrap {
+  .register {
+    margin-top: 100px;
+    .logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 50px;
+      img {
+        width: 40%;
       }
     }
   }

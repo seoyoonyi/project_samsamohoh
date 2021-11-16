@@ -1,8 +1,7 @@
-import Headerlayout from "../components/grids/header-layout";
-import Mainpage from "./mainpage";
-
-import TokenStorage from "../common/token";
-import { useEffect, useState } from "react";
+import Headerlayout from '../components/grids/header-layout';
+import Mainpage from './mainpage';
+import TokenStorage from '../common/token';
+import { useEffect, useState } from 'react';
 
 const Index = () => {
   const [token, setToken] = useState(null);
@@ -11,7 +10,7 @@ const Index = () => {
 
   useEffect(() => {
     const token = tokenStorage.getToken();
-    console.log("loginAftertoken", token);
+    console.log('loginAftertoken', token);
     if (token) {
       setToken(token);
     }
