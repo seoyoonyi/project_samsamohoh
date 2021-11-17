@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import Router from 'next/router';
-import TokenStorage from '../../common/token';
-import Link from 'next/link';
+import React, { useEffect, useState } from "react";
+import TokenStorage from "../../common/token";
+import Link from "next/link";
 
-import { Button, Radio } from 'antd';
-import { Layout } from 'antd';
+import { Button, Radio } from "antd";
+import { Layout } from "antd";
 
 const Headerlayout = ({ token, getToken }) => {
   const tokenStorage = new TokenStorage();
@@ -40,8 +39,8 @@ const Headerlayout = ({ token, getToken }) => {
                     </Link>
                   )}
                 </div>
-                <div className="register">
-                  <Link href="/register">
+                <div className="sign-up">
+                  <Link href="/sigin_up">
                     <a>회원가입</a>
                   </Link>
                 </div>

@@ -5,10 +5,11 @@ import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Lottie from "react-lottie";
 import * as animationData from "../public/images/lottie_error.json";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 
 const Error404 = () => {
   const { Header, Footer, Sider, Content } = Layout;
+  const router = useRouter();
 
   const defaultOptions = {
     loop: true,
@@ -21,20 +22,17 @@ const Error404 = () => {
 
   const goToBack = (e) => {
     e.preventDefault();
-    Router.back();
+    router.back();
   };
 
   const goToHome = (e) => {
     e.preventDefault();
-    Router.push("/");
+    router.push("/");
   };
 
   return (
     <>
       <div id="wrap">
-        <Head>
-          <title>찾을 수 없는 페이지</title>
-        </Head>
         <Headerlayout />
         <section id="errorPageWrap">
           <div className="errorLottie">
