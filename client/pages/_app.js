@@ -1,6 +1,6 @@
-import '../public/main.scss';
+import "../public/main.scss";
 
-import Head from 'next/head';
+import Head from "next/head";
 
 const App = ({ Component, pageProps }) => {
   return (
@@ -10,10 +10,6 @@ const App = ({ Component, pageProps }) => {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <meta
-          http-equiv="Content-Security-Policy"
-          content="upgrade-insecure-requests"
-        ></meta>
         <link rel="icon" type="image/png" href="/images/favicon.png" />
         <title>삼삼오오</title>
       </Head>
