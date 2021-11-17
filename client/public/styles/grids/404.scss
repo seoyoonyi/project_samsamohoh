@@ -37,7 +37,7 @@
 }
 
 #errorPageWrap .errorTitle {
-  font-size: 3.5rem;
+  @include text-style(16, $black);
   margin-bottom: 1.8rem;
 }
 
