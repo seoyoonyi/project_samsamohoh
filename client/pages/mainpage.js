@@ -1,4 +1,4 @@
-import { Layout } from 'antd';
+import { Layout } from "antd";
 
 const Mainpage = ({ token }) => {
   const { Header, Footer, Sider, Content } = Layout;
@@ -11,9 +11,9 @@ const Mainpage = ({ token }) => {
             삼삼오오에 오신 것을<br></br>
             환영합니다!
           </p>
-          {token && <p>반갑습니다! {token?.data?.name}님</p>}
         </Content>
       </div>
+      {/* {token && <p>반갑습니다! {token?.data?.name}님</p>} */}
     </>
   );
 };

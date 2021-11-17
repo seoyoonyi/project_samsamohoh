@@ -1,18 +1,19 @@
 @charset "utf-8";
 
-@import './base_style/base';
-@import '~antd/dist/antd.css'; //ant-design
-@import './base_style/colors';
+@import "./base_style/base";
+@import "~antd/dist/antd.css"; //ant-design
+@import "./base_style/colors";
 
-@import './fonts/font-face';
-@import './fonts/typography';
+@import "./fonts/font-face";
+@import "./fonts/typography";
 
-@import './styles/layouts/grids';
+@import "./styles/layouts/grids";
 
-@import './styles/mixin/text-styles';
-@import './styles/mixin/responsive';
+@import "./styles/mixin/text-styles";
+@import "./styles/mixin/responsive";
 
-@import './styles/grids/header-layout';
-@import './styles/grids/mainpage';
-@import './styles/grids/login';
-@import './styles/grids/register';
+@import "./styles/grids/header-layout";
+@import "./styles/grids/mainpage";
+@import "./styles/grids/login";
+@import "./styles/grids/register";
+@import "./styles/grids/404";
