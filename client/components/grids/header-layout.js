@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import TokenStorage from "../../common/token";
-import Link from "next/link";
+import React, { useEffect, useState } from 'react';
+import TokenStorage from '../../common/token';
+import Link from 'next/link';
 
-import { Button, Radio } from "antd";
-import { Layout } from "antd";
+import { Button, Radio } from 'antd';
+import { Layout } from 'antd';
 
 const Headerlayout = ({ token, getToken }) => {
   const tokenStorage = new TokenStorage();
@@ -18,7 +18,7 @@ const Headerlayout = ({ token, getToken }) => {
 
   return (
     <>
-      <div className="header-wrap">
+      <div id="header-wrap">
         <Header className="header">
           <h1 className="logo">
             {/* <img src="../../public/images/logo.png" alt="삼삼오오 로고" /> */}
@@ -83,7 +83,8 @@ const Headerlayout = ({ token, getToken }) => {
               </li>
               <li className="new-writing">
                 <Link href="/">
-                  <a>새글쓰기</a>
+                  {/* 여기에 보라색 버튼을 만들어서 적용시켜야하는데 안됨 */}
+                  <a className="btn-main btn-40">새글쓰기</a>
                 </Link>
               </li>
             </ul>

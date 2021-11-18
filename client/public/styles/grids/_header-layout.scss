@@ -1,6 +1,6 @@
 $user-gap: 12px;
 
-.header-wrap {
+#header-wrap {
   .header {
     display: flex;
     justify-content: space-between;
@@ -57,12 +57,6 @@ $user-gap: 12px;
             height: 20px;
             background-color: $secondary;
           }
-        }
-        li.new-writing a {
-          padding: 8px 30px;
-          border-radius: 100px;
-          color: $white;
-          background-color: $main-color;
         }
       }
     }

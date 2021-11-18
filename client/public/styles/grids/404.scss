@@ -1,64 +1,34 @@
-#errorPageWrap {
-  width: 75%;
-  min-height: 75vh;
-  margin: auto;
-  box-sizing: border-box;
-  font-size: 1.6rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-#errorPageWrap > div {
-  flex: 1 1 50%;
-}
-
-#errorPageWrap .errorLottie {
-  box-sizing: border-box;
-  padding: 0 6rem;
-}
-
-#errorPageWrap .errorTextGroup {
-  text-align: left;
-  padding: 0 6rem;
-}
-
-#errorPageWrap .errorIconGroup {
-  width: 24rem;
-  display: flex;
-  align-items: center;
-  margin-bottom: 4rem;
-}
-
-#errorPageWrap .errorIcon404 {
-  color: #f3807c;
-  font-size: 6.5rem;
-  margin-left: 2rem;
-}
-
-#errorPageWrap .errorTitle {
-  @include text-style(16, $black);
-  margin-bottom: 1.8rem;
-}
-
-#errorPageWrap .errorDescription {
-  line-height: 2.4rem;
-  margin-bottom: 5rem;
-}
-
-#errorPageWrap .error404Btn > button {
-  outline: none;
-  display: inline-block;
-  cursor: pointer;
-  border: none;
-  padding: 1.2rem 2.2rem;
-  border-radius: 0.5rem;
-  font-size: 1.5rem;
-  font-family: IM_Hyemin-Bold;
-}
-
-#errorPageWrap .errorGoToHomeBtn {
-  margin-right: 2rem;
-  background-color: #f3807c;
-  color: #fff;
+#error-wrap {
+  .error {
+    .ant-col {
+      display: flex;
+      background-color: red;
+      .error-con-group {
+        width: 50%;
+        .error-icon-group {
+          display: flex;
+          .error-icon {
+            width: 100px;
+            margin-right: 20px;
+            padding-top: 10px;
+            color: $main-color;
+          }
+          .error-icon-404 {
+            font-size: 100px;
+            color: $main-color;
+          }
+        }
+        .error-tit {
+          @include text-style(30, $black);
+        }
+        .error-desc {
+          @include text-style(16, $black);
+        }
+      }
+      .error-lottie {
+        width: 50%;
+        background-color: yellowgreen;
+      }
+    }
+  }
 }

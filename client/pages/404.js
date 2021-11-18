@@ -1,11 +1,12 @@
-import { Layout } from "antd";
-import Headerlayout from "../components/grids/header-layout";
-import Head from "next/head";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Lottie from "react-lottie";
-import * as animationData from "../public/images/lottie_error.json";
-import Router, { useRouter } from "next/router";
+import { Layout } from 'antd';
+import Headerlayout from '../components/grids/header-layout';
+import Head from 'next/head';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Lottie from 'react-lottie';
+import * as animationData from '../public/images/lottie_error.json';
+import Router, { useRouter } from 'next/router';
+import { Row, Col } from 'antd';
 
 const Error404 = () => {
   const { Header, Footer, Sider, Content } = Layout;
@@ -16,7 +17,7 @@ const Error404 = () => {
     autoplay: true,
     animationData: animationData.default,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
   };
 
@@ -27,38 +28,46 @@ const Error404 = () => {
 
   const goToHome = (e) => {
     e.preventDefault();
-    router.push("/");
+    router.push('/');
   };
 
   return (
     <>
       <div id="wrap">
         <Headerlayout />
-        <section id="errorPageWrap">
-          <div className="errorLottie">
-            <Lottie options={defaultOptions} />
-          </div>
-          <div className="errorTextGroup">
-            <div className="errorIconGroup">
-              <FontAwesomeIcon
-                icon={faExclamationCircle}
-                color="#f3807c"
-                className="errorIcon"
-              />
-              <h2 className="errorIcon404">404</h2>
-            </div>
-            <h2 className="errorTitle">요청하신 페이지를 찾을 수 없습니다.</h2>
-            <p className="errorDescription">
-              불편을 드려 죄송합니다. 확인 후 다시 시도해주세요.
-            </p>
-            <div className="error404Btn">
-              <button onClick={goToHome} className="errorGoToHomeBtn">
-                홈으로 가기
-              </button>
-              <button onClick={goToBack}>뒤로가기</button>
-            </div>
-          </div>
-        </section>
+        <div id="error-wrap">
+          <Content className="error">
+            <Row>
+              <Col span={16} offset={4}>
+                <div className="error-con-group">
+                  <div className="error-icon-group">
+                    <FontAwesomeIcon
+                      icon={faExclamationCircle}
+                      color="#f3807c"
+                      className="error-icon"
+                    />
+                    <h2 className="error-icon-404">404</h2>
+                  </div>
+                  <h2 className="error-tit">
+                    요청하신 페이지를 찾을 수 없습니다.
+                  </h2>
+                  <p className="error-desc">
+                    불편을 드려 죄송합니다. 확인 후 다시 시도해주세요.
+                  </p>
+                  <div className="error-btn">
+                    <button onClick={goToHome} className="error-home-btn">
+                      홈으로 가기
+                    </button>
+                    <button onClick={goToBack}>뒤로가기</button>
+                  </div>
+                </div>
+                <div className="error-lottie">
+                  <Lottie options={defaultOptions} />
+                </div>
+              </Col>
+            </Row>
+          </Content>
+        </div>
       </div>
     </>
   );
