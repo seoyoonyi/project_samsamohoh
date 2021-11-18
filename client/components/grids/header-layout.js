@@ -47,7 +47,7 @@ const Headerlayout = ({ token, getToken }) => {
               </li>
               <li className="new-writing">
                 <Link href="/">
-                  <a>새글쓰기</a>
+                  <a className="btn-main btn-40">새글쓰기</a>
                 </Link>
               </li>
             </ul>

@@ -2,9 +2,15 @@
   .error {
     .ant-col {
       display: flex;
-      background-color: red;
+      margin-top: 100px;
+      @include responsive(L) {
+        flex-direction: column;
+      }
       .error-con-group {
         width: 50%;
+        @include responsive(L) {
+          width: 100%;
+        }
         .error-icon-group {
           display: flex;
           .error-icon {
@@ -20,14 +26,15 @@
         }
         .error-tit {
           @include text-style(30, $black);
+          margin-top: 30px;
         }
         .error-desc {
-          @include text-style(16, $black);
+          @include text-style(24, $black);
+          margin-top: 10px;
         }
       }
       .error-lottie {
         width: 50%;
-        background-color: yellowgreen;
       }
     }
   }
