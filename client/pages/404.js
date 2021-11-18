@@ -55,10 +55,15 @@ const Error404 = () => {
                     불편을 드려 죄송합니다. 확인 후 다시 시도해주세요.
                   </p>
                   <div className="error-btn">
-                    <button onClick={goToHome} className="error-home-btn">
+                    <button
+                      onClick={goToHome}
+                      className="error-home-btn btn-main btn-40"
+                    >
                       홈으로 가기
                     </button>
-                    <button onClick={goToBack}>뒤로가기</button>
+                    <button onClick={goToBack} className="btn-main btn-40">
+                      뒤로가기
+                    </button>
                   </div>
                 </div>
                 <div className="error-lottie">

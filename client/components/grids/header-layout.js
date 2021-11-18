@@ -83,8 +83,7 @@ const Headerlayout = ({ token, getToken }) => {
               </li>
               <li className="new-writing">
                 <Link href="/">
-                  {/* 여기에 보라색 버튼을 만들어서 적용시켜야하는데 안됨 */}
-                  <a className="btn-main btn-40">새글쓰기</a>
+                  <a>새글쓰기</a>
                 </Link>
               </li>
             </ul>

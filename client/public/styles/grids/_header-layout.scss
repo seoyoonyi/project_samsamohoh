@@ -35,8 +35,10 @@ $user-gap: 12px;
         align-items: center;
         flex-wrap: nowrap;
         gap: 0 20px;
-        a {
-          @include text-style(16, $black);
+        li:not(.new-writing) {
+          a {
+            @include text-style(16, $black);
+          }
         }
         li.user-group {
           display: flex;
