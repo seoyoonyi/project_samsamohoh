@@ -1,12 +1,25 @@
 .main-wrap {
   .sign-up {
-    margin-top: 100px;
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 50px 60px;
     .logo {
-      display: flex;
-      justify-content: center;
+      width: 300px;
       margin-bottom: 50px;
       img {
-        width: 40%;
+        width: 100%;
+      }
+    }
+    form {
+      width: 300px;
+      ul {
+        margin-bottom: 50px;
+      }
+      button {
+        margin-right: 10px;
       }
     }
   }

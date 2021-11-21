@@ -23,7 +23,11 @@ const Headerlayout = ({ token, getToken }) => {
           <h1 className="logo">
             {/* <img src="../../public/images/logo.png" alt="삼삼오오 로고" /> */}
             {/* 이미지 경로 잡는 방법 src에서 /기입하면 public으로 인식함 */}
-            <img src="/images/logo.png" alt="삼삼오오 로고" />
+            <Link href="/">
+              <a>
+                <img src="/images/logo.png" alt="삼삼오오 로고" />
+              </a>
+            </Link>
           </h1>
           <nav className="pc-navi lg-only md-hidden sm-hidden">
             <ul>

@@ -38,6 +38,7 @@ $user-gap: 12px;
         li:not(.new-writing) {
           a {
             @include text-style(16, $black);
+            transition: all 0.2s ease-in;
           }
         }
         li.user-group {
@@ -46,6 +47,7 @@ $user-gap: 12px;
           gap: 0 $user-gap * 2;
           div a:hover {
             color: $main-color;
+            font-weight: 500;
           }
           .login a {
             position: relative;
