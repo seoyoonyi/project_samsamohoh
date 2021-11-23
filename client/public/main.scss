@@ -3,15 +3,17 @@
 @import './base_style/base';
 @import '~antd/dist/antd.css'; //ant-design
 
-@import './constants/colors';
-@import './constants/breakpoints';
-@import './constants/globals';
+@import './base_style/constants/colors';
+@import './base_style/constants/breakpoints';
+@import './base_style/constants/globals';
 
-@import './fonts/font-face';
-@import './fonts/typography';
+@import './base_style/fonts/font-face';
+@import './base_style/fonts/typography';
 
-@import './styles/mixin/text-styles';
-@import './styles/mixin/responsive';
+@import './base_style/mixin/text-styles';
+@import './base_style/mixin/responsive';
+
+// @import './base_style/layouts/grid';
 
 @import './styles/modules/button';
 

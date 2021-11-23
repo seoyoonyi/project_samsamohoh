@@ -1,6 +1,6 @@
 %btn-base {
   padding: 8px 30px;
-  border-radius: 100px;
+  border-radius: 7px;
 }
 
 // NOTE: button-styles
@@ -8,11 +8,24 @@
   @extend %btn-base;
   color: $white;
   background-color: $main-color;
-  transition: background-color 0.2s ease-in;
+  transition: opacity 0.2s ease-in;
 
   &:hover {
     color: $white;
-    background-color: $secondary;
+    opacity: 0.7;
+  }
+}
+
+.btn-outlined {
+  @extend %btn-base;
+  padding: 7px 30px;
+  color: $main-color;
+  border: 1px solid $main-color;
+  transition: all 0.2s ease-in;
+
+  &:hover {
+    color: $white;
+    background-color: $main-color;
   }
 }
 

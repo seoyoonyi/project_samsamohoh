@@ -37,8 +37,8 @@ const Error404 = () => {
         <Headerlayout />
         <div id="error-wrap">
           <Content className="error">
-            <Row>
-              <Col span={16} offset={4}>
+            <Row gutter={[16, 16]}>
+              <Col span={12}>
                 <div className="error-con-group">
                   <div className="error-icon-group">
                     <FontAwesomeIcon
@@ -48,11 +48,14 @@ const Error404 = () => {
                     />
                     <h2 className="error-icon-404">404</h2>
                   </div>
+                  <div className="error-lottie">
+                    <Lottie options={defaultOptions} />
+                  </div>
                   <h2 className="error-tit">
                     요청하신 페이지를 찾을 수 없습니다.
                   </h2>
                   <p className="error-desc">
-                    불편을 드려 죄송합니다. 확인 후 다시 시도해주세요.
+                    불편을 드려 죄송합니다.<br></br>확인 후 다시 시도해주세요.
                   </p>
                   <div className="error-btn">
                     <button
@@ -61,13 +64,10 @@ const Error404 = () => {
                     >
                       홈으로 가기
                     </button>
-                    <button onClick={goToBack} className="btn-main btn-40">
+                    <button onClick={goToBack} className="btn-outlined btn-40">
                       뒤로가기
                     </button>
                   </div>
-                </div>
-                <div className="error-lottie">
-                  <Lottie options={defaultOptions} />
                 </div>
               </Col>
             </Row>
