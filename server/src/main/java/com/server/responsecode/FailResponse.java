@@ -1,8 +1,10 @@
 package com.server.responsecode;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class FailResponse {
 	private int code;
 	private String message;

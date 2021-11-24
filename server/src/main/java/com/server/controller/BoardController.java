@@ -34,11 +34,10 @@ public class BoardController {
 	public ResponseEntity getBoard(@PathVariable(name="boardId")long seq) {
 		
 		Optional<Board> option = boardService.getBoard(seq);
-		System.out.println(option.get().toString());
 		if(option.isPresent()) {
 			return ResponseEntity.ok().body(new SuccessResponse(StatusCode.STATUS_OK,"모집글 조회 성공",option.get()));
 		}else {
-			return ResponseEntity.ok().body(new FailResponse(StatusCode.STATUS_FAIL,"모집글 조회 실패"));
+			return ResponseEntity.ok().body(new FailResponse(StatusCode.STATUS_FAIL,"해당 글이 존재하지 안습니다."));
 		}
 	}
 	
