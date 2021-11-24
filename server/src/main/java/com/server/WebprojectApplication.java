@@ -16,7 +16,7 @@ public class WebprojectApplication {
 		SpringApplication.run(WebprojectApplication.class, args);
 	}
 	
-	@Bean
+	/*@Bean
 	public ServletWebServerFactory serverFactory() {
 		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
 		tomcat.addAdditionalTomcatConnectors(createStandardConnector());
@@ -28,5 +28,6 @@ public class WebprojectApplication {
 		connector.setPort(8090);
 		return connector;
 	}
+	*/
 
 }

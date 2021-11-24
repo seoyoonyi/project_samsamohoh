@@ -1,32 +1,21 @@
 package com.server.responsecode;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor
-@Builder
+
+@Getter
+@Setter
 public class SuccessResponse<T> {
 	private int code;
 	private String message;
 	private T data;
 	
-	public SuccessResponse(final int code, final String responseMessage) {
+	public SuccessResponse(final int code, final String responseMessage,T data) {
 		this.code = code;
 		this.message = responseMessage;
-		this.data = null;
+		this.data = data;
 	}
 	
-	public static<T> SuccessResponse<T> res(final int code,final String responseMessage){
-		return res(code,responseMessage,null);
-	}
 	
-	public static<T> SuccessResponse<T> res(final int code,final String responseMessage,final T t){
-		return SuccessResponse.<T>builder()
-				.data(t)
-				.code(code)
-				.message(responseMessage)
-				.build();
-	}
 }

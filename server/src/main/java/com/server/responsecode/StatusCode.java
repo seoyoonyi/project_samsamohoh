@@ -16,5 +16,6 @@ public class StatusCode {
 	public static final int MOVED_PERMANENTLY = 1010; // 영구적으로 이동한 경우
 	public static final int FOUND_ERROR = 1011; // 임시적으로 이동한 경우
 	public static final int UNAUTHORIZED_ERROR = 2001; // 인증값이 유효하지 않은 경우
+	public static final int DUPLICATED_ID = 1012; // 회원가입시 아이디 중복
 
 }

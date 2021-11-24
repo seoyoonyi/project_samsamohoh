@@ -38,7 +38,7 @@ public class MemberController {
 		Optional<Member> option = memberService.getMember(member);
 		if (option.isPresent()) {
 			return new ResponseEntity(
-					new FailResponse(StatusCode.RESOURSE_CREATE_FAILED, ResponseMessage.NOT_CREATE_USER),
+					new FailResponse(StatusCode.DUPLICATED_ID, ResponseMessage.DUPLICATED_ID),
 					HttpStatus.OK);
 		}
 		memberService.saveMember(member);

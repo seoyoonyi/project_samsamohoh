@@ -36,7 +36,7 @@ public class LoginController {
 			HashMap<String,String> loginInfor = new HashMap<String,String>();
 			loginInfor.put("name", option.get().getName());
 			loginInfor.put("token",jwtTokenProvider.createToken(member.getId(), member.getRole()));
-			return new ResponseEntity(SuccessResponse.res(StatusCode.STATUS_OK, ResponseMessage.LOGIN_SUCCESS,loginInfor),HttpStatus.OK);
+			return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse(StatusCode.STATUS_OK,"로그인 성공",loginInfor));
 		} else {
 			
 			return new ResponseEntity(new FailResponse(StatusCode.STATUS_FAIL,ResponseMessage.LOGIN_FAIL),HttpStatus.OK);
