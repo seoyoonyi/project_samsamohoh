@@ -14,8 +14,8 @@ const Login = () => {
   const router = useRouter();
   const tokenStorage = new TokenStorage();
 
-  const inputID = useRef();
-  const inputPW = useRef();
+  const inputID = useRef(null);
+  const inputPW = useRef(null);
 
   //로그인 후 페이지 이동
   const onChangeLoginAfter = async (e) => {

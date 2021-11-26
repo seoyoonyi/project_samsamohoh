@@ -1,12 +1,12 @@
-import { Layout } from 'antd';
-import Headerlayout from '../components/grids/header-layout';
-import Head from 'next/head';
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Lottie from 'react-lottie';
-import * as animationData from '../public/images/lottie_error.json';
-import Router, { useRouter } from 'next/router';
-import { Row, Col } from 'antd';
+import { Layout } from "antd";
+import Headerlayout from "../components/grids/header-layout";
+import Head from "next/head";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Lottie from "react-lottie";
+import * as animationData from "../public/images/lottie_error.json";
+import Router, { useRouter } from "next/router";
+import { Row, Col } from "antd";
 
 const Error404 = () => {
   const { Header, Footer, Sider, Content } = Layout;
@@ -15,9 +15,9 @@ const Error404 = () => {
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    animationData: animationData.default,
+    animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
+      preserveAspectRatio: "xMidYMid slice",
     },
   };
 
@@ -28,13 +28,13 @@ const Error404 = () => {
 
   const goToHome = (e) => {
     e.preventDefault();
-    router.push('/');
+    router.push("/");
   };
 
   return (
     <>
       <div id="wrap">
-        <Headerlayout />
+        <Headerlayout token={null} getToken={null} />
         <div id="error-wrap">
           <Content className="error">
             <Row gutter={[16, 16]}>

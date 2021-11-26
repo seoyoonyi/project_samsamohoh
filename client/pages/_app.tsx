@@ -1,4 +1,4 @@
-import "../public/main.scss";
+import "../styles/main.scss";
 
 import Head from "next/head";
 

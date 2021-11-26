@@ -5,14 +5,16 @@ import fetcher from "../common/fetcher";
 const Mainpage = ({ token }) => {
   const { Header, Footer, Sider, Content } = Layout;
 
-  useEffect(async () => {
-    try {
-      const result = await fetcher("get", "/boards?page=0&pageNum=2"); //전체 글 조회
-      //const result = await fetcher("get", "/boards/5");
-      console.log("result2222", result);
-    } catch (error) {
-      console.log(error);
-    }
+  useEffect(() => {
+    async () => {
+      try {
+        const result = await fetcher("get", "/boards?page=0&pageNum=2"); //전체 글 조회
+        //const result = await fetcher("get", "/boards/5");
+        console.log("result2222", result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
   });
 
   return (
