@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import TokenStorage from '../../common/token';
-import Link from 'next/link';
+import React, { useEffect, useState } from "react";
+import TokenStorage from "../../common/token";
+import Link from "next/link";
 
-import { Button, Radio } from 'antd';
-import { Layout } from 'antd';
+import { Button, Radio } from "antd";
+import { Layout } from "antd";
 
 const Headerlayout = ({ token, getToken }) => {
   const tokenStorage = new TokenStorage();
@@ -35,7 +35,7 @@ const Headerlayout = ({ token, getToken }) => {
                 <div className="login">
                   {token ? (
                     <Link href="/login">
-                      <a onClick="onLoginOut">로그아웃</a>
+                      <a onClick={onLoginOut}>로그아웃</a>
                     </Link>
                   ) : (
                     <Link href="/login">
@@ -71,7 +71,7 @@ const Headerlayout = ({ token, getToken }) => {
                 <div className="login">
                   {token ? (
                     <Link href="/login">
-                      <a onClick="onLoginOut">로그아웃</a>
+                      <a onClick={onLoginOut}>로그아웃</a>
                     </Link>
                   ) : (
                     <Link href="/login">
