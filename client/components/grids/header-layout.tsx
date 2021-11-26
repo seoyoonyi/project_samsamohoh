@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import TokenStorage from "../../common/token";
 import Link from "next/link";
-
-import { Button, Radio } from "antd";
 import { Layout } from "antd";
+import { useRecoilState } from "recoil";
+import { tokenAtrom } from "../../atoms/token";
 
-const Headerlayout = ({ token, getToken }) => {
+const Headerlayout = () => {
   const tokenStorage = new TokenStorage();
-
+  const [token, setToken] = useRecoilState(tokenAtrom);
   const { Header, Footer, Sider, Content } = Layout;
-
+  useEffect(() => {
+    const getToken = tokenStorage.getToken();
+    setToken(getToken);
+  }, []);
   const onLoginOut = (e) => {
     e.preventDefault();
     tokenStorage.clearToken();
-    getToken(null); //index token state 변경
+    setToken(null);
   };
 
   return (

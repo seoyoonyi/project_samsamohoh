@@ -28,6 +28,15 @@ const Login = () => {
 
     try {
       const loginItem = await fetcher("post", "/login", loginForm);
+      // const loginItem = {
+      //   code: 0,
+      //   message: "로그인 성공",
+      //   data: {
+      //     name: "이재원",
+      //     token:
+      //       "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNjUyNzIyNiwiZXhwIjoxNjM2NTI5MDI2fQ.xFXIqdBVmijGmqaORHaVWnoQbbmZRmi8qYz6mUjy98Y",
+      //   },
+      // };
 
       console.log("loginItem", loginItem);
       if (loginItem.code === 0) {

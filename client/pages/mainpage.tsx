@@ -1,21 +1,25 @@
 import { Layout } from "antd";
 import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { tokenAtrom } from "../atoms/token";
 import fetcher from "../common/fetcher";
 
-const Mainpage = ({ token }) => {
+const Mainpage = () => {
   const { Header, Footer, Sider, Content } = Layout;
-
+  const token = useRecoilValue(tokenAtrom);
   useEffect(() => {
-    async () => {
+    const getBorad = async () => {
       try {
         const result = await fetcher("get", "/boards?page=0&pageNum=2"); //전체 글 조회
         //const result = await fetcher("get", "/boards/5");
-        console.log("result2222", result);
+        console.log("result", result);
+        return result;
       } catch (error) {
-        console.log(error);
+        return console.log(error);
       }
     };
-  });
+    getBorad();
+  }, []);
 
   return (
     <>
@@ -28,7 +32,7 @@ const Mainpage = ({ token }) => {
           </p>
         </Content>
       </div>
-      {/* {token && <p>반갑습니다! {token?.data?.name}님</p>} */}
+      {token && <p>반갑습니다! {token.data.name}님</p>}
     </>
   );
 };

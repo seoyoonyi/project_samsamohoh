@@ -1,5 +1,4 @@
 import "../styles/main.scss";
-
 import Head from "next/head";
 
 const App = ({ Component, pageProps }) => {
