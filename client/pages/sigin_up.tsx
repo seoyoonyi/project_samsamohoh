@@ -1,10 +1,10 @@
 import { Layout } from "antd";
 import { Input } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Button, Radio } from "antd";
+import { Button, Radio, Form } from "antd";
 import { Row, Col } from "antd";
 import Router, { useRouter } from "next/router";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import fetcher from "../common/fetcher";
 import alertInfo, { timer } from "../common/alert";
 import Link from "next/link";
@@ -13,6 +13,7 @@ const SignUp = () => {
   const { Header, Footer, Sider, Content } = Layout;
   const createSignUp = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const [submitLoading, setSubmitLoading] = useState(false);
 
   const handleBack = (e) => {
     e.preventDefault();
@@ -76,7 +77,7 @@ const SignUp = () => {
     console.log("회원가입실패", errors);
     errors && alertInfo("회원가입 실패", "양식에 맞게 작성해주세요.", "error");
   };
-
+  const handleFinish = async (values) => {};
   return (
     <>
       <div id="wrap">
@@ -89,48 +90,66 @@ const SignUp = () => {
                 </a>
               </Link>
             </h2>
-            <form onSubmit={onSubmit}>
+            <Form onFinish={handleFinish}>
               <fieldset>
                 <legend>회원가입</legend>
                 <ul>
                   <li>
                     <p>아이디</p>
-                    <Input />
+                    <Form.Item name="id">
+                      <Input />
+                    </Form.Item>
                   </li>
                   <li>
                     <p>비밀번호</p>
-                    <Input.Password
-                      iconRender={(visible) =>
-                        visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                      }
-                    />
+                    <Form.Item name="pw">
+                      <Input.Password
+                        iconRender={(visible) =>
+                          visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                        }
+                      />
+                    </Form.Item>
                   </li>
                   <li>
                     <p>비밀번호 재확인</p>
-                    <Input.Password
-                      iconRender={(visible) =>
-                        visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                      }
-                    />
+                    <Form.Item name="pwRe">
+                      <Input.Password
+                        iconRender={(visible) =>
+                          visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                        }
+                      />
+                    </Form.Item>
                   </li>
                   <li>
                     <p>이름</p>
-                    <Input />
+                    <Form.Item name="name">
+                      <Input />
+                    </Form.Item>
                   </li>
                   <li>
                     <p>이메일</p>
-                    <Input />
+                    <Form.Item name="email">
+                      <Input />
+                    </Form.Item>
                   </li>
                 </ul>
 
-                <button className="btn-40 btn-main" onClick={onSubmit}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={submitLoading}
+                  className="btn-40 btn-main"
+                >
                   회원가입
-                </button>
+                </Button>
+                {/* <button className="btn-40 btn-main" onClick={onSubmit}>
+                  회원가입
+                </button> */}
                 <button className="btn-40 btn-main" onClick={handleBack}>
                   돌아가기
                 </button>
               </fieldset>
-            </form>
+            </Form>
           </Content>
         </div>
       </div>
