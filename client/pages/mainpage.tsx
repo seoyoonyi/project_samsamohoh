@@ -1,26 +1,8 @@
 import { Layout } from "antd";
-import { useEffect } from "react";
-import { useRecoilValue } from "recoil";
-import { tokenAtrom } from "../atoms/token";
-import fetcher from "../common/fetcher";
 
-const Mainpage = () => {
+const Mainpage = ({ roomList }) => {
   const { Header, Footer, Sider, Content } = Layout;
-  const token = useRecoilValue(tokenAtrom);
-  useEffect(() => {
-    const getBorad = async () => {
-      try {
-        const result = await fetcher("get", "/boards?page=0&pageNum=2"); //전체 글 조회
-        //const result = await fetcher("get", "/boards/5");
-        console.log("result", result);
-        return result;
-      } catch (error) {
-        return console.log(error);
-      }
-    };
-    getBorad();
-  }, []);
-
+  console.log("roomList", roomList);
   return (
     <>
       <div className="main-wrap">
@@ -30,9 +12,28 @@ const Mainpage = () => {
             삼삼오오에 오신 것을<br></br>
             환영합니다!
           </p>
+          <ul>
+            {roomList.map((item) => {
+              return (
+                <li key={item.seq}>
+                  <div> {item.title}</div>
+                  {/* 제목 */}
+                  <div>{item.content}</div>
+                  {/* 내용 */}
+                  <div>{item.member.name}</div>
+                  {/* 글쓴이 */}
+                  <div>{item.cnt}</div>
+                  {/* 구독수 */}
+                  <div>{item.bad}</div>
+                  {/* 싫어요 수 */}
+                  <div>{item.good}</div>
+                  {/* 좋아요 수 */}
+                </li>
+              );
+            })}
+          </ul>
         </Content>
       </div>
-      {token && <p>반갑습니다! {token.data.name}님</p>}
     </>
   );
 };

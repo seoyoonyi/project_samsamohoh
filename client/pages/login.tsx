@@ -8,6 +8,7 @@ import fetcher from "../common/fetcher";
 import TokenStorage from "../common/token";
 import Router, { useRouter } from "next/router";
 import alertInfo, { timer } from "../common/alert";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
   const { Header, Footer, Sider, Content } = Layout;

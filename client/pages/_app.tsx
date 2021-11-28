@@ -1,5 +1,6 @@
 import "../styles/main.scss";
 import Head from "next/head";
+import { RecoilRoot } from "recoil";
 
 const App = ({ Component, pageProps }) => {
   return (
@@ -12,7 +13,9 @@ const App = ({ Component, pageProps }) => {
         <link rel="icon" type="image/png" href="/images/favicon.png" />
         <title>삼삼오오</title>
       </Head>
-      <Component {...pageProps} />
+      <RecoilRoot>
+        <Component {...pageProps} />
+      </RecoilRoot>
     </>
   );
 };
