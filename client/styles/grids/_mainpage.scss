@@ -1,14 +1,21 @@
 .main-wrap {
   .mainpage {
     position: relative;
-    img {
-      width: 100%;
+    li {
+      outline: 1px solid red;
     }
-    .mainpage-txt {
-      position: absolute;
-      left: 10%;
-      top: 30%;
-      font-size: 30px;
+    .slide {
+      img {
+        width: 100%;
+        height: 50vh;
+        object-fit: cover;
+        @include responsive(L) {
+          height: 30vh;
+        }
+        @include responsive(M) {
+          height: 20vh;
+        }
+      }
     }
   }
 }

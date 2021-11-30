@@ -1,17 +1,18 @@
-import { Layout } from "antd";
+import { Layout } from 'antd';
 
 const Mainpage = ({ roomList }) => {
   const { Header, Footer, Sider, Content } = Layout;
-  console.log("roomList", roomList);
+  console.log('roomList', roomList);
   return (
     <>
       <div className="main-wrap">
         <Content className="mainpage">
-          <img src="/images/mainpage.jpg" alt="메인페이지" />
-          <p className="mainpage-txt">
-            삼삼오오에 오신 것을<br></br>
-            환영합니다!
-          </p>
+          <div className="slide">
+            <img src="/images/main.png" alt="메인페이지" />
+          </div>
+          <ul className="category-list">
+            <li className="category-box"></li>
+          </ul>
           <ul>
             {roomList.map((item) => {
               return (
