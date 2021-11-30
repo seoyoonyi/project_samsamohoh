@@ -20,6 +20,7 @@ export const validateID = (_useCallback) => {
   }, []);
 };
 
+// 비밀번호
 export const validatePW = (_useCallback) => {
   return _useCallback((_, value) => {
     const regExp = /(?=.*\d{1,15})(?=.*[~`!@#$%\^&*()-+=]{1,15})(?=.*[a-z]{1,15})(?=.*[A-Z]{1,15}).{8,15}$/;
@@ -45,6 +46,7 @@ export const validatePW = (_useCallback) => {
   }, []);
 };
 
+//비밀번호 재확인
 export const validatePWCheck = {
   options: {
     required: true,
@@ -56,4 +58,40 @@ export const validatePWCheck = {
     }
     return Promise.reject(new Error("비밀번호가 일치하지 않습니다."));
   },
+};
+
+export const validateName = (value) => {
+  const regExp = /[가-힣]/g;
+  if (!value) {
+    return Promise.reject(new Error("닉네임을 입력해주세요."));
+  }
+  if (/\s/.test(value)) {
+    return Promise.reject(new Error("닉네임은 공백을 포함 할 수 없습니다."));
+  }
+  if (value.length < 2 || value.length > 8) {
+    return Promise.reject(new Error("닉네임은 2 ~ 8자 입니다."));
+  }
+
+  if (!regExp.test(value)) {
+    return Promise.reject(new Error("닉네임은 한글만 사용할 수 있습니다."));
+  }
+  return Promise.resolve();
+};
+
+export const validateEmail = (value) => {
+  const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  if (!value) {
+    return Promise.reject(new Error("이메일을 입력해주세요."));
+  }
+  if (/\s/.test(value)) {
+    return Promise.reject(new Error("이메일은 공백을 포함 할 수 없습니다."));
+  }
+  if (value.length > 20) {
+    return Promise.reject(new Error("이메일은 20자 이하로 입력해주세요."));
+  }
+
+  if (!regExp.test(value)) {
+    return Promise.reject(new Error("이메일 형식이 아닙니다."));
+  }
+  return Promise.resolve();
 };

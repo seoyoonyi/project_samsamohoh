@@ -8,7 +8,13 @@ import { useCallback, useRef, useState } from "react";
 import fetcher from "../common/fetcher";
 import alertInfo, { timer } from "../common/alert";
 import Link from "next/link";
-import { validatePWCheck } from "../common/validate_check";
+import {
+  validateEmail,
+  validateID,
+  validateName,
+  validatePW,
+  validatePWCheck,
+} from "../common/validate_check";
 
 const SignUp = () => {
   const { Header, Footer, Sider, Content } = Layout;
@@ -85,11 +91,6 @@ const SignUp = () => {
     console.log("회원가입", loginForm);
   };
 
-  const onError = (errors, e) => {
-    console.log("회원가입실패", errors);
-    errors && alertInfo("회원가입 실패", "양식에 맞게 작성해주세요.", "error");
-  };
-
   return (
     <>
       <div id="wrap">
@@ -108,13 +109,20 @@ const SignUp = () => {
                 <ul>
                   <li>
                     <p>아이디</p>
-                    <Form.Item name="id">
+                    <Form.Item
+                      name="id"
+                      rules={[{ validator: validateID(useCallback) }]}
+                    >
                       <Input />
                     </Form.Item>
                   </li>
                   <li>
                     <p>비밀번호</p>
-                    <Form.Item name="password" hasFeedback>
+                    <Form.Item
+                      name="password"
+                      hasFeedback
+                      rules={[{ validator: validatePW(useCallback) }]}
+                    >
                       <Input.Password
                         iconRender={(visible) =>
                           visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -149,13 +157,31 @@ const SignUp = () => {
                   </li>
                   <li>
                     <p>닉네임</p>
-                    <Form.Item name="name">
+                    <Form.Item
+                      name="name"
+                      rules={[
+                        () => ({
+                          validator(_, value) {
+                            return validateName(value);
+                          },
+                        }),
+                      ]}
+                    >
                       <Input />
                     </Form.Item>
                   </li>
                   <li>
                     <p>이메일</p>
-                    <Form.Item name="email">
+                    <Form.Item
+                      name="email"
+                      rules={[
+                        () => ({
+                          validator(_, value) {
+                            return validateEmail(value);
+                          },
+                        }),
+                      ]}
+                    >
                       <Input />
                     </Form.Item>
                   </li>
@@ -169,9 +195,6 @@ const SignUp = () => {
                 >
                   회원가입
                 </Button>
-                {/* <button className="btn-40 btn-main" onClick={onSubmit}>
-                  회원가입
-                </button> */}
                 <button className="btn-40 btn-main" onClick={handleBack}>
                   돌아가기
                 </button>
