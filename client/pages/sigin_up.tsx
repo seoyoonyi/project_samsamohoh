@@ -27,68 +27,47 @@ const SignUp = () => {
     Router.back();
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    console.log("회원가입");
-    // const id = createSignUp.current.id.state.value;
-    // const password = createSignUp.current.pw.state.value;
-    // const rePW = createSignUp.current.rePW.state.value;
-    // const name = createSignUp.current.name.state.value;
-    // const email = createSigßUp.current.email.state.value;
-    // //비밀번호 재확인 체크
-    // if (password !== rePW) {
-    //   alertInfo("비밀번호가 일치하지 않습니다.", null, "error");
-    //   return;
-    // }
-
-    // const data = {
-    //   id,
-    //   password,
-    //   name,
-    //   email,
-    // };
-
-    // try {
-    //   console.log("data", data);
-    //   const result = await fetcher("post", "/member", data);
-    //   console.log("result2222", result);
-
-    //   if (result.code === "1") {
-    //     alertInfo(
-    //       "축하드립니다.",
-    //       "회원가입이 완료되었습니다. \n 로그인해주세요.",
-    //       "success"
-    //     );
-    //     setTimeout(() => {
-    //       Router.push("/login");
-    //     }, timer);
-    //   } else {
-    //     console.log("result.code", result.code);
-
-    //     switch (result.code) {
-    //       case 1001:
-    //         return alertInfo(result.message, null, "error");
-
-    //       default:
-    //         alertInfo("안내", "관리자에게 문의해주세요.", "info");
-    //         console.log("매개변수가 잘못되었습니다!");
-    //     }
-    //   }
-    // } catch (error) {
-    //   console.log("error", error);
-
-    // }
-  };
-
   const handleFinish = async (values) => {
-    console.log("sss", values);
-    const loginForm = {
+    setSubmitLoading(true);
+
+    const data = {
       id: values.id,
-      password: values.pw,
+      password: values.password,
       name: values.name,
       email: values.email,
     };
-    console.log("회원가입", loginForm);
+
+    try {
+      console.log("회원가입", data);
+      const result = await fetcher("post", "/member", data);
+      console.log("result2222", result);
+
+      if (result.code === "1") {
+        alertInfo(
+          "축하드립니다.",
+          "회원가입이 완료되었습니다. \n 로그인해주세요.",
+          "success"
+        );
+        setTimeout(() => {
+          setSubmitLoading(false);
+          Router.push("/login");
+        }, timer);
+      } else {
+        console.log("result.code", result.code);
+
+        switch (result.code) {
+          case 1001:
+            return alertInfo(result.message, null, "error");
+
+          default:
+            alertInfo("안내", "관리자에게 문의해주세요.", "info");
+            console.log("매개변수가 잘못되었습니다!");
+        }
+      }
+    } catch (error) {
+      setSubmitLoading(false);
+      console.log("error", error);
+    }
   };
 
   return (
