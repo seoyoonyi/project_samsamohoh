@@ -8,6 +8,7 @@ import fetcher from "../common/fetcher";
 import TokenStorage from "../common/token";
 import Router, { useRouter } from "next/router";
 import alertInfo, { timer } from "../common/alert";
+import { validateID, validatePW } from "../common/validate_check";
 
 const Login = () => {
   const { Header, Footer, Sider, Content } = Layout;
@@ -23,16 +24,16 @@ const Login = () => {
     };
     console.log("로그인", loginForm);
     try {
-      //   const loginItem = await fetcher("post", "/login", loginForm);
-      const loginItem = {
-        code: 0,
-        message: "로그인 성공",
-        data: {
-          name: "이재원",
-          token:
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNjUyNzIyNiwiZXhwIjoxNjM2NTI5MDI2fQ.xFXIqdBVmijGmqaORHaVWnoQbbmZRmi8qYz6mUjy98Y",
-        },
-      };
+      const loginItem = await fetcher("post", "/login", loginForm);
+      // const loginItem = {
+      //   code: 0,
+      //   message: "로그인 성공",
+      //   data: {
+      //     name: "이재원",
+      //     token:
+      //       "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNjUyNzIyNiwiZXhwIjoxNjM2NTI5MDI2fQ.xFXIqdBVmijGmqaORHaVWnoQbbmZRmi8qYz6mUjy98Y",
+      //   },
+      // };
       console.log("loginItem", loginItem);
       if (loginItem.code === 0) {
         tokenStorage.saveToken(loginItem);
@@ -82,49 +83,6 @@ const Login = () => {
     Router.back();
   };
 
-  const validateID = useCallback((_, value) => {
-    if (!value) {
-      return Promise.reject(new Error("아이디는 필수 항목입니다."));
-    }
-    if (/\s/.test(value)) {
-      return Promise.reject(new Error("아이디는 공백을 포함 할 수 없습니다."));
-    }
-
-    if (value.length < 5 || value.length > 10) {
-      return Promise.reject(new Error("아이디는 5 ~ 10자 입니다."));
-    }
-    const regExp = /[^a-zA-Z0-9]/;
-    if (regExp.test(value)) {
-      return Promise.reject(
-        new Error("닉네임은 영문과 숫자만 사용할 수 있습니다.")
-      );
-    }
-    return Promise.resolve();
-  }, []);
-
-  const validatePassword = useCallback((_, value) => {
-    const regExp = /(?=.*\d{1,15})(?=.*[~`!@#$%\^&*()-+=]{1,15})(?=.*[a-z]{1,15})(?=.*[A-Z]{1,15}).{8,15}$/;
-    if (!value) {
-      return Promise.reject(new Error("비밀번호는 필수 항목입니다."));
-    }
-    if (/\s/.test(value)) {
-      return Promise.reject(
-        new Error("비밀번호는 공백을 포함 할 수 없습니다.")
-      );
-    }
-    if (value.length < 8 || value.length > 15) {
-      return Promise.reject(new Error("비밀번호는 8 ~ 15자 입니다."));
-    }
-    if (!regExp.test(value)) {
-      return Promise.reject(
-        new Error(
-          "비밀번호는 영문 소문자, 영문 대문자, 숫자, 특수문자를 모두 포함해야 합니다."
-        )
-      );
-    }
-    return Promise.resolve();
-  }, []);
-
   return (
     <>
       <div id="wrap">
@@ -133,10 +91,16 @@ const Login = () => {
             <Space direction="vertical">
               <h4 className="login-txt">삼삼오오에 오신 것을 환영합니다! </h4>
               <Form onFinish={handleFinish}>
-                <Form.Item name="id" rules={[{ validator: validateID }]}>
+                <Form.Item
+                  name="id"
+                  rules={[{ validator: validateID(useCallback) }]}
+                >
                   <Input placeholder="아이디" prefix={<UserOutlined />} />
                 </Form.Item>
-                <Form.Item name="pw" rules={[{ validator: validatePassword }]}>
+                <Form.Item
+                  name="pw"
+                  rules={[{ validator: validatePW(useCallback) }]}
+                >
                   <Input.Password
                     placeholder="비밀번호"
                     iconRender={(visible) =>

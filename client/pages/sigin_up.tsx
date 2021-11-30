@@ -4,10 +4,11 @@ import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button, Radio, Form } from "antd";
 import { Row, Col } from "antd";
 import Router, { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import fetcher from "../common/fetcher";
 import alertInfo, { timer } from "../common/alert";
 import Link from "next/link";
+import { validatePWCheck } from "../common/validate_check";
 
 const SignUp = () => {
   const { Header, Footer, Sider, Content } = Layout;
@@ -73,11 +74,22 @@ const SignUp = () => {
     // }
   };
 
+  const handleFinish = async (values) => {
+    console.log("sss", values);
+    const loginForm = {
+      id: values.id,
+      password: values.pw,
+      name: values.name,
+      email: values.email,
+    };
+    console.log("회원가입", loginForm);
+  };
+
   const onError = (errors, e) => {
     console.log("회원가입실패", errors);
     errors && alertInfo("회원가입 실패", "양식에 맞게 작성해주세요.", "error");
   };
-  const handleFinish = async (values) => {};
+
   return (
     <>
       <div id="wrap">
@@ -102,7 +114,7 @@ const SignUp = () => {
                   </li>
                   <li>
                     <p>비밀번호</p>
-                    <Form.Item name="pw">
+                    <Form.Item name="password" hasFeedback>
                       <Input.Password
                         iconRender={(visible) =>
                           visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -112,7 +124,22 @@ const SignUp = () => {
                   </li>
                   <li>
                     <p>비밀번호 재확인</p>
-                    <Form.Item name="pwRe">
+                    <Form.Item
+                      name="pwRe"
+                      dependencies={["password"]}
+                      hasFeedback
+                      rules={[
+                        validatePWCheck.options,
+                        ({ getFieldValue }) => ({
+                          validator(_, value) {
+                            return validatePWCheck.validate(
+                              getFieldValue,
+                              value
+                            );
+                          },
+                        }),
+                      ]}
+                    >
                       <Input.Password
                         iconRender={(visible) =>
                           visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -121,7 +148,7 @@ const SignUp = () => {
                     </Form.Item>
                   </li>
                   <li>
-                    <p>이름</p>
+                    <p>닉네임</p>
                     <Form.Item name="name">
                       <Input />
                     </Form.Item>

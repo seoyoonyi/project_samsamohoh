@@ -1,0 +1,59 @@
+export const validateID = (_useCallback) => {
+  return _useCallback((_, value) => {
+    if (!value) {
+      return Promise.reject(new Error("아이디를 입력해주세요."));
+    }
+    if (/\s/.test(value)) {
+      return Promise.reject(new Error("아이디는 공백을 포함 할 수 없습니다."));
+    }
+
+    if (value.length < 5 || value.length > 10) {
+      return Promise.reject(new Error("아이디는 5 ~ 10자 입니다."));
+    }
+    const regExp = /[^a-zA-Z0-9]/;
+    if (regExp.test(value)) {
+      return Promise.reject(
+        new Error("닉네임은 영문과 숫자만 사용할 수 있습니다.")
+      );
+    }
+    return Promise.resolve();
+  }, []);
+};
+
+export const validatePW = (_useCallback) => {
+  return _useCallback((_, value) => {
+    const regExp = /(?=.*\d{1,15})(?=.*[~`!@#$%\^&*()-+=]{1,15})(?=.*[a-z]{1,15})(?=.*[A-Z]{1,15}).{8,15}$/;
+    if (!value) {
+      return Promise.reject(new Error("비밀번호를 입력해주세요."));
+    }
+    if (/\s/.test(value)) {
+      return Promise.reject(
+        new Error("비밀번호는 공백을 포함 할 수 없습니다.")
+      );
+    }
+    if (value.length < 8 || value.length > 15) {
+      return Promise.reject(new Error("비밀번호는 8 ~ 15자 입니다."));
+    }
+    if (!regExp.test(value)) {
+      return Promise.reject(
+        new Error(
+          "비밀번호는 영문 소문자, 영문 대문자, 숫자, 특수문자를 모두 포함해야 합니다."
+        )
+      );
+    }
+    return Promise.resolve();
+  }, []);
+};
+
+export const validatePWCheck = {
+  options: {
+    required: true,
+    message: "비밀번호 재확인을 입력해주세요.",
+  },
+  validate: (getFieldValue, value) => {
+    if (!value || getFieldValue("password") === value) {
+      return Promise.resolve();
+    }
+    return Promise.reject(new Error("비밀번호가 일치하지 않습니다."));
+  },
+};
