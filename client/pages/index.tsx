@@ -3,16 +3,40 @@ import Headerlayout from "../components/grids/header-layout";
 import Mainpage from "./mainpage";
 import fetcher from "../common/fetcher";
 
-interface IRoomListPops {
-  [key: string]: any;
+enum Role {
+  ROLE_ADMIN = "ROLE_ADMIN",
+  ROLE_MEMBER = "ROLE_MEMBER",
 }
 
-const Index = ({ roomList }: IRoomListPops) => {
+interface IRoomList {
+  seq: number;
+  title: string;
+  content: string;
+  regisDate: string;
+  cnt: number;
+  good: number;
+  bad: number;
+  member: {
+    id: string;
+    password: string;
+    name: string;
+    email: string;
+    role: Role;
+    enabled: boolean;
+    regisDate: string;
+  };
+}
+
+interface IRoomListProps {
+  roomLists: IRoomList[];
+}
+
+const Index = ({ roomLists }: IRoomListProps) => {
   return (
     <>
       <div id="wrap">
         <Headerlayout />
-        <Mainpage roomList={roomList} />
+        <Mainpage roomLists={roomLists} />
       </div>
     </>
   );
@@ -26,8 +50,8 @@ export const getStaticProps: GetServerSideProps = async (context) => {
     //const result = await fetcher("get", "/boards/5");
     const res = await fetcher("get", "/boards?page=0&pageNum=2");
     if (res.code === 0) {
-      const roomList = res.data;
-      return { props: { roomList } };
+      const roomLists = res.data;
+      return { props: { roomLists } };
     }
 
     return { props: {} };

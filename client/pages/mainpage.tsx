@@ -1,8 +1,8 @@
-import { Layout } from 'antd';
+import { Layout } from "antd";
 
-const Mainpage = ({ roomList }) => {
+const Mainpage = ({ roomLists }) => {
   const { Header, Footer, Sider, Content } = Layout;
-  console.log('roomList', roomList);
+  console.log("roomList", roomLists);
   return (
     <>
       <div className="main-wrap">
@@ -14,7 +14,7 @@ const Mainpage = ({ roomList }) => {
             <li className="category-box"></li>
           </ul>
           <ul>
-            {roomList.map((item) => {
+            {roomLists.map((item) => {
               return (
                 <li key={item.seq}>
                   <div> {item.title}</div>
