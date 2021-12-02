@@ -1,7 +1,7 @@
 package com.server.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -26,45 +26,42 @@ import com.server.service.BoardService;
 @RestController
 @RequestMapping("/boards")
 public class BoardController {
-	
+
 	@Autowired
 	BoardService boardService;
-	
+
 	@GetMapping("/{boardId}")
-	public ResponseEntity getBoard(@PathVariable(name="boardId")long seq) {
-		
+	public ResponseEntity getBoard(@PathVariable(name = "boardId") long seq) {
+
 		Optional<Board> option = boardService.getBoard(seq);
-		if(option.isPresent()) {
-			return ResponseEntity.ok().body(new SuccessResponse(StatusCode.STATUS_OK,"모집글 조회 성공",option.get()));
-		}else {
-			return ResponseEntity.ok().body(new FailResponse(StatusCode.STATUS_FAIL,"해당 글이 존재하지 안습니다."));
+		if (option.isPresent()) {
+			return ResponseEntity.ok().body(new SuccessResponse(StatusCode.STATUS_OK, "모집글 조회 성공", option.get()));
+		} else {
+			return ResponseEntity.ok().body(new FailResponse(StatusCode.STATUS_FAIL, "해당 글이 존재하지 안습니다."));
 		}
 	}
-	
+
 	@GetMapping("")
-	public ResponseEntity getBoardList(@RequestParam("page")int page,@RequestParam("pageNum")int pageNum) {
+	public ResponseEntity getBoardList(@RequestParam("page") int page, @RequestParam("pageSize") int pageNum) {
 		System.out.println(page);
 		System.out.println(pageNum);
 		PageRequest pageRequest = PageRequest.of(page, pageNum);
 		Page<Board> boardList = boardService.getBoardList(pageRequest);
-		if(!boardList.isEmpty()) {
-			Map<String,String> map = new HashMap<String,String>();
-			for(Board b : boardList.getContent()) {
-				System.out.println(b.getTitle());
-			}
+		if (!boardList.isEmpty()) {
+			Map<String, List<Board>> map = new HashMap<String, List<Board>>();
+			map.put("items", boardList.getContent());
 			return ResponseEntity.status(HttpStatus.OK)
-			.body(new SuccessResponse(StatusCode.STATUS_OK,"모집글 목록 조회 성공",boardList.getContent()));
-		}else {
-			return ResponseEntity.status(HttpStatus.OK).body(new FailResponse(StatusCode.STATUS_FAIL,"모집글 목록 조회 실패"));
+					.body(new SuccessResponse(StatusCode.STATUS_OK, "모집글 목록 조회 성공", map));
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(new FailResponse(StatusCode.STATUS_FAIL, "모집글 목록 조회 실패"));
 		}
-		
-		
+
 	}
-	
+
 	@PostMapping("board")
 	public ResponseEntity createBoard(Board board) {
 		boardService.createBoard(board);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse(StatusCode.STATUS_OK,"글 생성 성공",board));
+
+		return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse(StatusCode.STATUS_OK, "글 생성 성공", board));
 	}
 }
