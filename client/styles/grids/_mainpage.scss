@@ -1,9 +1,6 @@
 .main-wrap {
   .mainpage {
     position: relative;
-    li {
-      outline: 1px solid red;
-    }
     .slide {
       img {
         width: 100%;
@@ -14,6 +11,56 @@
         }
         @include responsive(M) {
           height: 20vh;
+        }
+      }
+    }
+    .room-group {
+      max-width: 750px;
+      margin: 110px auto 0;
+      padding: 0 20px;
+      // outline: 1px solid red;
+      .container {
+        .room-tit {
+          margin-bottom: 25px;
+        }
+        .category-list {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 20px;
+          .category-box {
+            text-align: center;
+            .icon-circle {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100px;
+              height: 100px;
+              margin-bottom: 10px;
+              border-radius: 50%;
+              background-color: $secondary;
+              &.is-active {
+                background-color: $main-color;
+              }
+              [class$='icon'] {
+                color: $white;
+                width: 35%;
+              }
+              .all-icon {
+                text-align: center;
+                @include text-style(24);
+              }
+              .sport-icon {
+                width: 30%;
+              }
+              .food-icon {
+                width: 28%;
+              }
+            }
+            .category-tit {
+              @include text-style(16, $black);
+            }
+          }
         }
       }
     }
