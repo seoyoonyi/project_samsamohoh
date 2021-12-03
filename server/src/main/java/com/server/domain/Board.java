@@ -48,7 +48,6 @@ public class Board {
 	private long bad;
 
 	@ManyToOne
-	//@JsonManagedReference
 	@JoinColumn(name = "id", nullable = false)
 	private Member member;
 

@@ -30,7 +30,6 @@ public class MemberController {
 	public ResponseEntity member(@Valid @RequestBody MemberJoinDto memberJoinDto, Errors errors) {
 
 		if (errors.hasErrors()) {
-
 			return new ResponseEntity(
 					new FailResponse(StatusCode.RESOURSE_CREATE_FAILED, errors.getFieldError().getDefaultMessage()),
 					HttpStatus.OK);
