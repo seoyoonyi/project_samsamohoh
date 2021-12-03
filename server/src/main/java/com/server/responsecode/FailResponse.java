@@ -5,11 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FailResponse {
+public class FailResponse<T> {
 	private int code;
-	private String message;
+	private T message;
 	
-	public FailResponse(final int code,String message) {
+	public FailResponse(final int code,T message) {
 		this.code = code;
 		this.message = message;
 	}

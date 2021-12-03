@@ -1,6 +1,8 @@
 package com.server.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +39,13 @@ public class LoginController {
 	public ResponseEntity login(@RequestBody @Valid MemberLoginDto memberLoginDto,Errors errors) {
 		
 		if(errors.hasErrors()) {
-			return ResponseEntity.ok(new FailResponse(StatusCode.STATUS_FAIL,errors.getFieldError().getDefaultMessage()));
+			List<FieldError> errorList = errors.getFieldErrors();
+			List<String> errorMessageList = new ArrayList<String>();
+			for(FieldError fe : errorList) {
+				errorMessageList.add(fe.getDefaultMessage());
+			}
+			
+			return ResponseEntity.ok(new FailResponse(StatusCode.STATUS_FAIL,errorMessageList));
 		}
 
 		Optional<Member> option = memberService.getMember(memberLoginDto.getId());
