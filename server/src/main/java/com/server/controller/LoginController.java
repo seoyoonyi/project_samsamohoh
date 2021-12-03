@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.domain.Member;
+import com.server.dto.MemberLoginDto;
 import com.server.responsecode.FailResponse;
 import com.server.responsecode.ResponseMessage;
 import com.server.responsecode.StatusCode;
@@ -29,13 +30,16 @@ public class LoginController {
 	JwtTokenProvider jwtTokenProvider;
 
 	@PostMapping("/login")
-	public ResponseEntity login(@RequestBody Member member) {
-		Optional<Member> option = memberService.getMember(member);
+	public ResponseEntity login(@RequestBody MemberLoginDto memberLoginDto) {
 		
-		if (option.isPresent() && option.get().getPassword().equals(member.getPassword())) {
+		
+		Optional<Member> option = memberService.getMember(memberLoginDto.getId());
+		
+		
+		if (option.isPresent() && option.get().getPassword().equals(memberLoginDto.getPassword())) {
 			HashMap<String,String> loginInfor = new HashMap<String,String>();
 			loginInfor.put("name", option.get().getName());
-			loginInfor.put("token",jwtTokenProvider.createToken(member.getId(), member.getRole()));
+			loginInfor.put("token",jwtTokenProvider.createToken(option.get().getId(),option.get().getRole()));
 			return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse(StatusCode.STATUS_OK,"로그인 성공",loginInfor));
 		} else {
 			

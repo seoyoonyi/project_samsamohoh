@@ -1,5 +1,6 @@
 package com.server.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.domain.Board;
+import com.server.dto.BoardDto;
 import com.server.responsecode.FailResponse;
 import com.server.responsecode.StatusCode;
 import com.server.responsecode.SuccessResponse;
@@ -35,7 +37,8 @@ public class BoardController {
 
 		Optional<Board> option = boardService.getBoard(seq);
 		if (option.isPresent()) {
-			return ResponseEntity.ok().body(new SuccessResponse(StatusCode.STATUS_OK, "모집글 조회 성공", option.get()));
+			BoardDto boardDto = new BoardDto(option.get());
+			return ResponseEntity.ok().body(new SuccessResponse(StatusCode.STATUS_OK, "모집글 조회 성공", boardDto));
 		} else {
 			return ResponseEntity.ok().body(new FailResponse(StatusCode.STATUS_FAIL, "해당 글이 존재하지 안습니다."));
 		}
@@ -43,13 +46,28 @@ public class BoardController {
 
 	@GetMapping("")
 	public ResponseEntity getBoardList(@RequestParam("page") int page, @RequestParam("pageSize") int pageNum) {
-		System.out.println(page);
-		System.out.println(pageNum);
+		
+		if(page<0 || pageNum<0) {
+			return ResponseEntity.status(HttpStatus.OK).body(new FailResponse(StatusCode.STATUS_FAIL,"파라미터 값이 올바르지 않습니다"));
+		}
+	
 		PageRequest pageRequest = PageRequest.of(page, pageNum);
 		Page<Board> boardList = boardService.getBoardList(pageRequest);
+		
 		if (!boardList.isEmpty()) {
-			Map<String, List<Board>> map = new HashMap<String, List<Board>>();
-			map.put("items", boardList.getContent());
+			Map<String, Object> map = new HashMap<String, Object>();
+			Map<String, Integer> pageInfo = new HashMap<String, Integer>();
+			List<BoardDto> boardDtoList = new ArrayList<BoardDto>();
+			for(Board b : boardList.getContent()) {
+				boardDtoList.add(new BoardDto(b));
+			}
+
+			map.put("items", boardDtoList);
+			pageInfo.put("currentPage", boardList.getNumber());
+			pageInfo.put("pageSize",boardList.getSize());
+			pageInfo.put("totalPage", boardList.getTotalPages());
+			pageInfo.put("totalCount", boardList.getNumberOfElements());
+			map.put("page",pageInfo);
 			return ResponseEntity.status(HttpStatus.OK)
 					.body(new SuccessResponse(StatusCode.STATUS_OK, "모집글 목록 조회 성공", map));
 		} else {

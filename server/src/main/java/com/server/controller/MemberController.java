@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.domain.Member;
+import com.server.dto.MemberJoinDto;
 import com.server.responsecode.FailResponse;
 import com.server.responsecode.ResponseMessage;
 import com.server.responsecode.StatusCode;
@@ -26,7 +27,7 @@ public class MemberController {
 	MemberService memberService;
 
 	@PostMapping("/member")
-	public ResponseEntity member(@Valid @RequestBody Member member, Errors errors) {
+	public ResponseEntity member(@Valid @RequestBody MemberJoinDto memberJoinDto, Errors errors) {
 
 		if (errors.hasErrors()) {
 
@@ -35,13 +36,13 @@ public class MemberController {
 					HttpStatus.OK);
 		}
 
-		Optional<Member> option = memberService.getMember(member);
+		Optional<Member> option = memberService.getMember(memberJoinDto.getId());
 		if (option.isPresent()) {
 			return new ResponseEntity(
 					new FailResponse(StatusCode.DUPLICATED_ID, ResponseMessage.DUPLICATED_ID),
 					HttpStatus.OK);
 		}
-		memberService.saveMember(member);
+		memberService.saveMember(memberJoinDto.toEntity());
 		HashMap<String, String> response = new HashMap<String, String>();
 		response.put("code", StatusCode.RESOURSE_CREATE_SUCCESS + "");
 		response.put("message", ResponseMessage.CREATED_USER);

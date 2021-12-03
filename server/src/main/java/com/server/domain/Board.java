@@ -12,15 +12,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString(exclude="member")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Board {
 
@@ -44,7 +48,7 @@ public class Board {
 	private long bad;
 
 	@ManyToOne
-	@JsonManagedReference
+	//@JsonManagedReference
 	@JoinColumn(name = "id", nullable = false)
 	private Member member;
 

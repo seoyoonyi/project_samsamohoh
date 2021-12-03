@@ -14,10 +14,10 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	MemberRepository memberRepo;
 	
-	public Optional<Member> getMember(Member member) {
-		System.out.println(member.getId());
+	public Optional<Member> getMember(String id) {
 		
-		return memberRepo.findById(member.getId());
+		
+		return memberRepo.findById(id);
 	}
 
 	
