@@ -1,10 +1,11 @@
-.main-wrap.login {
-  .ant-layout-content {
-    display: flex;
-    justify-content: center;
-    margin-top: 100px;
-    .ant-btn-primary {
-      width: 100%;
+.main-wrap {
+  .login {
+    width: 100vw;
+    height: 100vh;
+    background-color: $border;
+    .container {
+      width: 300px;
+      margin: 0 auto;
     }
   }
 }

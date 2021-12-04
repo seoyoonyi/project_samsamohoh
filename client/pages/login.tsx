@@ -4,11 +4,13 @@ import { Input, Space, Form } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { UserOutlined } from "@ant-design/icons";
 import { Button } from "antd";
+import { Row, Col, Divider } from 'antd';
 import fetcher from "../common/fetcher";
 import TokenStorage from "../common/token";
 import Router, { useRouter } from "next/router";
 import alertInfo, { timer } from "../common/alert";
 import { validateID, validatePW } from "../common/validate_check";
+
 
 const Login = () => {
   const { Header, Footer, Sider, Content } = Layout;
@@ -86,10 +88,11 @@ const Login = () => {
   return (
     <>
       <div id="wrap">
-        <div className="main-wrap login">
-          <Content>
-            <Space direction="vertical">
-              <h4 className="login-txt">삼삼오오에 오신 것을 환영합니다! </h4>
+        <div className="main-wrap login-wrap">
+          <Content className="login">
+            <div className="container">
+            <h4 className="login-txt">
+              삼삼오오에 오신 것을 환영합니다! </h4>
               <Form onFinish={handleFinish}>
                 <Form.Item
                   name="id"
@@ -116,13 +119,15 @@ const Login = () => {
                   로그인
                 </Button>
               </Form>
-            </Space>
-          </Content>
+
 
           <button onClick={handleBack}>돌아가기</button>
           {/* 회원가입하기 */}
           {/* 자동로그인 */}
           {/* 비밀번호찾기 */}
+
+            </div>
+          </Content>
         </div>
       </div>
     </>
