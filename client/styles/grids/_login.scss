@@ -2,10 +2,89 @@
   .login {
     width: 100vw;
     height: 100vh;
-    background-color: $border;
+    background-color: $background;
     .container {
-      width: 300px;
+      max-width: 300px;
       margin: 0 auto;
+      padding: 150px 10px;
+      .logo {
+        a {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 30px;
+          img {
+            width: 50%;
+          }
+        }
+      }
+      form {
+        .ant-form-item {
+          margin-bottom: 5px;
+          .ant-input-password-icon {
+          }
+        }
+        .ant-input-affix-wrapper {
+          .ant-input {
+            order: 2;
+            padding-bottom: 2px;
+          }
+          .ant-input-suffix {
+            margin-left: 0;
+            margin-right: 4px;
+          }
+          &:focus,
+          &:focus-within,
+          &:hover {
+            border-color: $main-color;
+            box-shadow: 0 0 0 2px rgb(72 49 212 / 20%);
+          }
+        }
+        .login-box {
+          display: flex;
+          height: 50px;
+          &::placeholder {
+            @include text-style(16);
+          }
+        }
+      }
+      .auto-login {
+        display: flex;
+        align-items: center;
+        height: 50px;
+        padding-bottom: 5px;
+        span {
+          color: $secondary;
+        }
+      }
+      .login-btn {
+        width: 100%;
+      }
+      .login-sub-menu {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 15px;
+        li {
+          position: relative;
+          &:first-child::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -10px;
+            transform: translateY(-45%);
+            width: 1px;
+            height: 15px;
+            background-color: $border;
+          }
+          a {
+            color: $secondary;
+            &:hover {
+              color: $black;
+            }
+          }
+        }
+      }
     }
   }
 }

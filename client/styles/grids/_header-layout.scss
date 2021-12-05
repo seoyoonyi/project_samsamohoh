@@ -16,9 +16,12 @@ $user-gap: 12px;
       align-items: center;
       width: 150px;
       height: 100%;
-      img {
-        display: block;
+      a {
         width: 100%;
+        img {
+          display: block;
+          width: 100%;
+        }
       }
 
       @include responsive(L) {

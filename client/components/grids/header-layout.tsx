@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import TokenStorage from "../../common/token";
-import Link from "next/link";
-import { Layout } from "antd";
-import { useRecoilState } from "recoil";
-import { tokenAtrom } from "../../atoms/token";
+import React, { useEffect } from 'react';
+import TokenStorage from '../../common/token';
+import Link from 'next/link';
+import { Layout } from 'antd';
+import { useRecoilState } from 'recoil';
+import { tokenAtrom } from '../../atoms/token';
 
 const Headerlayout = () => {
   const tokenStorage = new TokenStorage();
@@ -28,7 +28,7 @@ const Headerlayout = () => {
             {/* 이미지 경로 잡는 방법 src에서 /기입하면 public으로 인식함 */}
             <Link href="/">
               <a>
-                <img src="/images/logo.png" alt="삼삼오오 로고" />
+                <img src="/images/logo.svg" alt="삼삼오오 로고" />
               </a>
             </Link>
           </h1>
