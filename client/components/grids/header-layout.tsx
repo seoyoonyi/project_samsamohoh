@@ -47,7 +47,7 @@ const Headerlayout = () => {
                   )}
                 </div>
                 <div className="sign-up">
-                  <Link href="/sigin_up">
+                  <Link href="/sign_up">
                     <a>회원가입</a>
                   </Link>
                 </div>

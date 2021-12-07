@@ -19,7 +19,7 @@
     "**/*.ts",
     "**/*.tsx",
     "next.config.js",
-    "pages/sigin_up.tsx",
+    "pages/sign_up.tsx",
     "pages/index.tsx",
     "pages/mainpage.tsx"
   ],

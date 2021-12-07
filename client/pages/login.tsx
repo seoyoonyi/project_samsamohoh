@@ -126,7 +126,7 @@ const Login = () => {
                   <Checkbox>로그인 상태 유지</Checkbox>
                 </div>
                 <button
-                  className="login-btn btn-40 btn-main"
+                  className="login-btn btn-50 btn-main"
                   htmlType="submit"
                   loading={submitLoading}
                 >
@@ -139,7 +139,7 @@ const Login = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link href="/">
+                    <Link href="/sign_up">
                       <a>회원가입</a>
                     </Link>
                   </li>

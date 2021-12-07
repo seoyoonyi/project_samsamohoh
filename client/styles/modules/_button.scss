@@ -34,3 +34,8 @@
   @include text-style(16);
   height: 40px;
 }
+
+.btn-50 {
+  @include text-style(16);
+  height: 50px;
+}

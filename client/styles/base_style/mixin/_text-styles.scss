@@ -1,3 +1,8 @@
+@mixin text-style-14() {
+  font-size: $font-size-14;
+  line-height: $line-height-14;
+  letter-spacing: $letter-spacing-14;
+}
 @mixin text-style-16() {
   font-size: $font-size-16;
   line-height: $line-height-16;

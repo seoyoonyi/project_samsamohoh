@@ -1,25 +1,90 @@
 .main-wrap {
   .sign-up {
-    max-width: 1024px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    padding: 50px 60px;
-    .logo {
-      width: 300px;
-      margin-bottom: 50px;
-      img {
-        width: 100%;
+    width: 100vw;
+    height: 100vh;
+    background-color: $background;
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 50px 10px;
+      @include responsive(L) {
+        max-width: 350px;
       }
-    }
-    form {
-      width: 300px;
-      ul {
+      @include responsive(M) {
+        max-width: 300px;
+      }
+      .logo {
         margin-bottom: 50px;
+        a {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 30px;
+          img {
+            width: 50%;
+          }
+        }
       }
-      button {
-        margin-right: 10px;
+      form {
+        margin-bottom: 20px;
+        legend {
+          height: 35px;
+          margin-bottom: 30px;
+          @include text-style(18, $secondary);
+          font-weight: 600;
+        }
+        ul {
+          li {
+            p {
+              margin-bottom: 2px;
+              @include text-style(16, $black);
+              font-weight: 600;
+            }
+            .small-txt {
+              display: block;
+              margin-bottom: 7px;
+              @include text-style(14, $secondary);
+            }
+            .form-item {
+              margin-bottom: 20px;
+              .form-box {
+                height: 40px;
+              }
+            }
+
+            .ant-input {
+              &:focus,
+              &:focus-within,
+              &:hover {
+                border-color: $main-color;
+                box-shadow: 0 0 0 2px rgb(72 49 212 / 20%);
+              }
+              &-affix-wrapper:not(.ant-input-affix-wrapper-disabled):focus,
+              &-affix-wrapper:not(.ant-input-affix-wrapper-disabled):focus-within,
+              &-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+                border-color: $main-color;
+                box-shadow: 0 0 0 2px rgb(72 49 212 / 20%);
+              }
+            }
+          }
+        }
+        button {
+          width: 100%;
+        }
+      }
+      .login-link {
+        display: flex;
+        justify-content: center;
+        p {
+          @include text-style(16, $black);
+          a {
+            text-decoration: underline;
+            font-weight: 600;
+            &:hover {
+              color: $secondary;
+            }
+          }
+        }
       }
     }
   }
