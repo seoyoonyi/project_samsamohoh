@@ -46,11 +46,10 @@ export default Index;
 
 export const getStaticProps: GetServerSideProps = async (context) => {
   try {
-    // const getData = await fetcher("get", "/boards?page=0&pageNum=2"); //전체 글 조회
-    //const result = await fetcher("get", "/boards/5");
-    const res = await fetcher("get", "/boards?page=0&pageNum=2");
+    const res = await fetcher("get", "/boards?page=0&pageSize=5"); //전체 글 조회
     if (res.code === 0) {
-      const roomLists = res.data;
+      const roomLists = res.data.items;
+      // console.log("roomLists", roomLists);
       return { props: { roomLists } };
     }
 

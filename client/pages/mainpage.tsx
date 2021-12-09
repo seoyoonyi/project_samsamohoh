@@ -1,5 +1,5 @@
-import { Layout } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Layout } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFootballBall,
   faUtensils,
@@ -9,12 +9,13 @@ import {
   faHeart,
   faThumbsUp,
   faThumbsDown,
-} from '@fortawesome/free-solid-svg-icons';
-import Link from 'next/link';
+} from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import dayjs from "dayjs";
 
 const Mainpage = ({ roomLists }) => {
   const { Header, Footer, Sider, Content } = Layout;
-  console.log('roomList', roomLists);
+  // console.log("roomList", roomLists);
   return (
     <>
       <div className="main-wrap">
@@ -90,67 +91,73 @@ const Mainpage = ({ roomLists }) => {
                   </button>
                 </li>
               </ul>
-              {/* <ul>
+
+              <div className="room-group">
                 {roomLists.map((item) => {
+                  const {
+                    seq,
+                    title,
+                    content,
+                    regisDate,
+                    cnt,
+                    good,
+                    bad,
+                    userId,
+                  } = item;
+
+                  // const createDay = dayjs(regisDate).format("YYYY.MM.DD");
+                  // 방생성 날짜는 디테일 페이지에서 표기
                   return (
-                    <li key={item.seq}>
-                      <div> {item.title}</div>
-                      <div>{item.content}</div>
-                      <div>{item.member.name}</div>
-                      <div>{item.cnt}</div>
-                      <div>{item.bad}</div>
-                      <div>{item.good}</div>
-                    </li>
+                    <ul className="room-list" key={seq}>
+                      <li className="room-item">
+                        <Link href="/">
+                          <a className="title">{title}</a>
+                        </Link>
+                      </li>
+                      <li className="room-item">
+                        <Link href="/">
+                          <a className="member">{userId}</a>
+                        </Link>
+                      </li>
+                      <li className="room-item">
+                        <Link href="/">
+                          <a className="content">{content}</a>
+                        </Link>
+                      </li>
+                      <li className="room-item">
+                        <button className="cnt is-active">
+                          <FontAwesomeIcon
+                            icon={faHeart}
+                            className="cnt-icon"
+                          />
+                          <span className="txt">{cnt}</span>
+                        </button>
+                        <div className="like-list">
+                          <button className="good is-active">
+                            <FontAwesomeIcon
+                              icon={faThumbsUp}
+                              className="good-icon"
+                            />
+                            {/* <span className="txt">9,3천</span> */}
+                            <span className="txt"> {good}</span>
+                          </button>
+                          <button className="bad is-active">
+                            <FontAwesomeIcon
+                              icon={faThumbsDown}
+                              className="bad-icon"
+                            />
+                            <span className="txt">싫어요</span>
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
                   );
                 })}
-              </ul> */}
-              <div className="room-group">
-                <ul className="room-list">
+
+                {/* <ul className="room-list">
                   <li className="room-item">
                     <Link href="/">
-                      <a className="title">맛집을 나누는 식탁 10회차</a>
-                    </Link>
-                  </li>
-                  <li className="room-item">
-                    <Link href="/">
-                      <a className="member">이재원</a>
-                    </Link>
-                  </li>
-                  <li className="room-item">
-                    <Link href="/">
-                      <a className="content">
-                        요리와 술, 대화를 사랑하는 사람 입니다.<br></br>망원동
-                        골목길에 작은 공간에서 글을 쓰며 모임을 열고 있습니다.
-                      </a>
-                    </Link>
-                  </li>
-                  <li className="room-item">
-                    <button className="cnt is-active">
-                      <FontAwesomeIcon icon={faHeart} className="cnt-icon" />
-                      <span className="txt">9999</span>
-                    </button>
-                    <div className="like-list">
-                      <button className="good is-active">
-                        <FontAwesomeIcon
-                          icon={faThumbsUp}
-                          className="good-icon"
-                        />
-                        <span className="txt">9,3천</span>
-                      </button>
-                      <button className="bad is-active">
-                        <FontAwesomeIcon
-                          icon={faThumbsDown}
-                          className="bad-icon"
-                        />
-                        <span className="txt">싫어요</span>
-                      </button>
-                    </div>
-                  </li>
-                </ul>
-                <ul className="room-list">
-                  <li className="room-item">
-                    <Link href="/">
-                      <a className="title">맛집을 나누는 식탁 10회차</a>
+                      <a className="title">맛집을 나누는 식탁 12회차</a>
                     </Link>
                   </li>
                   <li className="room-item">
@@ -188,11 +195,11 @@ const Mainpage = ({ roomLists }) => {
                       </button>
                     </div>
                   </li>
-                </ul>
-                <ul className="room-list">
+                </ul> */}
+                {/* <ul className="room-list">
                   <li className="room-item">
                     <Link href="/">
-                      <a className="title">맛집을 나누는 식탁 10회차</a>
+                      <a className="title">맛집을 나누는 식탁 13회차</a>
                     </Link>
                   </li>
                   <li className="room-item">
@@ -230,7 +237,7 @@ const Mainpage = ({ roomLists }) => {
                       </button>
                     </div>
                   </li>
-                </ul>
+                </ul> */}
               </div>
             </div>
           </div>
