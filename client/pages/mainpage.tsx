@@ -12,10 +12,100 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import dayjs from "dayjs";
+import getRoomList from "../common/roomList";
+import { useState } from "react";
 
 const Mainpage = ({ roomLists }) => {
   const { Header, Footer, Sider, Content } = Layout;
-  // console.log("roomList", roomLists);
+  roomLists = [
+    {
+      seq: 1,
+      title: "등록글 제목0",
+      content: "등록글 내용0",
+      regisDate: "2021-12-01T20:07:23.000+00:00",
+      cnt: 0,
+      good: 1,
+      bad: 0,
+      userId: "admin",
+    },
+    {
+      seq: 2,
+      title: "등록글 제목1",
+      content: "등록글 내용1",
+      regisDate: "2021-01-24T20:07:24.000+00:00",
+      cnt: 0,
+      good: 2,
+      bad: 0,
+      userId: "admin",
+    },
+    {
+      seq: 3,
+      title: "등록글 제목2",
+      content: "등록글 내용2",
+      regisDate: "2021-05-11T20:07:25.000+00:00",
+      cnt: 0,
+      good: 4,
+      bad: 0,
+      userId: "admin",
+    },
+    {
+      seq: 4,
+      title: "등록글 제목3",
+      content: "등록글 내용3",
+      regisDate: "2021-09-24T20:07:26.000+00:00",
+      cnt: 0,
+      good: 3,
+      bad: 0,
+      userId: "admin",
+    },
+    {
+      seq: 5,
+      title: "등록글 제목4",
+      content: "등록글 내용4",
+      regisDate: "2021-08-24T20:07:27.000+00:00",
+      cnt: 0,
+      good: 9,
+      bad: 0,
+      userId: "admin",
+    },
+  ];
+
+  const [rooms, setRooms] = useState(roomLists);
+  console.log("rooms", rooms);
+
+  const handleOrder = async (_bt) => {
+    let propsName = "";
+    propsName = _bt === "recent" ? "regisDate" : "good";
+    console.log("propsName", propsName);
+    try {
+      // const res = await getRoomList(); //전체 글 조회
+      let res = [...rooms];
+
+      if (_bt === "good") {
+        //인기순으로  정렬처리
+        res = res.sort((a, b) => {
+          return a[propsName] > b[propsName]
+            ? -1
+            : b[propsName] > a[propsName]
+            ? 1
+            : 0;
+        });
+      } else {
+        //최신순으로 정렬처리
+        res = res.sort((a, b) => {
+          return (
+            Number(new Date(b[propsName])) - Number(new Date(a[propsName]))
+          );
+        });
+        //typescript에서 뺄샘을 할때 오류가 나지 않도록 문자열을 숫자로 바꿔줌
+      }
+      setRooms(res);
+      console.log("rrrrr", res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="main-wrap">
@@ -93,7 +183,7 @@ const Mainpage = ({ roomLists }) => {
               </ul>
 
               <div className="room-group">
-                {roomLists.map((item) => {
+                {rooms?.map((item) => {
                   const {
                     seq,
                     title,
@@ -241,6 +331,10 @@ const Mainpage = ({ roomLists }) => {
               </div>
             </div>
           </div>
+
+          {/* 필터링 */}
+          <button onClick={() => handleOrder("recent")}>최신</button>
+          <button onClick={() => handleOrder("hot")}>인기</button>
         </Content>
       </div>
     </>

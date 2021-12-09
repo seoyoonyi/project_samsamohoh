@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import Headerlayout from "../components/grids/header-layout";
 import Mainpage from "./mainpage";
-import fetcher from "../common/fetcher";
+import getRoomList from "../common/roomList";
 
 enum Role {
   ROLE_ADMIN = "ROLE_ADMIN",
@@ -46,11 +46,9 @@ export default Index;
 
 export const getStaticProps: GetServerSideProps = async (context) => {
   try {
-    const res = await fetcher("get", "/boards?page=0&pageSize=5"); //전체 글 조회
-    if (res.code === 0) {
-      const roomLists = res.data.items;
-      // console.log("roomLists", roomLists);
-      return { props: { roomLists } };
+    const res = await getRoomList(); //전체 글 조회
+    if (res) {
+      return { props: { roomLists: res } };
     }
 
     return { props: {} };
