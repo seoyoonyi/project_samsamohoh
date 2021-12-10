@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.server.domain.Board;
-import com.server.repository.BoardRepository;
+import com.server.persistence.BoardRepository;
 
 @Service
 public class BoardServiceImpl implements BoardService {

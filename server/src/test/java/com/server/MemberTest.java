@@ -8,8 +8,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.server.domain.Board;
 import com.server.domain.Member;
-import com.server.repository.BoardRepository;
-import com.server.repository.MemberRepository;
+import com.server.persistence.BoardRepository;
+import com.server.persistence.MemberRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -22,10 +22,10 @@ public class MemberTest {
 	@Test
 	public void makeMember() {
 		Member member = new Member();
-		member.setId("admin");
-		member.setName("이재원");
-		member.setPassword("5931as!");
-		member.setEmail("koma1416@naver.com");
+		member.setId("admin123");
+		member.setName("시조새");
+		member.setPassword("454568aS!");
+		member.setEmail("jose@naver.com");
 		memberRepo.save(member);
 
 		for (int i = 0; i < 5; i++) {

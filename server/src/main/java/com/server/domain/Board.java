@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,6 +33,9 @@ public class Board {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long seq;
+	
+	@Enumerated(EnumType.STRING)
+	private Category category;
 
 	private String title;
 
@@ -43,9 +48,9 @@ public class Board {
 	@Column(columnDefinition= "bigint default 0",insertable=false)
 	private long cnt;
 	@Column(columnDefinition = "bigint default 0", insertable=false)
-	private long good;
+	private long boardLike;
 	@Column(columnDefinition = "bigint default 0", insertable = false)
-	private long bad;
+	private long boardDislike;
 
 	@ManyToOne
 	@JoinColumn(name = "id", nullable = false)

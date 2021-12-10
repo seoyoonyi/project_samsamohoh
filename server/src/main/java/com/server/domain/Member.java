@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,11 +30,12 @@ import lombok.ToString;
 @ToString(exclude = "boardList")
 @Entity
 public class Member {
+	
 	@Id
 	private String id;
-
+	
 	private String password;
-
+	
 	private String name;
 
 	private String email;

@@ -8,27 +8,27 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.server.domain.Member;
-import com.server.repository.MemberRepository;
+import com.server.persistence.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
+
 @RequiredArgsConstructor
 @Service
-public class CustomUserDetailsService implements UserDetailsService{
-	
+public class CustomUserDetailsService implements UserDetailsService {
+
 	private final MemberRepository memberRepo;
-	
+
 	@Override
-	public UserDetails loadUserByUsername(String username)throws UsernameNotFoundException{
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<Member> option = memberRepo.findById(username);
-		
-		if(option.isPresent()) {
+
+		if (option.isPresent()) {
 			return new SecurityUser(option.get());
-		}else {
+		} else {
 			throw new UsernameNotFoundException("해당 사용자 없음");
-			
+
 		}
-		
-		
+
 	}
 
 }
