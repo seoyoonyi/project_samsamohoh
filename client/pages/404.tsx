@@ -31,6 +31,7 @@ const Error404 = () => {
     router.push("/");
   };
 
+  //404 page 가로스크롤 생김
   return (
     <>
       <div id="wrap">
