@@ -11,64 +11,11 @@ import {
   faThumbsDown,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import dayjs from "dayjs";
-import getRoomList from "../common/roomList";
+
 import { useState } from "react";
 
 const Mainpage = ({ roomLists }) => {
   const { Header, Footer, Sider, Content } = Layout;
-  roomLists = [
-    {
-      seq: 1,
-      title: "등록글 제목0",
-      content: "등록글 내용0",
-      regisDate: "2021-12-01T20:07:23.000+00:00",
-      cnt: 0,
-      good: 1,
-      bad: 0,
-      userId: "admin",
-    },
-    {
-      seq: 2,
-      title: "등록글 제목1",
-      content: "등록글 내용1",
-      regisDate: "2021-01-24T20:07:24.000+00:00",
-      cnt: 0,
-      good: 2,
-      bad: 0,
-      userId: "admin",
-    },
-    {
-      seq: 3,
-      title: "등록글 제목2",
-      content: "등록글 내용2",
-      regisDate: "2021-05-11T20:07:25.000+00:00",
-      cnt: 0,
-      good: 4,
-      bad: 0,
-      userId: "admin",
-    },
-    {
-      seq: 4,
-      title: "등록글 제목3",
-      content: "등록글 내용3",
-      regisDate: "2021-09-24T20:07:26.000+00:00",
-      cnt: 0,
-      good: 3,
-      bad: 0,
-      userId: "admin",
-    },
-    {
-      seq: 5,
-      title: "등록글 제목4",
-      content: "등록글 내용4",
-      regisDate: "2021-08-24T20:07:27.000+00:00",
-      cnt: 0,
-      good: 9,
-      bad: 0,
-      userId: "admin",
-    },
-  ];
 
   const [rooms, setRooms] = useState(roomLists);
   console.log("rooms", rooms);
@@ -195,6 +142,7 @@ const Mainpage = ({ roomLists }) => {
                     userId,
                   } = item;
 
+                  //import dayjs from "dayjs";
                   // const createDay = dayjs(regisDate).format("YYYY.MM.DD");
                   // 방생성 날짜는 디테일 페이지에서 표기
                   return (
