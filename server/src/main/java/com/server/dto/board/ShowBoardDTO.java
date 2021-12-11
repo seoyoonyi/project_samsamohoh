@@ -1,5 +1,7 @@
 package com.server.dto.board;
 
+import java.util.Date;
+
 import com.server.domain.Board;
 import com.server.domain.Category;
 
@@ -20,6 +22,7 @@ public class ShowBoardDTO {
 	private long cnt;
 	private long boardLike;
 	private long boardDislike;
+	private Date regisDate;
 	private String userId;
 	private String name;
 	
@@ -31,6 +34,7 @@ public class ShowBoardDTO {
 		this.cnt = board.getCnt();
 		this.boardLike = board.getBoardLike();
 		this.boardDislike = board.getBoardDislike();
+		this.regisDate = board.getRegisDate();
 		this.userId = board.getMember().getId();
 		this.name = board.getMember().getName();
 	}
