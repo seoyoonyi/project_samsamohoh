@@ -137,9 +137,10 @@ const Mainpage = ({ roomLists }) => {
                     content,
                     regisDate,
                     cnt,
-                    good,
-                    bad,
-                    userId,
+                    category,
+                    boardLike,
+                    boardDislike,
+                    name,
                   } = item;
 
                   //import dayjs from "dayjs";
@@ -147,6 +148,7 @@ const Mainpage = ({ roomLists }) => {
                   // 방생성 날짜는 디테일 페이지에서 표기
                   return (
                     <ul className="room-list" key={seq}>
+                      {/* {category} >>>>>>>>>> 카테고리 데이터 아이콘으로 표기해주세요*/}
                       <li className="room-item">
                         <Link href="/">
                           <a className="title">{title}</a>
@@ -154,7 +156,7 @@ const Mainpage = ({ roomLists }) => {
                       </li>
                       <li className="room-item">
                         <Link href="/">
-                          <a className="member">{userId}</a>
+                          <a className="member">{name}</a>
                         </Link>
                       </li>
                       <li className="room-item">
@@ -177,7 +179,7 @@ const Mainpage = ({ roomLists }) => {
                               className="good-icon"
                             />
                             {/* <span className="txt">9,3천</span> */}
-                            <span className="txt"> {good}</span>
+                            <span className="txt"> {boardLike}</span>
                           </button>
                           <button className="bad is-active">
                             <FontAwesomeIcon
