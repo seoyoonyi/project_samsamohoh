@@ -148,7 +148,7 @@ const Mainpage = ({ roomLists }) => {
                   // 방생성 날짜는 디테일 페이지에서 표기
                   return (
                     <ul className="room-list" key={seq}>
-                      {/* {category} >>>>>>>>>> 카테고리 데이터 아이콘으로 표기해주세요*/}
+                      {/* {category} >>>>>>>>>> 카테고리 데이터 아이콘으로 표기해주세요 */}
                       <li className="room-item">
                         <Link href="/">
                           <a className="title">{title}</a>
