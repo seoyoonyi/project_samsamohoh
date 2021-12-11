@@ -3,23 +3,13 @@ import Headerlayout from "../components/grids/header-layout";
 import Head from "next/head";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Lottie from "react-lottie";
-import * as animationData from "../public/images/lottie_error.json";
+
 import Router, { useRouter } from "next/router";
 import { Row, Col } from "antd";
 
 const Error404 = () => {
   const { Header, Footer, Sider, Content } = Layout;
   const router = useRouter();
-
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
 
   const goToBack = (e) => {
     e.preventDefault();
@@ -49,9 +39,7 @@ const Error404 = () => {
                     />
                     <h2 className="error-icon-404">404</h2>
                   </div>
-                  <div className="error-lottie">
-                    <Lottie options={defaultOptions} />
-                  </div>
+
                   <h2 className="error-tit">
                     요청하신 페이지를 찾을 수 없습니다.
                   </h2>

@@ -27,18 +27,7 @@
           }
         }
       }
-      .error-lottie {
-        width: 50%;
-        margin: 0 auto;
-        @include responsive(L) {
-          flex-direction: column;
-          width: 70%;
-        }
-        @include responsive(M) {
-          flex-direction: column;
-          width: 100%;
-        }
-      }
+
       .error-tit {
         @include text-style(30, $black);
         margin-top: 10px;
