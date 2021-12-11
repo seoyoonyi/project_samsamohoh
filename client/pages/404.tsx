@@ -34,7 +34,7 @@ const Error404 = () => {
   return (
     <>
       <div id="wrap">
-        <Headerlayout token={null} getToken={null} />
+        <Headerlayout />
         <div id="error-wrap">
           <Content className="error">
             <Row gutter={[16, 16]}>
