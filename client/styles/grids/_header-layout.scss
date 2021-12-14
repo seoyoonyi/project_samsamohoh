@@ -2,14 +2,22 @@ $user-gap: 12px;
 
 #header-wrap {
   .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100px;
+    height: 80px;
     border-bottom: 1px solid $border;
     background-color: transparent;
     @include responsive(L) {
       height: 60px;
+    }
+    @include responsive(M) {
+      padding: 30px;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: $lg-breakpoint;
+      height: 100%;
+      margin: 0 auto;
     }
     .logo {
       display: flex;

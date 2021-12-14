@@ -7,25 +7,32 @@
 .btn-main {
   @extend %btn-base;
   color: $white;
-  background-color: $main-color;
+  background: $main-color;
   transition: opacity 0.2s ease-in;
+  border-color: $main-color;
 
-  &:hover {
+  &:hover,
+  &.ant-btn-primary:hover,
+  &.ant-btn-primary:focus {
     color: $white;
+    border-color: $main-color;
+    background: $main-color;
     opacity: 0.7;
   }
 }
 
-.btn-outlined {
+.gray-btn-outlined {
   @extend %btn-base;
   padding: 7px 30px;
-  color: $main-color;
-  border: 1px solid $main-color;
+  color: $secondary;
+  border: 1px solid $border;
   transition: all 0.2s ease-in;
 
-  &:hover {
-    color: $white;
-    background-color: $main-color;
+  &:hover,
+  &.ant-btn-primary:hover,
+  &.ant-btn-primary:focus {
+    color: $main-color;
+    border-color: $main-color;
   }
 }
 

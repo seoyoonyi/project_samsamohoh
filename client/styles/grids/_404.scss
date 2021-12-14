@@ -1,6 +1,6 @@
-#error-wrap {
+.error-wrap {
   .error {
-    .ant-col {
+    .container {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -9,6 +9,9 @@
       @include responsive(L) {
         flex-direction: column;
         margin-top: 50px;
+      }
+      @include responsive(M) {
+        padding: 30px;
       }
       .error-con-group {
         text-align: center;
