@@ -1,5 +1,5 @@
-import { Layout } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Layout } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFootballBall,
   faUtensils,
@@ -9,26 +9,25 @@ import {
   faHeart,
   faThumbsUp,
   faThumbsDown,
-} from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
-
-import { useState } from "react";
+} from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
+import { useState } from 'react';
 
 const Mainpage = ({ roomLists }) => {
   const { Header, Footer, Sider, Content } = Layout;
 
   const [rooms, setRooms] = useState(roomLists);
-  console.log("rooms", rooms);
+  console.log('rooms', rooms);
 
   const handleOrder = async (_bt) => {
-    let propsName = "";
-    propsName = _bt === "recent" ? "regisDate" : "good";
-    console.log("propsName", propsName);
+    let propsName = '';
+    propsName = _bt === 'recent' ? 'regisDate' : 'good';
+    console.log('propsName', propsName);
     try {
       // const res = await getRoomList(); //전체 글 조회
       let res = [...rooms];
 
-      if (_bt === "good") {
+      if (_bt === 'good') {
         //인기순으로  정렬처리
         res = res.sort((a, b) => {
           return a[propsName] > b[propsName]
@@ -47,7 +46,7 @@ const Mainpage = ({ roomLists }) => {
         //typescript에서 뺄샘을 할때 오류가 나지 않도록 문자열을 숫자로 바꿔줌
       }
       setRooms(res);
-      console.log("rrrrr", res);
+      console.log('rrrrr', res);
     } catch (error) {
       console.error(error);
     }
@@ -283,8 +282,8 @@ const Mainpage = ({ roomLists }) => {
           </div>
 
           {/* 필터링 */}
-          <button onClick={() => handleOrder("recent")}>최신</button>
-          <button onClick={() => handleOrder("hot")}>인기</button>
+          <button onClick={() => handleOrder('recent')}>최신</button>
+          <button onClick={() => handleOrder('hot')}>인기</button>
         </Content>
       </div>
     </>

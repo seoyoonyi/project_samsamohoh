@@ -143,7 +143,8 @@ const SignUp = () => {
                         />
                       </Form.Item>
                     </li>
-                    <li>
+                    {/* 닉네임 주석처리 */}
+                    {/* <li>
                       <p>닉네임</p>
                       <span className="small-txt">
                         다른 유저와 겹치지 않는 별명을 입력해주세요. (2~8자)
@@ -161,7 +162,7 @@ const SignUp = () => {
                       >
                         <Input className="form-box" />
                       </Form.Item>
-                    </li>
+                    </li> */}
                     <li>
                       <p>이메일</p>
                       <Form.Item
@@ -181,14 +182,16 @@ const SignUp = () => {
                   </ul>
 
                   {/* button에서 앤트디자인 버튼으로 바꿔서 호버시 버튼색상 꺠지니 scss 조절해주세요 */}
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    loading={submitLoading}
-                    className="btn-50 btn-main"
-                  >
-                    회원가입
-                  </Button>
+                  <Link href="/nickname">
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      loading={submitLoading}
+                      className="btn-50 btn-main"
+                    >
+                      다음
+                    </Button>
+                  </Link>
                   {/* <button className="btn-40 btn-main" onClick={handleBack}>
                   돌아가기
                 </button> */}

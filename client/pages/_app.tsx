@@ -1,6 +1,6 @@
-import '../styles/main.scss';
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
+import '../styles/main.scss';
 
 const App = ({ Component, pageProps }) => {
   return (
