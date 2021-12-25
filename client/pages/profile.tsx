@@ -1,16 +1,16 @@
-import { Layout } from 'antd';
-import { Input, Button, Radio, Form } from 'antd';
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Layout } from "antd";
+import { Input, Button, Radio, Form } from "antd";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const Nickname = () => {
+const Profile = () => {
   const { Header, Footer, Sider, Content } = Layout;
   return (
     <>
       <div id="wrap">
         <div className="main-wrap">
-          <Content className="nickname">
+          <Content className="profile">
             <div className="container">
               <h2 className="logo">
                 <Link href="/">
@@ -69,4 +69,4 @@ const Nickname = () => {
   );
 };
 
-export default Nickname;
+export default Profile;

@@ -1,28 +1,28 @@
 @charset "utf-8";
 
-@import './base_style/base';
-@import '~antd/dist/antd.css'; //ant-design
+@import "./base_style/base";
+@import "~antd/dist/antd.css"; //ant-design
 
 //flaticon으로 연결해놓은 아이콘
 // @import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
 
-@import './base_style/constants/colors';
-@import './base_style/constants/breakpoints';
-@import './base_style/constants/globals';
+@import "./base_style/constants/colors";
+@import "./base_style/constants/breakpoints";
+@import "./base_style/constants/globals";
 
-@import '../public/fonts/font-face';
-@import '../public/fonts/typography';
+@import "../public/fonts/font-face";
+@import "../public/fonts/typography";
 
-@import './base_style/mixin/text-styles';
-@import './base_style/mixin/responsive';
+@import "./base_style/mixin/text-styles";
+@import "./base_style/mixin/responsive";
 
 // @import './base_style/layouts/grid';
 
-@import './styles/modules/button';
+@import "./styles/modules/button";
 
-@import './styles/grids/header-layout';
-@import './styles/grids/mainpage';
-@import './styles/grids/login';
-@import './styles/grids/sign-up';
-@import './styles/grids/nickname';
-@import './styles/grids/404';
+@import "./styles/grids/header-layout";
+@import "./styles/grids/mainpage";
+@import "./styles/grids/login";
+@import "./styles/grids/sign-up";
+@import "./styles/grids/profile";
+@import "./styles/grids/404";
