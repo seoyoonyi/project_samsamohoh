@@ -27,7 +27,7 @@ const Login = () => {
     };
     console.log("로그인", loginForm);
     try {
-      const loginItem = await fetcher("post", "/login", loginForm);
+      const loginItem = await fetcher("post", "/auth/signin", loginForm);
       // const loginItem = {
       //   code: 0,
       //   message: "로그인 성공",
