@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://13.59.1.176:8090";
+axios.defaults.baseURL = "https://api.moleeja.ml";
 
 const fetcher = async (method, url, ...rest) => {
   const res = await axios[method](url, ...rest);
