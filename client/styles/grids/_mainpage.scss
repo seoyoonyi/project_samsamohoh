@@ -1,6 +1,7 @@
 .main-wrap {
   .mainpage {
     position: relative;
+    /* 슬라이드 */
     .slide {
       img {
         width: 100%;
@@ -11,135 +12,6 @@
         }
         @include responsive(M) {
           height: 20vh;
-        }
-      }
-    }
-    .room-wrap {
-      max-width: 750px;
-      margin: 110px auto 0;
-      padding: 0 20px;
-
-      .container {
-        .room-tit {
-          margin-bottom: 25px;
-        }
-        .category-list {
-          display: flex;
-          justify-content: center;
-          flex-wrap: wrap;
-          gap: 20px;
-
-          .category-box {
-            text-align: center;
-            .icon-circle {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 100px;
-              height: 100px;
-              margin-bottom: 10px;
-              border-radius: 50%;
-              background-color: $secondary;
-              &.is-active {
-                background-color: $main-color;
-              }
-              [class$='icon'] {
-                color: $white;
-                width: 35%;
-              }
-              .all-icon {
-                text-align: center;
-                @include text-style(24);
-              }
-              .sport-icon {
-                width: 30%;
-              }
-              .food-icon {
-                width: 28%;
-              }
-            }
-            .category-tit {
-              @include text-style(16, $black);
-            }
-          }
-        }
-        .room-group {
-          padding: 45px 0;
-          .room-list {
-            padding: 30px;
-            &:first-child {
-              border-top: 1px solid $border;
-              border-bottom: 1px solid $border;
-            }
-            .room-item {
-              display: flex;
-              &:hover a {
-                color: $main-color;
-              }
-              button {
-                display: flex;
-                svg {
-                  width: 20px;
-                  height: 20px;
-                  margin-right: 10px;
-                  flex-shrink: 0;
-                  color: $secondary;
-                }
-                .txt {
-                  flex-shrink: 0;
-                }
-                &.is-active svg {
-                  color: $main-color;
-                }
-                &.is-active .txt {
-                  color: $main-color;
-                }
-              }
-              .like-list {
-                display: flex;
-                margin-left: auto;
-                button + button {
-                  margin-left: 20px;
-                  svg {
-                    margin-top: 2px;
-                  }
-                }
-              }
-            }
-            .room-item:nth-child(1) {
-              position: relative;
-              margin-bottom: 34px;
-              &:after {
-                content: '';
-                position: absolute;
-                bottom: -17px;
-                left: 0;
-                display: block;
-                border: 1px solid $border;
-                width: 33px;
-              }
-            }
-            .room-item:nth-child(2) {
-              margin-bottom: 10px;
-            }
-            .room-item:nth-child(4) {
-              margin-top: 35px;
-            }
-            .title {
-              @include text-style(18, $black);
-              font-weight: 600;
-            }
-            .member {
-              @include text-style(16, $black);
-            }
-            .content {
-              @include text-style(16, $black);
-              font-weight: 100;
-            }
-          }
-          .room-list ~ .room-list {
-            border-bottom: 1px solid $border;
-          }
         }
       }
     }

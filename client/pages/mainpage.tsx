@@ -1,5 +1,5 @@
-import { Layout } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Layout } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFootballBall,
   faUtensils,
@@ -9,25 +9,25 @@ import {
   faHeart,
   faThumbsUp,
   faThumbsDown,
-} from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
-import { useState } from "react";
+} from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
+import { useState } from 'react';
 
 const Mainpage = ({ roomLists }) => {
   const { Header, Footer, Sider, Content } = Layout;
 
   const [rooms, setRooms] = useState(roomLists);
-  console.log("rooms", rooms);
+  console.log('rooms', rooms);
 
   const handleOrder = async (_bt) => {
-    let propsName = "";
-    propsName = _bt === "recent" ? "regisDate" : "good";
-    console.log("propsName", propsName);
+    let propsName = '';
+    propsName = _bt === 'recent' ? 'regisDate' : 'good';
+    console.log('propsName', propsName);
     try {
       // const res = await getRoomList(); //전체 글 조회
       let res = [...rooms];
 
-      if (_bt === "good") {
+      if (_bt === 'good') {
         //인기순으로  정렬처리
         res = res.sort((a, b) => {
           return a[propsName] > b[propsName]
@@ -46,7 +46,7 @@ const Mainpage = ({ roomLists }) => {
         //typescript에서 뺄샘을 할때 오류가 나지 않도록 문자열을 숫자로 바꿔줌
       }
       setRooms(res);
-      console.log("rrrrr", res);
+      console.log('rrrrr', res);
     } catch (error) {
       console.error(error);
     }
@@ -61,72 +61,91 @@ const Mainpage = ({ roomLists }) => {
           </div>
           <div className="room-wrap">
             <div className="container">
-              <h2 className="room-tit">모임 카테고리</h2>
-              <ul className="category-list">
-                <li className="category-box">
-                  <button>
-                    <div className="icon-circle is-active">
-                      <span className="all-icon">All</span>
-                    </div>
-                    <p className="category-tit">전체</p>
-                  </button>
-                  {/* flaticon으로 연결해놓은 아이콘  */}
-                  {/* main.scss에 import 시킴, 화면상에 flaticon이 나타나지 않아요. */}
-                  {/* <i className="fi fi-rr-user"></i>
-                          <i className="fi fi-br-arrow-right"></i>
-                          <i className="fi fi-sr-book"></i>
-                          <i className="fi fi-rr-clean"></i> */}
-                </li>
-                <li className="category-box">
-                  <button>
-                    <div className="icon-circle">
-                      <FontAwesomeIcon
+              <div>
+                <ul className="category-list">
+                  <li className="category-box">
+                    <button>
+                      <div className="icon-circle is-active">
+                        <span className="all-icon">All</span>
+                      </div>
+                      <p className="category-tit">전체</p>
+                    </button>
+                  </li>
+                  <li className="category-box">
+                    <button>
+                      <div className="icon-circle">
+                        <span className="material-icons">directions_bike</span>
+                        {/* <FontAwesomeIcon
                         icon={faFootballBall}
                         className="sport-icon"
-                      />
-                    </div>
-                    <p className="category-tit">운동</p>
-                  </button>
-                </li>
-                <li className="category-box">
-                  <button>
-                    <div className="icon-circle">
-                      <FontAwesomeIcon
+                      /> */}
+                      </div>
+                      <p className="category-tit">운동</p>
+                    </button>
+                  </li>
+                  <li className="category-box">
+                    <button>
+                      <div className="icon-circle">
+                        {/*  <FontAwesomeIcon
                         icon={faUtensils}
                         className="food-icon"
-                      />
-                    </div>
-                    <p className="category-tit">맛집</p>
-                  </button>
-                </li>
-                <li className="category-box">
-                  <button>
-                    <div className="icon-circle">
-                      <FontAwesomeIcon icon={faFilm} className="movie-icon" />
-                    </div>
-                    <p className="category-tit">영화</p>
-                  </button>
-                </li>
-                <li className="category-box">
-                  <button>
-                    <div className="icon-circle">
-                      <FontAwesomeIcon
+                      /> */}
+                        <span className="material-icons">local_dining</span>
+                      </div>
+                      <p className="category-tit">맛집</p>
+                    </button>
+                  </li>
+                  <li className="category-box">
+                    <button>
+                      <div className="icon-circle">
+                        {/* <FontAwesomeIcon icon={faFilm} className="movie-icon" /> */}
+                        <span className="material-icons">movie</span>
+                      </div>
+                      <p className="category-tit">영화</p>
+                    </button>
+                  </li>
+                  <li className="category-box">
+                    <button>
+                      <div className="icon-circle">
+                        {/* <FontAwesomeIcon
                         icon={faPencilAlt}
                         className="study-icon"
-                      />
-                    </div>
-                    <p className="category-tit">공부</p>
-                  </button>
-                </li>
-                <li className="category-box">
-                  <button>
-                    <div className="icon-circle">
-                      <FontAwesomeIcon icon={faCloud} className="etc-icon" />
-                    </div>
-                    <p className="category-tit">기타</p>
-                  </button>
-                </li>
-              </ul>
+                      /> */}
+                        <span className="material-icons">school</span>{' '}
+                      </div>
+                      <p className="category-tit">공부</p>
+                    </button>
+                  </li>
+                  <li className="category-box">
+                    <button>
+                      <div className="icon-circle">
+                        {/* <FontAwesomeIcon icon={faCloud} className="etc-icon" /> */}
+                        <span className="material-icons">more</span>
+                      </div>
+                      <p className="category-tit">기타</p>
+                    </button>
+                  </li>
+                </ul>
+                {/* 필터링 */}
+                <ul className="filter-btn-list">
+                  <li className="filter-btn-box">
+                    <button
+                      className="filter-btn"
+                      onClick={() => handleOrder('hot')}
+                    >
+                      인기순
+                    </button>{' '}
+                  </li>
+                  <li className="filter-btn-box">
+                    <button
+                      className="filter-btn"
+                      onClick={() => handleOrder('recent')}
+                    >
+                      최신순
+                    </button>
+                  </li>
+                </ul>
+              </div>
 
               <div className="room-group">
                 {Array.isArray(rooms) ? ( // 데이터가 없어서 에러메세지로 넘어오는 경우는 문자열로 전달되서 false로 떨어짐
@@ -286,10 +305,6 @@ const Mainpage = ({ roomLists }) => {
               </div>
             </div>
           </div>
-
-          {/* 필터링 */}
-          <button onClick={() => handleOrder("recent")}>최신</button>
-          <button onClick={() => handleOrder("hot")}>인기</button>
         </Content>
       </div>
     </>
