@@ -15,5 +15,41 @@
         }
       }
     }
+    .room-wrap {
+      margin-top: 36px;
+      .container {
+        max-width: 1024px;
+        margin: 0 auto;
+        .tab-menu {
+          display: flex;
+          justify-content: space-between;
+          .category-list {
+            display: flex;
+            li + li {
+              margin-left: 20px;
+            }
+            .category-box {
+              background-color: red;
+              button {
+                display: flex;
+                .cate-icon {
+                  margin-right: 5px;
+                  .all-icon {
+                    font-size: 20px;
+                  }
+                }
+              }
+            }
+          }
+
+          .filter-btn-list {
+            display: flex;
+            li + li {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+    }
   }
 }

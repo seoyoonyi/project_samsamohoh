@@ -36,6 +36,24 @@
   }
 }
 
+.round-btn-outlined {
+  @extend %btn-base;
+  padding: 7px 30px;
+  color: $secondary;
+  border: 1px solid $border;
+  border-radius: 100px;
+  transition: all 0.2s ease-in;
+
+  &.active-is,
+  &:hover,
+  &.ant-btn-primary:hover,
+  &.ant-btn-primary:focus {
+    color: $black;
+    border-color: $black;
+    background: $background;
+  }
+}
+
 // NOTE: button-size
 .btn-40 {
   @include text-style(16);

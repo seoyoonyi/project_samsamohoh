@@ -61,11 +61,11 @@ const Mainpage = ({ roomLists }) => {
           </div>
           <div className="room-wrap">
             <div className="container">
-              <div>
+              <div className="tab-menu">
                 <ul className="category-list">
                   <li className="category-box">
                     <button>
-                      <div className="icon-circle is-active">
+                      <div className="cate-icon is-active">
                         <span className="all-icon">All</span>
                       </div>
                       <p className="category-tit">전체</p>
@@ -73,7 +73,7 @@ const Mainpage = ({ roomLists }) => {
                   </li>
                   <li className="category-box">
                     <button>
-                      <div className="icon-circle">
+                      <div className="cate-icon">
                         <span className="material-icons">directions_bike</span>
                         {/* <FontAwesomeIcon
                         icon={faFootballBall}
@@ -85,7 +85,7 @@ const Mainpage = ({ roomLists }) => {
                   </li>
                   <li className="category-box">
                     <button>
-                      <div className="icon-circle">
+                      <div className="cate-icon">
                         {/*  <FontAwesomeIcon
                         icon={faUtensils}
                         className="food-icon"
@@ -97,7 +97,7 @@ const Mainpage = ({ roomLists }) => {
                   </li>
                   <li className="category-box">
                     <button>
-                      <div className="icon-circle">
+                      <div className="cate-icon">
                         {/* <FontAwesomeIcon icon={faFilm} className="movie-icon" /> */}
                         <span className="material-icons">movie</span>
                       </div>
@@ -106,7 +106,7 @@ const Mainpage = ({ roomLists }) => {
                   </li>
                   <li className="category-box">
                     <button>
-                      <div className="icon-circle">
+                      <div className="cate-icon">
                         {/* <FontAwesomeIcon
                         icon={faPencilAlt}
                         className="study-icon"
@@ -118,7 +118,7 @@ const Mainpage = ({ roomLists }) => {
                   </li>
                   <li className="category-box">
                     <button>
-                      <div className="icon-circle">
+                      <div className="cate-icon">
                         {/* <FontAwesomeIcon icon={faCloud} className="etc-icon" /> */}
                         <span className="material-icons">more</span>
                       </div>
@@ -130,7 +130,7 @@ const Mainpage = ({ roomLists }) => {
                 <ul className="filter-btn-list">
                   <li className="filter-btn-box">
                     <button
-                      className="filter-btn"
+                      className="filter-btn active-is btn-40 round-btn-outlined"
                       onClick={() => handleOrder('hot')}
                     >
                       인기순
@@ -138,7 +138,7 @@ const Mainpage = ({ roomLists }) => {
                   </li>
                   <li className="filter-btn-box">
                     <button
-                      className="filter-btn"
+                      className="filter-btn btn-40 round-btn-outlined"
                       onClick={() => handleOrder('recent')}
                     >
                       최신순
