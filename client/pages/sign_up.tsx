@@ -39,7 +39,7 @@ const SignUp = () => {
 
     try {
       // console.log("회원가입", data);
-      const result = await fetcher("post", "/auth/member", data);
+      const result = await fetcher("post", "/auth/signup", data);
       console.log("result2222", result);
 
       if (result.code === 1) {
