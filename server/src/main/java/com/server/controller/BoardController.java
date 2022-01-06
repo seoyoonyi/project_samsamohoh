@@ -26,7 +26,7 @@ import com.server.dto.response.FailedResponseDTO;
 import com.server.dto.response.SimpleResponseDTO;
 import com.server.dto.response.SuccessfulResponseDTO;
 import com.server.responsecode.StatusCode;
-import com.server.securityconfig.JwtTokenProvider;
+import com.server.securityconfig.TokenProvider;
 import com.server.service.BoardService;
 import com.server.service.MemberService;
 
@@ -41,7 +41,7 @@ import io.swagger.annotations.ApiOperation;
 public class BoardController {
 
 	@Autowired
-	JwtTokenProvider jtp;
+	TokenProvider tokenProvider;
 
 	@Autowired
 	BoardService boardService;
@@ -126,8 +126,8 @@ public class BoardController {
 	@PostMapping("/board")
 	public ResponseEntity<?> createBoard(@RequestHeader("Authorization") String token,@RequestBody CreateBoardDTO dto) {
 		
-		String id = jtp.getUserPk(token);
-		boardService.createBoard(dto.toEntity(memberService.getMember(id).get()));
+		String id = tokenProvider.validateAndGetUserId(token);
+		boardService.createBoard(dto.toEntity(memberService.getMember(id)));
 		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("글 생성 성공").build();
 		return ResponseEntity.ok().body(response);
 

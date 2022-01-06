@@ -1,15 +1,17 @@
 package com.server.service;
 
-import java.util.Optional;
+import java.io.IOException;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.server.domain.Member;
 
 
 public interface MemberService {
 
-	public Optional<Member> getMember(String id);
+	public Member getMember(String id);
 
-	public void saveMember(Member member);
+	public Member saveMember(Member member);
 
-	public Member updateMember(String id, Member member);
+	public Member updateMember(String id, MultipartFile file, String nickName)throws IOException;
 }

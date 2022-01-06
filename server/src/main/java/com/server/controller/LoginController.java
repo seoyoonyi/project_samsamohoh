@@ -20,7 +20,7 @@ import com.server.dto.member.MemberLoginDTO;
 import com.server.dto.response.FailedResponseDTO;
 import com.server.dto.response.SuccessfulResponseDTO;
 import com.server.responsecode.StatusCode;
-import com.server.securityconfig.JwtTokenProvider;
+import com.server.securityconfig.TokenProvider;
 import com.server.service.MemberService;
 
 import io.swagger.annotations.Api;
@@ -35,31 +35,19 @@ public class LoginController {
 	MemberService memberService;
 
 	@Autowired
-	JwtTokenProvider jwtTokenProvider;
+	TokenProvider tokenProvider;
 	
-	@ApiOperation(value="로그인")
+	/*@ApiOperation(value="로그인")
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody @Valid MemberLoginDTO memberLoginDTO,@ApiIgnore Errors errors) {
+	public ResponseEntity<?> login(@RequestBody @Valid MemberLoginDTO memberLoginDTO) {
 
-		if (errors.hasErrors()) {
-			List<FieldError> errorList = errors.getFieldErrors();
-			List<String> errorMessageList = new ArrayList<String>();
-			for (FieldError fe : errorList) {
-				errorMessageList.add(fe.getDefaultMessage());
-			}
-
-			FailedResponseDTO<List<String>> response = FailedResponseDTO.<List<String>>builder()
-					.code(StatusCode.STATUS_FAIL).message(errorMessageList).build();
-
-			return ResponseEntity.ok().body(response);
-		}
 		
-		Optional<Member> option = memberService.getMember(memberLoginDTO.getId());
+		Member findMember = memberService.getMember(memberLoginDTO.getId()); 
 		
-		if (option.isPresent() && option.get().getPassword().equals(memberLoginDTO.getPassword())) {
+		if (findMember.getP) {
 			HashMap<String, String> loginInfor = new HashMap<String, String>();
-			loginInfor.put("name", option.get().getName());
-			loginInfor.put("token", jwtTokenProvider.createToken(option.get().getId(), option.get().getRole()));
+			loginInfor.put("name", option.get().getNickName());
+			loginInfor.put("token", tokenProvider.create(option.get()));
 			SuccessfulResponseDTO<HashMap<String, String>> response = SuccessfulResponseDTO
 					.<HashMap<String, String>>builder().code(StatusCode.STATUS_OK).message("로그인 성공").data(loginInfor)
 					.build();
@@ -73,6 +61,6 @@ public class LoginController {
 
 		}
 
-	}
+	}*/
 		
 }

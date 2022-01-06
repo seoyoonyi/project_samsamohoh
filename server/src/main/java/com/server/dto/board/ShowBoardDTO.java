@@ -36,7 +36,7 @@ public class ShowBoardDTO {
 		this.boardDislike = board.getBoardDislike();
 		this.regisDate = board.getRegisDate();
 		this.userId = board.getMember().getId();
-		this.name = board.getMember().getName();
+		this.name = board.getMember().getNickName();
 	}
 	
 }

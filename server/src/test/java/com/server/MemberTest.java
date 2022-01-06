@@ -26,7 +26,7 @@ public class MemberTest {
 		for (int i = 1; i <= 10; i++) {
 			Member member = new Member();
 			member.setId("use" + i);
-			member.setName("사용자" + i);
+			member.setNickName("사용자" + i);
 			member.setPassword("12345aS!" + i);
 			member.setEmail("email" + i + "@naver.com");
 			memberRepo.save(member);
@@ -35,7 +35,7 @@ public class MemberTest {
 				Board board = new Board();
 				board.setCategory(cate[j%5]);
 				board.setTitle("등록글 제목" + j);
-				board.setContent(member.getName()+"이 등록글 내용" + j);
+				board.setContent(member.getNickName()+"이 등록글 내용" + j);
 				board.setMember(member);
 				boardRepo.save(board);
 				Thread.sleep(2000L);

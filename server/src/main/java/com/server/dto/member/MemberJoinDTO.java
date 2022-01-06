@@ -24,9 +24,9 @@ public class MemberJoinDTO {
 	@Pattern(regexp="^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,15}$",message="비밀번호는 영문소문자,영문대문자,숫자,특수문자를 포함한 8글자이상 15글자 이하입니다.")
 	private String password;
 	
-	@ApiModelProperty(notes="닉네임")
+	/*@ApiModelProperty(notes="닉네임")
 	@Pattern(regexp="^[가-힣]{2,8}$",message="이름은 2글자이상 8글자이하의 자음과 모음이 갖춰진 한글만 가능합니다.")
-	private String name;
+	private String name;*/
 	
 	@ApiModelProperty(notes="이메일")
 	@Size(min=1,max=20,message="이메일은 20글자 이하입니다.")
@@ -37,7 +37,7 @@ public class MemberJoinDTO {
 		return Member.builder()
 				.id(id)
 				.password(password)
-				.name(name)
+				//.nickName(name)
 				.email(email)
 				.build();
 	}

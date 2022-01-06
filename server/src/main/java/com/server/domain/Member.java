@@ -36,9 +36,11 @@ public class Member {
 	
 	private String password;
 	
-	private String name;
+	private String nickName;
 
 	private String email;
+	
+	private String imagePath;
 
 	@Enumerated(EnumType.STRING)
 	@Column(insertable = false, columnDefinition = "varchar(15) default 'ROLE_MEMBER'")
