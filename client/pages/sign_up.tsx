@@ -39,10 +39,10 @@ const SignUp = () => {
 
     try {
       // console.log("회원가입", data);
-      const result = await fetcher("post", "/auth/signup", data);
+      const result = await fetcher("post", "/auth/member", data);
       console.log("result2222", result);
 
-      if (result.code === "1") {
+      if (result.code === 1) {
         alertInfo(
           "축하드립니다.",
           "회원가입이 완료되었습니다. \n 로그인해주세요.",
