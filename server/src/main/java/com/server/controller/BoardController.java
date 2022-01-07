@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.domain.Board;
+import com.server.domain.RegionEnum;
 import com.server.dto.board.CreateBoardDTO;
 import com.server.dto.board.ShowBoardDTO;
 import com.server.dto.response.FailedResponseDTO;
@@ -133,4 +134,19 @@ public class BoardController {
 
 	}
 
+	@ApiOperation(value = "지역 조회")
+	@GetMapping("/getRegionCodeXDescriptions")
+	public ResponseEntity<?> getRegionCodeXDescriptions() {
+		
+		HashMap<String,Object> response = new HashMap<String,Object>();
+		
+		try {
+			response.put("code", StatusCode.STATUS_OK);
+			response.put("data", RegionEnum.getRegionCodeXDescriptions());
+		} catch (Exception e) {
+			response.put("code", StatusCode.INTERNAL_SEVER_ERROR);
+			return ResponseEntity.ok().body(response);
+		}
+		return ResponseEntity.ok().body(response);
+	}
 }
