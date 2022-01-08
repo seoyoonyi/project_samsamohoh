@@ -19,6 +19,14 @@ const Login = () => {
   const tokenStorage = new TokenStorage();
   const [submitLoading, setSubmitLoading] = useState(false);
 
+  const movePage = (loginItem, _msg, _pageName) => {
+    alertInfo(_msg, null, "info");
+    setTimeout(() => {
+      setSubmitLoading(false);
+      loginItem && router.push(_pageName);
+    }, timer);
+  };
+
   const handleFinish = async (values) => {
     setSubmitLoading(true);
     const loginForm = {
@@ -28,23 +36,17 @@ const Login = () => {
     console.log("로그인", loginForm);
     try {
       const loginItem = await fetcher("post", "/auth/signin", loginForm);
-      // const loginItem = {
-      //   code: 0,
-      //   message: "로그인 성공",
-      //   data: {
-      //     name: "이재원",
-      //     token:
-      //       "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNjUyNzIyNiwiZXhwIjoxNjM2NTI5MDI2fQ.xFXIqdBVmijGmqaORHaVWnoQbbmZRmi8qYz6mUjy98Y",
-      //   },
-      // };
       console.log("loginItem", loginItem);
       if (loginItem.code === 0) {
         tokenStorage.saveToken(loginItem);
-        alertInfo(loginItem.message, null, "info");
-        setTimeout(() => {
-          setSubmitLoading(false);
-          loginItem && router.push("/profile");
-        }, timer);
+        const { nickName } = loginItem.data;
+
+        if (nickName) {
+          movePage(loginItem, loginItem.message, "/");
+        } else {
+          //닉네임이 없는 경우
+          movePage(loginItem, "프로필 작성 페이지로 이동합니다.", "/profile");
+        }
       } else {
         alertInfo(loginItem.message, null, "warning");
       }

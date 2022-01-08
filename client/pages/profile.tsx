@@ -3,9 +3,24 @@ import { Input, Button, Radio, Form } from "antd";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
+import fetcher from "../common/fetcher";
+import { GetServerSideProps } from "next";
 
 const Profile = () => {
   const { Header, Footer, Sider, Content } = Layout;
+
+  // async function randomNickname() {
+  //   return await fetcher(
+  //     "get",
+  //     "https://nickname.hwanmoo.kr/?format=json&count=1&max_length=5&whitespace=_"
+  //   );
+  // }
+
+  // useEffect(() => {
+  //   console.log(randomNickname());
+  // }, []);
+
   return (
     <>
       <div id="wrap">
@@ -70,3 +85,32 @@ const Profile = () => {
 };
 
 export default Profile;
+
+export const getStaticProps: GetServerSideProps = async (context) => {
+  try {
+    let minNum = 6;
+    let maxNum = 9;
+    let ramdomNum = Math.floor(Math.random() * (maxNum - minNum) + minNum);
+    let paramNum = ramdomNum.toString();
+
+    let res = await fetcher(
+      "get",
+      `https://nickname.hwanmoo.kr/?format=json&count=1&max_length=${paramNum}&whitespace=_`
+    );
+
+    console.log("res", res.words[0]);
+    console.log(res.words[0].replace("_", ""));
+
+    //  const dd = res.words[0].replace("/", "");
+
+    // if (res && res.code === 0) {
+    //   return { props: { roomLists: res.data.items } }; // 데이터가 존재하는 경우 리스트를 전달
+    // } else if (res.code === -1) {
+    //   return { props: { roomLists: res.message } }; // 데이터가 없는 경우 에러메세지를 전달
+    // }
+    return { props: {} };
+  } catch (error) {
+    console.log(error);
+    return { props: {} };
+  }
+};
