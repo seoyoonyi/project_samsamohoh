@@ -5,9 +5,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import fetcher from "../common/fetcher";
 import { GetServerSideProps } from "next";
+import { useState } from "react";
 
 const Profile = ({ nickname }) => {
   const { Content } = Layout;
+  const [nicknameValue, setNicnameValue] = useState(nickname);
 
   const ChangeNickname = async () => {
     let clientUrl;
@@ -18,7 +20,7 @@ const Profile = ({ nickname }) => {
     }
 
     let res = await fetcher("get", `${clientUrl}/api/make_nickname`);
-    console.log("res", res.data); //state에 담기
+    setNicnameValue(res.data);
   };
   return (
     <>
@@ -59,7 +61,7 @@ const Profile = ({ nickname }) => {
                   </div>
                   <div className="user-nickname">
                     <Input.Group compact>
-                      <Input defaultValue={nickname} />
+                      <Input value={nicknameValue} />
                       <Button
                         type="primary"
                         className="btn-change"
