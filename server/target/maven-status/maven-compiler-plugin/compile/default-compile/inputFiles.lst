@@ -24,7 +24,6 @@ C:\Users\user\witchProject\server\src\main\java\com\server\responsecode\StatusCo
 C:\Users\user\witchProject\server\src\main\java\com\server\config\WebConfig.java
 C:\Users\user\witchProject\server\src\main\java\com\server\domain\Member.java
 C:\Users\user\witchProject\server\src\main\java\com\server\persistence\MemberRepository.java
-C:\Users\user\witchProject\server\src\main\java\com\server\controller\LoginController.java
 C:\Users\user\witchProject\server\src\main\java\com\server\domain\Board.java
 C:\Users\user\witchProject\server\src\main\java\com\server\controller\HealthCheckController.java
 C:\Users\user\witchProject\server\src\main\java\com\server\domain\Category.java

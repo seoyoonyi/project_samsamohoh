@@ -78,4 +78,28 @@ public class ApiExceptionHandler {
 		
 										
 	}
+	
+	@ExceptionHandler(value= {InvalidMemberException.class})
+	public ResponseEntity<?> handleInvalidMemberException(InvalidMemberException e){
+		HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+		ApiException<String> apiException = ApiException.<String>builder().code(-1).message("유효하지 않은 계정입니다.").build();
+		
+		return ResponseEntity.status(httpStatus).body(apiException);
+	}
+	
+	@ExceptionHandler(value= {IdDismatchException.class})
+	public ResponseEntity<?> handleIdDismatchException(IdDismatchException e){
+		HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+		ApiException<String> apiException = ApiException.<String>builder().code(-1).message("아이디가 일치하지 않습니다.").build();
+		
+		return ResponseEntity.status(httpStatus).body(apiException);
+	}
+	
+	@ExceptionHandler(value= {PasswordDismatchException.class})
+	public ResponseEntity<?> handleInvalidMemberException(PasswordDismatchException e){
+		HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+		ApiException<String> apiException = ApiException.<String>builder().code(-1).message("비밀번호가 일치하지 않습니다.").build();
+	
+		return ResponseEntity.status(httpStatus).body(apiException);
+	}
 }

@@ -45,30 +45,21 @@ public class MemberController {
 	@PostMapping("/signin")
 	public ResponseEntity<?> login(@RequestBody @Valid MemberLoginDTO memberLoginDTO) {
 
-		Member findMember = memberService.getMember(memberLoginDTO.getId());
+		Member findMember = memberService.signin(memberLoginDTO);
 
-		if (findMember != null) {
-			HashMap<String, String> loginInfor = new HashMap<String, String>();
-			loginInfor.put("nickName", findMember.getNickName());
-			loginInfor.put("token", tokenProvider.create(findMember));
-			SuccessfulResponseDTO<HashMap<String, String>> response = SuccessfulResponseDTO
-					.<HashMap<String, String>>builder().code(StatusCode.STATUS_OK).message("로그인 성공").data(loginInfor)
-					.build();
-			return ResponseEntity.ok().body(response);
-		} else {
-
-			FailedResponseDTO<String> response = FailedResponseDTO.<String>builder().code(StatusCode.STATUS_FAIL)
-					.message("로그인 실패").build();
-
-			return ResponseEntity.ok().body(response);
-
-		}
+		HashMap<String, String> loginInfor = new HashMap<String, String>();
+		loginInfor.put("nickName", findMember.getNickName());
+		loginInfor.put("token", tokenProvider.create(findMember));
+		SuccessfulResponseDTO<HashMap<String, String>> response = SuccessfulResponseDTO
+				.<HashMap<String, String>>builder().code(StatusCode.STATUS_OK).message("로그인 성공").data(loginInfor)
+				.build();
+		return ResponseEntity.ok().body(response);
 
 	}
 
 	@ApiOperation(value = "회원가입")
 	@PostMapping("/signup")
-	public ResponseEntity<?> member (@RequestBody @Valid MemberJoinDTO memberJoinDTO) {
+	public ResponseEntity<?> member(@RequestBody @Valid MemberJoinDTO memberJoinDTO) {
 
 		memberService.saveMember(memberJoinDTO.toEntity());
 

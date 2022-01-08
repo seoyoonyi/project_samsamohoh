@@ -11,8 +11,10 @@ import com.server.aws.S3ImageFileUploader;
 import com.server.domain.Member;
 import com.server.dto.member.MemberLoginDTO;
 import com.server.exception.AlreadyExistMemberException;
-import com.server.exception.LoginFailedException;
+import com.server.exception.IdDismatchException;
+import com.server.exception.InvalidMemberException;
 import com.server.exception.MemberNotExistException;
+import com.server.exception.PasswordDismatchException;
 import com.server.persistence.MemberRepository;
 
 @Service
@@ -57,18 +59,24 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 	}
-	
+
 	public Member signin(MemberLoginDTO dto) {
-		
+
 		Optional<Member> findMember = memberRepo.findById(dto.getId());
-		
-		if(findMember.isEmpty()) {
-			throw new LoginFailedException();
-		}else {
-			if(findMember.get().getPassword().equals(dto.getPassword())) {
-				return findMember.get();
-			}else {
-				throw new LoginFailedException();
+
+		if (findMember.isEmpty()) {
+			
+			throw new IdDismatchException();
+		} else {
+			if (findMember.get().getPassword().equals(dto.getPassword())) {
+				if (findMember.get().isEnabled() == false) {
+					throw new InvalidMemberException();
+				} else {
+					return findMember.get();
+				}
+			} else {
+				
+				throw new PasswordDismatchException();
 			}
 		}
 	}
