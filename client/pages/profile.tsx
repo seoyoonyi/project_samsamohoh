@@ -1,11 +1,11 @@
-import { Layout } from "antd";
-import { Input, Button, Form } from "antd";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import fetcher from "../common/fetcher";
-import { GetServerSideProps } from "next";
-import { useState } from "react";
+import { Layout } from 'antd';
+import { Input, Button, Form } from 'antd';
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import fetcher from '../common/fetcher';
+import { GetServerSideProps } from 'next';
+import { useState } from 'react';
 
 const Profile = ({ nickname }) => {
   const { Content } = Layout;
@@ -13,13 +13,13 @@ const Profile = ({ nickname }) => {
 
   const ChangeNickname = async () => {
     let clientUrl;
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NODE_ENV === 'production') {
       clientUrl = process.env.NEXT_PUBLIC_DEPLOY_URL;
     } else {
       clientUrl = process.env.NEXT_PUBLIC_LOCAL_URL;
     }
 
-    let res = await fetcher("get", `${clientUrl}/api/make_nickname`);
+    let res = await fetcher('get', `${clientUrl}/api/make_nickname`);
     setNicnameValue(res.data);
   };
   return (
@@ -47,17 +47,25 @@ const Profile = ({ nickname }) => {
                 </div>
                 <Form>
                   <div className="user-profile">
-                    <div className="user-photo">
-                      <img
-                        src="/images/profile-1.jpg"
-                        alt="세로형-프로필사진"
-                      />
-                      {/* <img src="/images/profile-2.jpg" alt="가로형-프로필사진" /> */}
-                      {/* <img src="/images/profile-3.jpg" alt="정사각형-프로필사진" /> */}
-                    </div>
-                    <button className="plus-btn">
-                      <FontAwesomeIcon icon={faPlus} className="plus-icon" />
-                    </button>
+                    <label for="file">
+                      <div className="user-photo">
+                        <img
+                          src="/images/profile-1.jpg"
+                          alt="세로형-프로필사진"
+                        />
+                        {/* <img src="/images/profile-2.jpg" alt="가로형-프로필사진" /> */}
+                        {/* <img src="/images/profile-3.jpg" alt="정사각형-프로필사진" /> */}
+                      </div>
+                      <button className="plus-btn">
+                        <FontAwesomeIcon icon={faPlus} className="plus-icon" />
+                      </button>
+                    </label>
+                    <input
+                      type="file"
+                      id="file"
+                      name="file"
+                      className="sr-only"
+                    />
                   </div>
                   <div className="user-nickname">
                     <Input.Group compact>
@@ -95,13 +103,13 @@ export default Profile;
 export const getStaticProps: GetServerSideProps = async (context) => {
   try {
     let clientUrl;
-    console.log("process.env.NODE_ENV", process.env.NODE_ENV);
-    if (process.env.NODE_ENV === "production") {
+    console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+    if (process.env.NODE_ENV === 'production') {
       clientUrl = process.env.DEPLOY_URL;
     } else {
       clientUrl = process.env.LOCAL_URL;
     }
-    let res = await fetcher("get", `${clientUrl}/api/make_nickname`);
+    let res = await fetcher('get', `${clientUrl}/api/make_nickname`);
     return { props: { nickname: res.data } };
   } catch (error) {
     console.log(error);
