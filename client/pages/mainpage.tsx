@@ -66,7 +66,7 @@ const Mainpage = ({ roomLists }) => {
                   <li className="category-box">
                     <button>
                       <div className="cate-icon is-active">
-                        <span className="all-icon">All</span>
+                        <span className="all-icon is-active">All</span>
                       </div>
                       <p className="category-tit">전체</p>
                     </button>

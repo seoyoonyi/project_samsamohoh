@@ -29,14 +29,26 @@
               margin-left: 20px;
             }
             .category-box {
-              background-color: red;
+              padding: 0 3px 0 3px;
+              border-bottom: 2px solid $black;
               button {
                 display: flex;
+                height: 100%;
+
                 .cate-icon {
+                  display: flex;
+                  align-items: center;
+                  height: 100%;
                   margin-right: 5px;
+
                   .all-icon {
                     font-size: 20px;
                   }
+                }
+                .category-tit {
+                  display: flex;
+                  align-items: center;
+                  height: 100%;
                 }
               }
             }
