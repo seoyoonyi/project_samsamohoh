@@ -63,10 +63,10 @@ const Mainpage = ({ roomLists }) => {
             <div className="container">
               <div className="tab-menu">
                 <ul className="category-list">
-                  <li className="category-box">
+                  <li className="category-box is-active">
                     <button>
-                      <div className="cate-icon is-active">
-                        <span className="all-icon is-active">All</span>
+                      <div className="cate-icon">
+                        <span className="all-icon">All</span>
                       </div>
                       <p className="category-tit">전체</p>
                     </button>
