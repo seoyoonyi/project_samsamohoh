@@ -1,27 +1,82 @@
-import { Layout } from 'antd';
-import { Input, Button, Form } from 'antd';
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import fetcher from '../common/fetcher';
-import { GetServerSideProps } from 'next';
-import { useState } from 'react';
+import { Layout } from "antd";
+import { Input, Button, Form } from "antd";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import fetcher from "../common/fetcher";
+import { GetServerSideProps } from "next";
+import { useRef, useState } from "react";
+import { useEffect } from "react";
 
 const Profile = ({ nickname }) => {
   const { Content } = Layout;
   const [nicknameValue, setNicnameValue] = useState(nickname);
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [changeLoading, setChangeLoading] = useState(false);
+  const [file, setFile] = useState(null);
+  const inputRef = useRef(null);
+  const [imgSrc, setImgSrc] = useState(null); // 이미지 미리보기
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    form.setFieldsValue({ name: nicknameValue });
+  });
 
   const ChangeNickname = async () => {
+    setChangeLoading(true);
     let clientUrl;
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === "production") {
       clientUrl = process.env.NEXT_PUBLIC_DEPLOY_URL;
     } else {
       clientUrl = process.env.NEXT_PUBLIC_LOCAL_URL;
     }
 
-    let res = await fetcher('get', `${clientUrl}/api/make_nickname`);
+    let res = await fetcher("get", `${clientUrl}/api/make_nickname`);
     setNicnameValue(res.data);
+    setChangeLoading(false);
   };
+
+  //진행바 초기화
+  function resetFile() {
+    setFile(null); //첨부 파일 초기화
+    setImgSrc(null);
+  }
+
+  const onImgChange = async (e) => {
+    //type이 file인 input에서 onChange 함수에서 event 객체를 통해 파일정보가 넘어오기 때문에 onSubmit에서 처리하지 않고 여기서 처리함
+    const imageFile = e.target.files[0];
+    console.log("imageFile", imageFile);
+    setFile(imageFile);
+
+    if (imageFile) {
+      const fileReader = new FileReader(); // 파일에 접근하기 위함
+      fileReader.readAsDataURL(imageFile); //url을 기준으로 파일을 읽는데 사용하는 메서드
+      fileReader.onload = (e) => setImgSrc(e.target.result); //파일정보가 생성됨
+    } else {
+      resetFile(); //사용자가 파일첨부를 취소하면 초기화
+    }
+  };
+
+  const handleFinish = async (values) => {
+    setSubmitLoading(true);
+
+    const { name } = values;
+    // console.log("values", values);
+
+    const formData = new FormData();
+    formData.append("file", file); //서버에 upload.single(변수명)에 정의한 변수이름과 동일해야함
+    formData.append("dtp", JSON.stringify({ nickname: name }));
+
+    const id = "kikio15";
+
+    const result = await fetcher("put", `/auth/member/${id}`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    console.log("result", result);
+
+    setSubmitLoading(false);
+  };
+
   return (
     <>
       <div id="wrap">
@@ -45,35 +100,46 @@ const Profile = ({ nickname }) => {
                     프로필 사진과 닉네임으로 여러분을 표현해보세요.
                   </span>
                 </div>
-                <Form>
+                <Form onFinish={handleFinish} form={form}>
                   <div className="user-profile">
-                    <label for="file">
+                    <label htmlFor="file">
                       <div className="user-photo">
                         <img
-                          src="/images/profile-1.jpg"
+                          src={imgSrc || "/images/profile-1.jpg"}
                           alt="세로형-프로필사진"
                         />
                         {/* <img src="/images/profile-2.jpg" alt="가로형-프로필사진" /> */}
                         {/* <img src="/images/profile-3.jpg" alt="정사각형-프로필사진" /> */}
                       </div>
-                      <button className="plus-btn">
+                      <button
+                        className="plus-btn"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          inputRef.current.click();
+                        }}
+                      >
                         <FontAwesomeIcon icon={faPlus} className="plus-icon" />
                       </button>
                     </label>
                     <input
                       type="file"
                       id="file"
-                      name="file"
                       className="sr-only"
+                      ref={inputRef}
+                      accept="image/*"
+                      onChange={onImgChange}
                     />
                   </div>
                   <div className="user-nickname">
                     <Input.Group compact>
-                      <Input value={nicknameValue} />
+                      <Form.Item name="name" rules={[{ required: true }]}>
+                        <Input />
+                      </Form.Item>
                       <Button
                         type="primary"
                         className="btn-change"
                         onClick={ChangeNickname}
+                        loading={changeLoading}
                       >
                         바꿀래요
                       </Button>
@@ -85,6 +151,8 @@ const Profile = ({ nickname }) => {
                   <Button
                     type="primary"
                     className="btn-50 btn-main btn-complete"
+                    htmlType="submit"
+                    loading={submitLoading}
                   >
                     완료
                   </Button>
@@ -103,13 +171,13 @@ export default Profile;
 export const getStaticProps: GetServerSideProps = async (context) => {
   try {
     let clientUrl;
-    console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-    if (process.env.NODE_ENV === 'production') {
+    console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+    if (process.env.NODE_ENV === "production") {
       clientUrl = process.env.DEPLOY_URL;
     } else {
       clientUrl = process.env.LOCAL_URL;
     }
-    let res = await fetcher('get', `${clientUrl}/api/make_nickname`);
+    let res = await fetcher("get", `${clientUrl}/api/make_nickname`);
     return { props: { nickname: res.data } };
   } catch (error) {
     console.log(error);

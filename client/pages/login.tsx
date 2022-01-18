@@ -83,11 +83,6 @@ const Login = () => {
     }
   };
 
-  const handleBack = (e) => {
-    e.preventDefault();
-    Router.back();
-  };
-
   return (
     <>
       <div id="wrap">
