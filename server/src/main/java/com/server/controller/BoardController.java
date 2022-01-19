@@ -53,7 +53,7 @@ public class BoardController {
 	@ApiImplicitParam(name = "boardId", value = "게시판 id")
 	@GetMapping("/{boardId}")
 	public ResponseEntity<?> getBoard(@PathVariable(name = "boardId") long seq) {
-
+		
 		Optional<Board> option = boardService.getBoard(seq);
 		if (option.isPresent()) {
 			ShowBoardDTO boardDto = new ShowBoardDTO(option.get());
@@ -79,7 +79,6 @@ public class BoardController {
 
 	@GetMapping
 	public ResponseEntity<?> getBoardList(@RequestParam("page") int page, @RequestParam("pageSize") int pageNum) {
-
 		if (page < 0 || pageNum < 0) {
 			FailedResponseDTO<String> response = FailedResponseDTO.<String>builder().code(StatusCode.STATUS_FAIL)
 					.message("파라미터 값이 올바르지 않습니다.").build();
@@ -126,8 +125,8 @@ public class BoardController {
 	@PostMapping("/board")
 	public ResponseEntity<?> createBoard(@RequestHeader("Authorization") String token,@RequestBody CreateBoardDTO dto) {
 		
-		String id = tokenProvider.validateAndGetUserId(token);
-		boardService.createBoard(dto.toEntity(memberService.getMember(id)));
+		//String id = tokenProvider.validateAndGetUserId(token);
+		//boardService.createBoard(dto.toEntity(memberService.getMember(id)));
 		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("글 생성 성공").build();
 		return ResponseEntity.ok().body(response);
 

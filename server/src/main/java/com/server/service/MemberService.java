@@ -6,15 +6,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.server.domain.Member;
 import com.server.dto.member.MemberLoginDTO;
+import com.server.dto.member.UpdateMemberDTO;
 
 
 public interface MemberService {
 
 	public Member getMember(String id);
 
-	public Member saveMember(Member member);
+	public Member signup(Member member);
 
-	public Member updateMember(String id, MultipartFile file, String nickName)throws IOException;
+	public Member updateMember(String id, MultipartFile file, UpdateMemberDTO dto)throws IOException;
 	
 	public Member signin(MemberLoginDTO dto);
 }

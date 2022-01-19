@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 
 public enum Role {
-	ROLE_ADMIN,ROLE_MEMBER
+	ROLE_ADMIN,ROLE_MEMBER,ROLE_MANAGER;
 }

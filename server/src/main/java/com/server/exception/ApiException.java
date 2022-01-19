@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ApiException<T> {
 	private T message;
-	private int code;
+	private String code;
 }
