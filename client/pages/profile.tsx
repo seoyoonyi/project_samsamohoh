@@ -7,6 +7,8 @@ import fetcher from "../common/fetcher";
 import { GetServerSideProps } from "next";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { tokenAtrom } from "../atoms/token";
 
 const Profile = ({ nickname }) => {
   const { Content } = Layout;
@@ -17,6 +19,7 @@ const Profile = ({ nickname }) => {
   const inputRef = useRef(null);
   const [imgSrc, setImgSrc] = useState(null); // 이미지 미리보기
   const [form] = Form.useForm();
+  const [token, _] = useRecoilState(tokenAtrom);
 
   useEffect(() => {
     form.setFieldsValue({ name: nicknameValue });
@@ -61,18 +64,30 @@ const Profile = ({ nickname }) => {
     setSubmitLoading(true);
 
     const { name } = values;
-    // console.log("values", values);
 
     const formData = new FormData();
+
     formData.append("file", file); //서버에 upload.single(변수명)에 정의한 변수이름과 동일해야함
-    formData.append("dtp", JSON.stringify({ nickname: name }));
+    formData.append("userInfor", JSON.stringify({ nickName: name }));
 
-    const id = "kikio15";
-
-    const result = await fetcher("put", `/auth/member/${id}`, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    console.log("result", result);
+    console.log("token", token.data.token);
+    console.log("userInfo", token.data.userInfo.id);
+    try {
+      const result = await fetcher(
+        "put",
+        `/auth/member/${token.data.userInfo.id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token.data.token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("result", result);
+    } catch (error) {
+      console.warn(error.message);
+    }
 
     setSubmitLoading(false);
   };

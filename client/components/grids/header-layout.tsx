@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react';
-import TokenStorage from '../../common/token';
-import Link from 'next/link';
-import { Layout } from 'antd';
-import { useRecoilState } from 'recoil';
-import { tokenAtrom } from '../../atoms/token';
+import React, { useEffect } from "react";
+import TokenStorage from "../../common/token";
+import Link from "next/link";
+import { Layout } from "antd";
+import { useRecoilState } from "recoil";
+import { tokenAtrom } from "../../atoms/token";
 
 const Headerlayout = () => {
   const tokenStorage = new TokenStorage();
   const [token, setToken] = useRecoilState(tokenAtrom);
   const { Header, Footer, Sider, Content } = Layout;
-  useEffect(() => {
-    const getToken = tokenStorage.getToken();
-    setToken(getToken);
-  }, []);
+
   const onLoginOut = (e) => {
     e.preventDefault();
     tokenStorage.clearToken();

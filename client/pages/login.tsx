@@ -1,23 +1,22 @@
 import React, { useCallback, useState } from "react";
-import { Layout } from "antd";
-import { Input, Space, Form } from "antd";
+import { Layout, Input, Form, Button, Checkbox } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { UserOutlined } from "@ant-design/icons";
-import { Button } from "antd";
-import { Row, Col, Divider } from "antd";
-import { Checkbox } from "antd";
 import Link from "next/link";
 import fetcher from "../common/fetcher";
 import TokenStorage from "../common/token";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import alertInfo, { timer } from "../common/alert";
 import { validateID, validatePW } from "../common/validate_check";
+import { useRecoilState } from "recoil";
+import { tokenAtrom } from "../atoms/token";
 
 const Login = () => {
   const { Header, Footer, Sider, Content } = Layout;
   const router = useRouter();
   const tokenStorage = new TokenStorage();
   const [submitLoading, setSubmitLoading] = useState(false);
+  const [_, setToken] = useRecoilState(tokenAtrom);
 
   const movePage = (loginItem, _msg, _pageName) => {
     alertInfo(_msg, null, "info");
@@ -33,12 +32,28 @@ const Login = () => {
       id: values.id,
       password: values.pw,
     };
-    console.log("로그인", loginForm);
+
     try {
       const loginItem = await fetcher("post", "/auth/signin", loginForm);
       console.log("loginItem", loginItem);
-      if (loginItem.code === 0) {
-        tokenStorage.saveToken(loginItem);
+      if (loginItem.code === 1) {
+        tokenStorage.saveToken(loginItem); // 브라우저 종료 후에도 로그인 유지하기 위함
+
+        // 토큰 값을 이용해서 유저정보 획득
+        const getUserInfo = await fetcher("get", `/auth/member/`, {
+          headers: { Authorization: `Bearer ${loginItem.data.token}` },
+        });
+
+        const saveData = {
+          data: {
+            token: loginItem.data.token,
+            userInfo: getUserInfo.data,
+          },
+        };
+        console.log("값저장");
+        setToken(saveData);
+
+        // 사용자의 닉네임 유무에 따른 페이지 이동 분기처리
         const { nickName } = loginItem.data;
 
         if (nickName) {
