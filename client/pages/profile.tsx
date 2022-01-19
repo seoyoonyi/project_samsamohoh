@@ -9,6 +9,8 @@ import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { tokenAtrom } from "../atoms/token";
+import alertInfo, { timer } from "../common/alert";
+import { useRouter } from "next/router";
 
 const Profile = ({ nickname }) => {
   const { Content } = Layout;
@@ -20,6 +22,7 @@ const Profile = ({ nickname }) => {
   const [imgSrc, setImgSrc] = useState(null); // 이미지 미리보기
   const [form] = Form.useForm();
   const [token, _] = useRecoilState(tokenAtrom);
+  const router = useRouter();
 
   useEffect(() => {
     form.setFieldsValue({ name: nicknameValue });
@@ -44,6 +47,14 @@ const Profile = ({ nickname }) => {
     setFile(null); //첨부 파일 초기화
     setImgSrc(null);
   }
+
+  const movePage = (loginItem, _msg, _pageName) => {
+    alertInfo(_msg, null, "info");
+    setTimeout(() => {
+      setSubmitLoading(false);
+      loginItem && router.push(_pageName);
+    }, timer);
+  };
 
   const onImgChange = async (e) => {
     //type이 file인 input에서 onChange 함수에서 event 객체를 통해 파일정보가 넘어오기 때문에 onSubmit에서 처리하지 않고 여기서 처리함
@@ -85,6 +96,9 @@ const Profile = ({ nickname }) => {
         }
       );
       console.log("result", result);
+      if (result.code === 1) {
+        movePage(result, "메인화면으로 이동합니다.", "/");
+      }
     } catch (error) {
       console.warn(error.message);
     }
