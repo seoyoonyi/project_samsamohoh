@@ -7,7 +7,7 @@ import fetcher from "../common/fetcher";
 import { GetServerSideProps } from "next";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+// import { useRecoilState } from "recoil";
 import { tokenAtrom } from "../atoms/token";
 import alertInfo, { timer } from "../common/alert";
 import { useRouter } from "next/router";
@@ -21,7 +21,7 @@ const Profile = ({ nickname }) => {
   const inputRef = useRef(null);
   const [imgSrc, setImgSrc] = useState(null); // 이미지 미리보기
   const [form] = Form.useForm();
-  const [token, _] = useRecoilState(tokenAtrom);
+  // const [token, _] = useRecoilState(tokenAtrom);
   const router = useRouter();
 
   useEffect(() => {
@@ -81,23 +81,28 @@ const Profile = ({ nickname }) => {
     formData.append("file", file); //서버에 upload.single(변수명)에 정의한 변수이름과 동일해야함
     formData.append("userInfor", JSON.stringify({ nickName: name }));
 
-    console.log("token", token.data.token);
-    console.log("userInfo", token.data.userInfo.id);
+    // console.log("userInfo", token.data.userInfo.id);
+
     try {
-      const result = await fetcher(
-        "put",
-        `/auth/member/${token.data.userInfo.id}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token.data.token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log("result", result);
+      let result = await fetcher("get", `/auth/member`); //토큰을 기준으로 사용자 정보 획득
+
       if (result.code === 1) {
-        movePage(result, "메인화면으로 이동합니다.", "/");
+        const userID = result.data.id;
+
+        try {
+          // Start 사용자 프로필 변경
+          result = await fetcher("put", `/auth/member/${userID}`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          console.log("result", result);
+          if (result.code === 1) {
+            movePage(result, "메인화면으로 이동합니다.", "/");
+          }
+        } catch (error) {
+          console.warn(error.message);
+        } // End 사용자 프로필 변경
       }
     } catch (error) {
       console.warn(error.message);

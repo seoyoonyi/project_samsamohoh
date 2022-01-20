@@ -10,6 +10,8 @@ import alertInfo, { timer } from "../common/alert";
 import { validateID, validatePW } from "../common/validate_check";
 import { useRecoilState } from "recoil";
 import { tokenAtrom } from "../atoms/token";
+import { useEffect } from "react";
+import { onLoginOut } from "../common/logout";
 
 const Login = () => {
   const { Header, Footer, Sider, Content } = Layout;
@@ -17,6 +19,10 @@ const Login = () => {
   const tokenStorage = new TokenStorage();
   const [submitLoading, setSubmitLoading] = useState(false);
   const [_, setToken] = useRecoilState(tokenAtrom);
+
+  useEffect(() => {
+    onLoginOut(_, setToken);
+  }, []);
 
   const movePage = (loginItem, _msg, _pageName) => {
     alertInfo(_msg, null, "info");
@@ -37,21 +43,7 @@ const Login = () => {
       const loginItem = await fetcher("post", "/auth/signin", loginForm);
       console.log("loginItem", loginItem);
       if (loginItem.code === 1) {
-        tokenStorage.saveToken(loginItem); // 브라우저 종료 후에도 로그인 유지하기 위함
-
-        // 토큰 값을 이용해서 유저정보 획득
-        const getUserInfo = await fetcher("get", `/auth/member/`, {
-          headers: { Authorization: `Bearer ${loginItem.data.token}` },
-        });
-
-        const saveData = {
-          data: {
-            token: loginItem.data.token,
-            userInfo: getUserInfo.data,
-          },
-        };
-        console.log("값저장");
-        setToken(saveData);
+        tokenStorage.saveToken(loginItem.data); // 브라우저 종료 후에도 로그인 유지하기 위함
 
         // 사용자의 닉네임 유무에 따른 페이지 이동 분기처리
         const { nickName } = loginItem.data;
@@ -65,9 +57,6 @@ const Login = () => {
       } else {
         alertInfo(loginItem.message, null, "warning");
       }
-      // undefined가 로컬스토리지에 저장도지 않도록 반드시 loginItem && 앞에 붙여줘야함
-      // JSON.stringify는 token.js에서 하도록 위임
-      // router.back()을 사용하면 회원가입에서 로그인페이지로 넘어온 경우 다시 회원가입으로 넘기기 때문에  문제가 있음
     } catch (error) {
       // axios에서 에러발생시 처리
       setSubmitLoading(false);
@@ -160,12 +149,6 @@ const Login = () => {
                   </li>
                 </ul>
               </Form>
-
-              {/* 돌아가기버튼을 어떻게 넣을까 고민 */}
-              {/* <button onClick={handleBack}>돌아가기</button> */}
-              {/* 회원가입하기 */}
-              {/* 자동로그인 */}
-              {/* 비밀번호찾기 */}
             </div>
           </Content>
         </div>

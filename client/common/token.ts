@@ -1,13 +1,19 @@
-const TOKEN = "token";
+const SAVEINFO = "saveInfo";
+let localStorage;
+if (typeof window == "undefined") {
+  localStorage = global.localStorage;
+} else {
+  localStorage = window.localStorage;
+}
 
 export default class TokenStorage {
-  saveToken(token) {
-    localStorage.setItem(TOKEN, JSON.stringify(token));
+  saveToken(info) {
+    localStorage && localStorage.setItem(SAVEINFO, JSON.stringify(info));
   }
   getToken() {
-    return JSON.parse(localStorage.getItem(TOKEN));
+    return localStorage && JSON.parse(localStorage.getItem(SAVEINFO));
   }
   clearToken() {
-    localStorage.removeItem(TOKEN);
+    localStorage && localStorage.removeItem(SAVEINFO);
   }
 }

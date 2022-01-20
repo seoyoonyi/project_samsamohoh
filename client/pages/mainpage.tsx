@@ -1,5 +1,5 @@
-import { Layout } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Layout } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFootballBall,
   faUtensils,
@@ -9,25 +9,25 @@ import {
   faHeart,
   faThumbsUp,
   faThumbsDown,
-} from '@fortawesome/free-solid-svg-icons';
-import Link from 'next/link';
-import { useState } from 'react';
+} from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import { useState } from "react";
 
 const Mainpage = ({ roomLists }) => {
   const { Header, Footer, Sider, Content } = Layout;
 
   const [rooms, setRooms] = useState(roomLists);
-  console.log('rooms', rooms);
+  // console.log('rooms', rooms);
 
   const handleOrder = async (_bt) => {
-    let propsName = '';
-    propsName = _bt === 'recent' ? 'regisDate' : 'good';
-    console.log('propsName', propsName);
+    let propsName = "";
+    propsName = _bt === "recent" ? "regisDate" : "good";
+    console.log("propsName", propsName);
     try {
       // const res = await getRoomList(); //전체 글 조회
       let res = [...rooms];
 
-      if (_bt === 'good') {
+      if (_bt === "good") {
         //인기순으로  정렬처리
         res = res.sort((a, b) => {
           return a[propsName] > b[propsName]
@@ -46,7 +46,7 @@ const Mainpage = ({ roomLists }) => {
         //typescript에서 뺄샘을 할때 오류가 나지 않도록 문자열을 숫자로 바꿔줌
       }
       setRooms(res);
-      console.log('rrrrr', res);
+      console.log("rrrrr", res);
     } catch (error) {
       console.error(error);
     }
@@ -111,7 +111,7 @@ const Mainpage = ({ roomLists }) => {
                         icon={faPencilAlt}
                         className="study-icon"
                       /> */}
-                        <span className="material-icons">school</span>{' '}
+                        <span className="material-icons">school</span>{" "}
                       </div>
                       <p className="category-tit">공부</p>
                     </button>
@@ -131,15 +131,15 @@ const Mainpage = ({ roomLists }) => {
                   <li className="filter-btn-box">
                     <button
                       className="filter-btn active-is btn-40 round-btn-outlined"
-                      onClick={() => handleOrder('hot')}
+                      onClick={() => handleOrder("hot")}
                     >
                       인기순
-                    </button>{' '}
+                    </button>{" "}
                   </li>
                   <li className="filter-btn-box">
                     <button
                       className="filter-btn btn-40 round-btn-outlined"
-                      onClick={() => handleOrder('recent')}
+                      onClick={() => handleOrder("recent")}
                     >
                       최신순
                     </button>
