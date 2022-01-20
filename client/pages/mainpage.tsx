@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useState } from "react";
+import getRoomList from "../common/roomList";
 
 const Mainpage = ({ roomLists }) => {
   const { Header, Footer, Sider, Content } = Layout;
@@ -46,9 +47,20 @@ const Mainpage = ({ roomLists }) => {
         //typescript에서 뺄샘을 할때 오류가 나지 않도록 문자열을 숫자로 바꿔줌
       }
       setRooms(res);
-      console.log("rrrrr", res);
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handleFileter = async (_category) => {
+    console.log("_category", _category);
+    try {
+      let res = await getRoomList(_category); //전체 글 조회
+      if (res && res.code === 1) {
+        setRooms(res.data.items);
+      }
+    } catch (error) {
+      console.warn(error);
     }
   };
 
@@ -68,11 +80,16 @@ const Mainpage = ({ roomLists }) => {
                       <div className="cate-icon">
                         <span className="all-icon">All</span>
                       </div>
-                      <p className="category-tit">전체</p>
+                      <p
+                        className="category-tit"
+                        onClick={() => handleFileter("ALL")}
+                      >
+                        전체
+                      </p>
                     </button>
                   </li>
                   <li className="category-box">
-                    <button>
+                    <button onClick={() => handleFileter("EXERCISE")}>
                       <div className="cate-icon">
                         <span className="material-icons">directions_bike</span>
                         {/* <FontAwesomeIcon
@@ -84,7 +101,7 @@ const Mainpage = ({ roomLists }) => {
                     </button>
                   </li>
                   <li className="category-box">
-                    <button>
+                    <button onClick={() => handleFileter("RESTAURANT")}>
                       <div className="cate-icon">
                         {/*  <FontAwesomeIcon
                         icon={faUtensils}
@@ -96,7 +113,7 @@ const Mainpage = ({ roomLists }) => {
                     </button>
                   </li>
                   <li className="category-box">
-                    <button>
+                    <button onClick={() => handleFileter("MOVIE")}>
                       <div className="cate-icon">
                         {/* <FontAwesomeIcon icon={faFilm} className="movie-icon" /> */}
                         <span className="material-icons">movie</span>
@@ -105,19 +122,19 @@ const Mainpage = ({ roomLists }) => {
                     </button>
                   </li>
                   <li className="category-box">
-                    <button>
+                    <button onClick={() => handleFileter("STUDY")}>
                       <div className="cate-icon">
                         {/* <FontAwesomeIcon
                         icon={faPencilAlt}
                         className="study-icon"
                       /> */}
-                        <span className="material-icons">school</span>{" "}
+                        <span className="material-icons">school</span>
                       </div>
                       <p className="category-tit">공부</p>
                     </button>
                   </li>
                   <li className="category-box">
-                    <button>
+                    <button onClick={() => handleFileter("ETC")}>
                       <div className="cate-icon">
                         {/* <FontAwesomeIcon icon={faCloud} className="etc-icon" /> */}
                         <span className="material-icons">more</span>
