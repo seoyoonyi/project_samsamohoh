@@ -6,7 +6,6 @@ export default async function getRoomList(_category) {
       "get",
       `/boards?category=${_category || "ALL"}&page=1&pageSize=5`
     ); //전체 글 조회
-    console.log("header", res.headers);
     return res;
   } catch (error) {
     console.log(error);
