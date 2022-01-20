@@ -7,8 +7,6 @@ import fetcher from "../common/fetcher";
 import { GetServerSideProps } from "next";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
-// import { useRecoilState } from "recoil";
-import { tokenAtrom } from "../atoms/token";
 import alertInfo, { timer } from "../common/alert";
 import { useRouter } from "next/router";
 
@@ -21,11 +19,12 @@ const Profile = ({ nickname }) => {
   const inputRef = useRef(null);
   const [imgSrc, setImgSrc] = useState(null); // 이미지 미리보기
   const [form] = Form.useForm();
-  // const [token, _] = useRecoilState(tokenAtrom);
   const router = useRouter();
 
   useEffect(() => {
     form.setFieldsValue({ name: nicknameValue });
+
+    //  프로필 페이지 진입시 사용자정보 조회해서 등록된 정보 뿌리기
   });
 
   const ChangeNickname = async () => {
