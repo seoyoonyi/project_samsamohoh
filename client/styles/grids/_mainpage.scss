@@ -25,13 +25,12 @@
           justify-content: space-between;
           align-items: center;
           height: 70px;
+          /* 카테고리버튼 */
           .category-list {
             display: flex;
-
             li + li {
               margin-left: 10px;
             }
-
             .category-box {
               button {
                 display: flex;
@@ -89,37 +88,86 @@
               }
             }
           }
-
-          //   .is-active.category-box {
-          //     padding: 0 3px 0 3px;
-          //     border-bottom: 2px solid $black;
-          //     button {
-          //       display: flex;
-          //       height: 100%;
-
-          //       .cate-icon {
-          //         display: flex;
-          //         align-items: center;
-          //         height: 100%;
-          //         margin-right: 5px;
-
-          //         .all-icon {
-          //           font-size: 19px;
-          //         }
-          //       }
-          //       .category-tit {
-          //         display: flex;
-          //         align-items: center;
-          //         height: 100%;
-          //       }
-          //     }
-          //   }
-          // }
-
+          /* 인기순, 최신순 버튼 */
           .filter-btn-list {
             display: flex;
             li + li {
               margin-left: 10px;
+            }
+          }
+        }
+        /* 방목록리스트 */
+        .room-group {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 24px;
+          .room-list {
+            width: calc(100% / 3 - 16px);
+            .room-item {
+              margin-bottom: 53px;
+              .photo-box {
+                position: relative;
+                overflow: hidden;
+                border-radius: 7px;
+                margin-bottom: 20px;
+
+                .image {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  img {
+                    width: 120%;
+                  }
+                }
+                .cnt {
+                  position: absolute;
+                  top: calc(100% - 95%);
+                  right: calc(100% - 95%);
+                  display: flex;
+                  color: $white;
+
+                  .material-icons {
+                    margin-right: 3px;
+                  }
+                  .txt {
+                    @include text-style(16);
+                  }
+                }
+              }
+              .content-box {
+                .title {
+                  @include text-style(18, $black);
+                  margin-bottom: 7px;
+                  font-weight: 600;
+                }
+                .content {
+                  @include text-style(16, $black);
+                  margin-bottom: 35px;
+                  font-weight: 300;
+                }
+                .date {
+                  @include text-style(16, $black);
+                  margin-bottom: 35px;
+                  font-weight: 500;
+                }
+                .inner {
+                  display: flex;
+                  justify-content: space-between;
+                  .like-list {
+                    display: flex;
+                    button {
+                      display: flex;
+                      // align-items: center;
+                      .txt {
+                        margin-left: 5px;
+                      }
+                    }
+                    button + button {
+                      margin-left: 20px;
+                    }
+                  }
+                }
+              }
             }
           }
         }
