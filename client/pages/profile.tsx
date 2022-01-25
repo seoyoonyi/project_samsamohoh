@@ -201,7 +201,7 @@ const Profile = ({ nickname }) => {
 
 export default Profile;
 
-export const getStaticProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     let clientUrl;
     console.log("process.env.NODE_ENV", process.env.NODE_ENV);
