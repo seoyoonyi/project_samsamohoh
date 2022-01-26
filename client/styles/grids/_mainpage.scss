@@ -125,12 +125,15 @@
                   right: calc(100% - 95%);
                   display: flex;
                   color: $white;
-
+                  transition: color 0.1s ease-out;
                   .material-icons {
                     margin-right: 3px;
                   }
                   .txt {
                     @include text-style(16);
+                  }
+                  &:hover {
+                    color: $red;
                   }
                 }
               }
@@ -157,9 +160,13 @@
                     display: flex;
                     button {
                       display: flex;
-                      // align-items: center;
+                      cursor: pointer;
+                      transition: color 0.1s ease-out;
                       .txt {
                         margin-left: 5px;
+                      }
+                      &:hover {
+                        color: $main-color;
                       }
                     }
                     button + button {

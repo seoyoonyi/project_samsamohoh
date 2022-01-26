@@ -27,7 +27,7 @@ li {
 
 a {
   text-decoration: none;
-  color: inherit;
+  color: initial;
 }
 
 input {
@@ -50,6 +50,7 @@ span {
 button {
   background-color: transparent;
   border: 0;
+  color: initial;
 }
 
 .ant-row {
@@ -59,4 +60,5 @@ button {
 
 p {
   margin-bottom: initial;
+  color: initial;
 }
