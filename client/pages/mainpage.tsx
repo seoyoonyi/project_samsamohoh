@@ -12,12 +12,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { useState } from 'react';
+import getRoomList from '../common/roomList';
 
 const Mainpage = ({ roomLists }) => {
   const { Header, Footer, Sider, Content } = Layout;
 
   const [rooms, setRooms] = useState(roomLists);
-  console.log('rooms', rooms);
+  // console.log('rooms', rooms);
 
   const handleOrder = async (_bt) => {
     let propsName = '';
@@ -46,9 +47,20 @@ const Mainpage = ({ roomLists }) => {
         //typescript에서 뺄샘을 할때 오류가 나지 않도록 문자열을 숫자로 바꿔줌
       }
       setRooms(res);
-      console.log('rrrrr', res);
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handleFileter = async (_category) => {
+    console.log('_category', _category);
+    try {
+      let res = await getRoomList(_category); //전체 글 조회
+      if (res && res.code === 1) {
+        setRooms(res.data.items);
+      }
+    } catch (error) {
+      console.warn(error);
     }
   };
 
@@ -63,63 +75,54 @@ const Mainpage = ({ roomLists }) => {
             <div className="container">
               <div className="tab-menu">
                 <ul className="category-list">
-                  <li className="category-box">
+                  <li className="category-box is-active">
                     <button>
-                      <div className="cate-icon is-active">
+                      <div className="cate-icon">
                         <span className="all-icon">All</span>
                       </div>
-                      <p className="category-tit">전체</p>
+                      <p
+                        className="category-tit"
+                        onClick={() => handleFileter('ALL')}
+                      >
+                        전체
+                      </p>
                     </button>
                   </li>
                   <li className="category-box">
-                    <button>
+                    <button onClick={() => handleFileter('EXERCISE')}>
                       <div className="cate-icon">
                         <span className="material-icons">directions_bike</span>
-                        {/* <FontAwesomeIcon
-                        icon={faFootballBall}
-                        className="sport-icon"
-                      /> */}
                       </div>
                       <p className="category-tit">운동</p>
                     </button>
                   </li>
                   <li className="category-box">
-                    <button>
+                    <button onClick={() => handleFileter('RESTAURANT')}>
                       <div className="cate-icon">
-                        {/*  <FontAwesomeIcon
-                        icon={faUtensils}
-                        className="food-icon"
-                      /> */}
                         <span className="material-icons">local_dining</span>
                       </div>
                       <p className="category-tit">맛집</p>
                     </button>
                   </li>
                   <li className="category-box">
-                    <button>
+                    <button onClick={() => handleFileter('MOVIE')}>
                       <div className="cate-icon">
-                        {/* <FontAwesomeIcon icon={faFilm} className="movie-icon" /> */}
                         <span className="material-icons">movie</span>
                       </div>
                       <p className="category-tit">영화</p>
                     </button>
                   </li>
                   <li className="category-box">
-                    <button>
+                    <button onClick={() => handleFileter('STUDY')}>
                       <div className="cate-icon">
-                        {/* <FontAwesomeIcon
-                        icon={faPencilAlt}
-                        className="study-icon"
-                      /> */}
-                        <span className="material-icons">school</span>{' '}
+                        <span className="material-icons">school</span>
                       </div>
                       <p className="category-tit">공부</p>
                     </button>
                   </li>
                   <li className="category-box">
-                    <button>
+                    <button onClick={() => handleFileter('ETC')}>
                       <div className="cate-icon">
-                        {/* <FontAwesomeIcon icon={faCloud} className="etc-icon" /> */}
                         <span className="material-icons">more</span>
                       </div>
                       <p className="category-tit">기타</p>
@@ -171,44 +174,47 @@ const Mainpage = ({ roomLists }) => {
                         {/* {category} >>>>>>>>>> 카테고리 데이터 아이콘으로 표기해주세요 */}
                         <li className="room-item">
                           <Link href="/">
-                            <a className="title">{title}</a>
+                            <a>
+                              <div className="photo-box">
+                                <div className="image">
+                                  <img
+                                    src="/images/room_img.jpg"
+                                    alt="기본이미지"
+                                  />
+                                </div>
+                                <button className="cnt is-active">
+                                  <span className="material-icons">
+                                    favorite_border
+                                  </span>
+                                  <span className="txt">{cnt}</span>
+                                </button>
+                              </div>
+                              <div className="content-box">
+                                <h3 className="title">{title}</h3>
+                                <p className="content">{content}</p>
+                                <p className="date">2022.12.28</p>
+                                <div className="inner">
+                                  {/* 글쓴이 표시 안됨 */}
+                                  {/* <p className="member">{name}</p> */}
+                                  <p className="member">이재원</p>
+                                  <div className="like-list">
+                                    <button className="good is-active">
+                                      <span className="material-icons">
+                                        thumb_up
+                                      </span>
+                                      <span className="txt"> {boardLike}</span>
+                                    </button>
+                                    <button className="bad is-active">
+                                      <span className="material-icons">
+                                        thumb_down
+                                      </span>
+                                      <span className="txt">싫어요</span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </a>
                           </Link>
-                        </li>
-                        <li className="room-item">
-                          <Link href="/">
-                            <a className="member">{name}</a>
-                          </Link>
-                        </li>
-                        <li className="room-item">
-                          <Link href="/">
-                            <a className="content">{content}</a>
-                          </Link>
-                        </li>
-                        <li className="room-item">
-                          <button className="cnt is-active">
-                            <FontAwesomeIcon
-                              icon={faHeart}
-                              className="cnt-icon"
-                            />
-                            <span className="txt">{cnt}</span>
-                          </button>
-                          <div className="like-list">
-                            <button className="good is-active">
-                              <FontAwesomeIcon
-                                icon={faThumbsUp}
-                                className="good-icon"
-                              />
-                              {/* <span className="txt">9,3천</span> */}
-                              <span className="txt"> {boardLike}</span>
-                            </button>
-                            <button className="bad is-active">
-                              <FontAwesomeIcon
-                                icon={faThumbsDown}
-                                className="bad-icon"
-                              />
-                              <span className="txt">싫어요</span>
-                            </button>
-                          </div>
                         </li>
                       </ul>
                     );
@@ -217,91 +223,6 @@ const Mainpage = ({ roomLists }) => {
                   // 생성된 방이 없는 경우
                   <h2>{rooms}</h2>
                 )}
-
-                {/* <ul className="room-list">
-                  <li className="room-item">
-                    <Link href="/">
-                      <a className="title">맛집을 나누는 식탁 12회차</a>
-                    </Link>
-                  </li>
-                  <li className="room-item">
-                    <Link href="/">
-                      <a className="member">이재원</a>
-                    </Link>
-                  </li>
-                  <li className="room-item">
-                    <Link href="/">
-                      <a className="content">
-                        요리와 술, 대화를 사랑하는 사람 입니다.<br></br>망원동
-                        골목길에 작은 공간에서 글을 쓰며 모임을 열고 있습니다.
-                      </a>
-                    </Link>
-                  </li>
-                  <li className="room-item">
-                    <button className="cnt">
-                      <FontAwesomeIcon icon={faHeart} className="cnt-icon" />
-                      <span className="txt">9999</span>
-                    </button>
-                    <div className="like-list">
-                      <button className="good">
-                        <FontAwesomeIcon
-                          icon={faThumbsUp}
-                          className="cnt-icon"
-                        />
-                        <span className="txt">9,3천</span>
-                      </button>
-                      <button className="bad">
-                        <FontAwesomeIcon
-                          icon={faThumbsDown}
-                          className="cnt-icon"
-                        />
-                        <span className="txt">싫어요</span>
-                      </button>
-                    </div>
-                  </li>
-                </ul> */}
-                {/* <ul className="room-list">
-                  <li className="room-item">
-                    <Link href="/">
-                      <a className="title">맛집을 나누는 식탁 13회차</a>
-                    </Link>
-                  </li>
-                  <li className="room-item">
-                    <Link href="/">
-                      <a className="member">이재원</a>
-                    </Link>
-                  </li>
-                  <li className="room-item">
-                    <Link href="/">
-                      <a className="content">
-                        요리와 술, 대화를 사랑하는 사람 입니다.<br></br>망원동
-                        골목길에 작은 공간에서 글을 쓰며 모임을 열고 있습니다.
-                      </a>
-                    </Link>
-                  </li>
-                  <li className="room-item">
-                    <button className="cnt">
-                      <FontAwesomeIcon icon={faHeart} className="cnt-icon" />
-                      <span className="txt">9999</span>
-                    </button>
-                    <div className="like-list">
-                      <button className="good">
-                        <FontAwesomeIcon
-                          icon={faThumbsUp}
-                          className="cnt-icon"
-                        />
-                        <span className="txt">9,3천</span>
-                      </button>
-                      <button className="bad">
-                        <FontAwesomeIcon
-                          icon={faThumbsDown}
-                          className="cnt-icon"
-                        />
-                        <span className="txt">싫어요</span>
-                      </button>
-                    </div>
-                  </li>
-                </ul> */}
               </div>
             </div>
           </div>

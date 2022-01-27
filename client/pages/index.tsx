@@ -46,9 +46,8 @@ export default Index;
 
 export const getStaticProps: GetServerSideProps = async (context) => {
   try {
-    let res = await getRoomList(); //전체 글 조회
-
-    if (res && res.code === 0) {
+    let res = await getRoomList("ALL"); //전체 글 조회
+    if (res && res.code === 1) {
       return { props: { roomLists: res.data.items } }; // 데이터가 존재하는 경우 리스트를 전달
     } else if (res.code === -1) {
       return { props: { roomLists: res.message } }; // 데이터가 없는 경우 에러메세지를 전달

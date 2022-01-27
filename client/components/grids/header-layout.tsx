@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
-import TokenStorage from '../../common/token';
-import Link from 'next/link';
-import { Layout } from 'antd';
-import { useRecoilState } from 'recoil';
-import { tokenAtrom } from '../../atoms/token';
+import React, { useEffect } from "react";
+import TokenStorage from "../../common/token";
+import Link from "next/link";
+import { Layout } from "antd";
+import { useRecoilState } from "recoil";
+import { tokenAtrom } from "../../atoms/token";
+import { onLoginOut } from "../../common/logout";
 
 const Headerlayout = () => {
   const tokenStorage = new TokenStorage();
@@ -13,11 +14,6 @@ const Headerlayout = () => {
     const getToken = tokenStorage.getToken();
     setToken(getToken);
   }, []);
-  const onLoginOut = (e) => {
-    e.preventDefault();
-    tokenStorage.clearToken();
-    setToken(null);
-  };
 
   return (
     <>
@@ -25,8 +21,6 @@ const Headerlayout = () => {
         <Header className="header">
           <div className="container">
             <h1 className="logo">
-              {/* <img src="../../public/images/logo.png" alt="삼삼오오 로고" /> */}
-              {/* 이미지 경로 잡는 방법 src에서 /기입하면 public으로 인식함 */}
               <Link href="/">
                 <a>
                   <img src="/images/logo.svg" alt="삼삼오오 로고" />
@@ -39,7 +33,7 @@ const Headerlayout = () => {
                   <div className="login">
                     {token ? (
                       <Link href="/login">
-                        <a onClick={onLoginOut}>로그아웃</a>
+                        <a onClick={(e) => onLoginOut(e, setToken)}>로그아웃</a>
                       </Link>
                     ) : (
                       <Link href="/login">
@@ -75,7 +69,7 @@ const Headerlayout = () => {
                   <div className="login">
                     {token ? (
                       <Link href="/login">
-                        <a onClick={onLoginOut}>로그아웃</a>
+                        <a onClick={(e) => onLoginOut(e, setToken)}>로그아웃</a>
                       </Link>
                     ) : (
                       <Link href="/login">
