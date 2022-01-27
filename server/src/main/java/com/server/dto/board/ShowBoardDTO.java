@@ -24,7 +24,7 @@ public class ShowBoardDTO {
 	private long boardDislike;
 	private Date regisDate;
 	private String userId;
-	private String name;
+	private String nickName;
 	
 	public ShowBoardDTO(Board board) {
 		this.seq = board.getSeq();
@@ -36,7 +36,7 @@ public class ShowBoardDTO {
 		this.boardDislike = board.getBoardDislike();
 		this.regisDate = board.getRegisDate();
 		this.userId = board.getMember().getId();
-		this.name = board.getMember().getNickName();
+		this.nickName = board.getMember().getNickName();
 	}
 	
 }

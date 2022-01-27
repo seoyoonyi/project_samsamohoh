@@ -18,4 +18,6 @@ public interface MemberService {
 	public Member updateMember(String id, MultipartFile file, UpdateMemberDTO dto)throws IOException;
 	
 	public Member signin(MemberLoginDTO dto);
+	
+	public void deleteMember(String id);
 }

@@ -27,13 +27,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable().httpBasic().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 				.antMatchers("/", "/auth/signin", "/auth/signup", "/auth/member/{id}", "/swagger-ui.html", "/api/v2/**",
-						"/swagger/**", "/swagger-resources/**", "/v2/api-docs", "/webjars/**")
+						"/swagger/**", "/swagger-resources/**", "/v2/api-docs", "/webjars/**","/boards","/boards/{boardId:[0-9]+}")
 				.permitAll().anyRequest().hasRole("MEMBER").and().exceptionHandling()
 				.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
 				.accessDeniedHandler(new CustomAccessDeniedHandler());
 
 		http.addFilterAfter(jwtAuthenticationFilter, CorsFilter.class);
-	}
+	} 
 
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {

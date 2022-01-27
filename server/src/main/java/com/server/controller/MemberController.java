@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,6 @@ import com.server.dto.member.SearchMemberDTO;
 import com.server.dto.member.UpdateMemberDTO;
 import com.server.dto.response.SimpleResponseDTO;
 import com.server.dto.response.SuccessfulResponseDTO;
-import com.server.responsecode.StatusCode;
 import com.server.securityconfig.TokenProvider;
 import com.server.service.MemberService;
 
@@ -57,7 +57,7 @@ public class MemberController {
 		loginInfor.put("nickName", findMember.getNickName());
 		loginInfor.put("token", tokenProvider.create(findMember));
 		SuccessfulResponseDTO<HashMap<String, String>> response = SuccessfulResponseDTO
-				.<HashMap<String, String>>builder().code(StatusCode.STATUS_OK).message("로그인 성공").data(loginInfor)
+				.<HashMap<String, String>>builder().code(1).message("로그인 성공").data(loginInfor)
 				.build();
 		return ResponseEntity.ok().body(response);
 
@@ -109,5 +109,17 @@ public class MemberController {
 				.message("회원조회 성공").data(dto).build();
 		return ResponseEntity.ok().body(response);
 
+	}
+	
+	@ApiOperation(value="회원정보 삭제하기")
+	@DeleteMapping("/member/{memberId}")
+	public ResponseEntity<?> deleteMember(@PathVariable String memberId){
+		
+		memberService.deleteMember(memberId);
+		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("회원정보 삭제 성공").build();
+
+		return ResponseEntity.ok().body(response);
+
+		
 	}
 }

@@ -10,6 +10,11 @@ public enum ExceptionCode {
 	PASSWORD_DISMATCH_EXCEPTOIN("1005","비밀번호가 일치하지 않습니다."),
 	NICK_NAME_VALIDATION_EXCEPTION("1006","닉네임은 2글자이상 8글자이하의 자음과 모음이 갖춰진 한글만 가능합니다."),
 	
+	//Board관련 예외 코드
+	INVALID_BOARD_EXCEPTION("2000","해당 게시글PK에대한 게시글이 존재하지않습니다."),
+	BOARD_NOT_EXIST_EXCEPTION("2001","조회된 게시글이 없습니다."),
+	BOARDLIST_NOT_EXIST_EXCEPTION("2003","조회된 게시글리스트가 없습니다."),
+	INVALID_PAGING_PARAMETER_EXCEPTION("2004","유효하지 않은 페이징 파라미터입니다."),
 	//유효성 검사 예외 코드
 	METHOD_ARGUMENT_NOT_VALID_EXCEPTION("-1","유효성 검사 실패"),
 	

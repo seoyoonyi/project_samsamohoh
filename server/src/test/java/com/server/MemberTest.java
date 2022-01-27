@@ -20,7 +20,7 @@ public class MemberTest {
 	@Autowired
 	BoardRepository boardRepo;
 
-	@Test
+	/*@Test
 	public void makeMember() throws InterruptedException {
 		Category[] cate = Category.values();
 		for (int i = 1; i <= 10; i++) {
@@ -43,6 +43,12 @@ public class MemberTest {
 
 		}
 
+	}*/
+	
+	@Test
+	public void getMember() {
+		Member member = memberRepo.findById("city6213").get();
+		System.out.println(member.toString());
 	}
 
 }

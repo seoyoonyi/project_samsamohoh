@@ -31,6 +31,10 @@ public class MemberServiceImpl implements MemberService {
 	public Member getMember(String id) {
 		Optional<Member> option = memberRepo.findById(id);
 		if (option.isEmpty()) {
+			if(option.get().isEnabled()==false) {
+				throw new InvalidMemberException();
+			}
+			
 			throw new MemberNotExistException();
 		} else {
 			return option.get();
@@ -56,6 +60,9 @@ public class MemberServiceImpl implements MemberService {
 
 		Optional<Member> option = memberRepo.findById(id);
 		if (!option.isPresent()) {
+			if(option.get().isEnabled()==false) {
+				throw new InvalidMemberException();
+			}
 			throw new MemberNotExistException();
 		} else {
 			Member findMember = option.get();
@@ -87,6 +94,14 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	
+	
+	public void deleteMember(String id) {
+		
+		Member findMember = memberRepo.findById(id).get();
+		findMember.setEnabled(false);
+		memberRepo.save(findMember);
+		
+	}
 	
 
 }
