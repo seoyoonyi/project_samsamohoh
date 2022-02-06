@@ -57,7 +57,6 @@ public class Member {
 	private Date updateDate;
 
 	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	// @JsonBackReference
 	private List<Board> boardList = new ArrayList<Board>(); 
 	
 
