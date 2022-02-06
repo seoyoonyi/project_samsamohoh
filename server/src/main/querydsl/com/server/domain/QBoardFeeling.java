@@ -22,6 +22,8 @@ public class QBoardFeeling extends EntityPathBase<BoardFeeling> {
 
     public static final QBoardFeeling boardFeeling = new QBoardFeeling("boardFeeling");
 
+    public final QBoard board;
+
     public final NumberPath<Long> boardId = createNumber("boardId", Long.class);
 
     public final BooleanPath is_checked = createBoolean("is_checked");
@@ -54,6 +56,7 @@ public class QBoardFeeling extends EntityPathBase<BoardFeeling> {
 
     public QBoardFeeling(Class<? extends BoardFeeling> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.board = inits.isInitialized("board") ? new QBoard(forProperty("board"), inits.get("board")) : null;
         this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
     }
 

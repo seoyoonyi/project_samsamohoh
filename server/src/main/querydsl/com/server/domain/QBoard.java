@@ -24,6 +24,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final NumberPath<Long> boardDislike = createNumber("boardDislike", Long.class);
 
+    public final ListPath<BoardFeeling, QBoardFeeling> BoardFeelingList = this.<BoardFeeling, QBoardFeeling>createList("BoardFeelingList", BoardFeeling.class, QBoardFeeling.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> boardLike = createNumber("boardLike", Long.class);
 
     public final EnumPath<Category> category = createEnum("category", Category.class);

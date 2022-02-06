@@ -67,6 +67,8 @@ public class Board {
 	@JoinColumn(name = "id", nullable = false)
 	private Member member;
 	
+	@OneToMany(mappedBy="board")
+	private List<BoardFeeling> BoardFeelingList;
 	 
  
 }

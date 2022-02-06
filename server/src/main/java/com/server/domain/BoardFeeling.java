@@ -33,4 +33,8 @@ public class BoardFeeling {
 	@JoinColumn(name="id")
 	private Member member;
 	
+	@ManyToOne
+	@JoinColumn(name="seq")
+	private Board board;
+	
 }
