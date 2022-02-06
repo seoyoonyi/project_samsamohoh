@@ -30,6 +30,7 @@ public class BoardFeeling {
 	boolean is_checked; 
 	
 	@ManyToOne
+	@JoinColumn(name="id")
 	private Member member;
 	
 }
