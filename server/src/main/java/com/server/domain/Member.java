@@ -59,6 +59,9 @@ public class Member {
 	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Board> boardList = new ArrayList<Board>(); 
 	
+	@OneToMany(mappedBy = "member")
+	private List<BoardFeeling> boardFeelingList;
+	
 
  
 }

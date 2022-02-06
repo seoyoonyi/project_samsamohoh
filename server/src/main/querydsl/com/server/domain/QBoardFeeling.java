@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -16,6 +17,8 @@ import com.querydsl.core.types.Path;
 public class QBoardFeeling extends EntityPathBase<BoardFeeling> {
 
     private static final long serialVersionUID = -1145841374L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QBoardFeeling boardFeeling = new QBoardFeeling("boardFeeling");
 
@@ -27,20 +30,31 @@ public class QBoardFeeling extends EntityPathBase<BoardFeeling> {
 
     public final BooleanPath is_like = createBoolean("is_like");
 
+    public final QMember member;
+
     public final StringPath memberId = createString("memberId");
 
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
 
     public QBoardFeeling(String variable) {
-        super(BoardFeeling.class, forVariable(variable));
+        this(BoardFeeling.class, forVariable(variable), INITS);
     }
 
     public QBoardFeeling(Path<? extends BoardFeeling> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QBoardFeeling(PathMetadata metadata) {
-        super(BoardFeeling.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QBoardFeeling(PathMetadata metadata, PathInits inits) {
+        this(BoardFeeling.class, metadata, inits);
+    }
+
+    public QBoardFeeling(Class<? extends BoardFeeling> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
     }
 
 }

@@ -28,4 +28,8 @@ public class BoardFeeling {
 	boolean is_like;	
 	boolean is_dislike;
 	boolean is_checked; 
+	
+	@ManyToOne
+	private Member member;
+	
 }
