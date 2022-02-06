@@ -52,6 +52,9 @@ public class Member {
 	@Column(insertable = false, updatable = false, columnDefinition = "datetime default current_timestamp")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date regisDate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updateDate;
 
 	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	// @JsonBackReference
