@@ -44,19 +44,22 @@ public class Board {
 
 	private String content;
 	
-	
-	
 	@Column(insertable = false,columnDefinition="boolean default 1")
 	private boolean enabled;
-
 	
 	@Column(insertable=false,columnDefinition = "datetime default current_timestamp")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date regisDate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updateDate;
+	
 	@Column(columnDefinition= "bigint default 0",insertable=false)
 	private long cnt;
+	
 	@Column(columnDefinition = "bigint default 0", insertable=false)
 	private long boardLike;
+	
 	@Column(columnDefinition = "bigint default 0", insertable = false)
 	private long boardDislike;
 

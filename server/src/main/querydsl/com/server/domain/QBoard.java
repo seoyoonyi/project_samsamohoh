@@ -42,6 +42,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final StringPath title = createString("title");
 
+    public final DateTimePath<java.util.Date> updateDate = createDateTime("updateDate", java.util.Date.class);
+
     public QBoard(String variable) {
         this(Board.class, forVariable(variable), INITS);
     }
