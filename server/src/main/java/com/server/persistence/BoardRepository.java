@@ -15,5 +15,8 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
 	@Modifying
 	@Query("update Board b set b.cnt = b.cnt+1 where b.seq = ?1")
 	public int updateBoardCnt(long boardSeq);
+	
+	@Query("select b from Board b left join b.boardFeelingList")
+	public Board getBoard();
 
 }
