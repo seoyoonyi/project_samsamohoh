@@ -12,6 +12,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.server.domain.Board;
 import com.server.domain.BoardFeeling;
 import com.server.domain.Category;
+import com.server.domain.Member;
 import com.server.domain.QBoard;
 import com.server.dto.board.UpdateBoardDTO;
 import com.server.exception.board.BoardListNotExistException;
@@ -19,12 +20,16 @@ import com.server.exception.board.BoardNotExistException;
 import com.server.exception.board.InvalidPagingParameterException;
 import com.server.persistence.BoardFeelingRepository;
 import com.server.persistence.BoardRepository;
+import com.server.persistence.MemberRepository;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	BoardRepository boardRepo;
+	
+	@Autowired
+	MemberRepository memberRepo;
 
 	@Autowired
 	BoardFeelingRepository boardFeelingRepo;
@@ -83,8 +88,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board getBoard(long id) {
-		Optional<Board> findBoard = boardRepo.findById(id);
+	public Board getBoard(long BoardSeq) {
+		Optional<Board> findBoard = boardRepo.getBoard(BoardSeq);
 
 		if (findBoard.isEmpty() || findBoard.get().isEnabled() == false) {
 			throw new BoardNotExistException();
@@ -123,13 +128,14 @@ public class BoardServiceImpl implements BoardService {
 
 	}
 
-	public void like(String memberId, Long boardId) {
+	public void like(String memberId, long boardId) {
 		
 		BoardFeeling boardFeeling = boardFeelingRepo.getBoardFeeling(memberId, boardId);
 		Board board = boardRepo.findById(boardId).get();
 		
+		
 		if (boardFeeling == null) {
-			BoardFeeling bf = BoardFeeling.builder().boardId(boardId).memberId(memberId).is_like(true).is_dislike(false).is_checked(true).board(board)
+			BoardFeeling bf = BoardFeeling.builder().is_like(true).is_dislike(false).is_checked(true).memberId(memberId).boardId(boardId)
 					.build();
 			boardFeelingRepo.save(bf);
 			board.setBoardLike(board.getBoardLike()+1);
@@ -167,12 +173,12 @@ public class BoardServiceImpl implements BoardService {
 
 	}
 
-	public void disLike(String memberId, Long boardId) {
+	public void disLike(String memberId, long boardId) {
 		BoardFeeling boardFeeling = boardFeelingRepo.getBoardFeeling(memberId, boardId);
 		Board board = boardRepo.findById(boardId).get();
 		
 		if (boardFeeling == null) {
-			BoardFeeling bf = BoardFeeling.builder().boardId(boardId).memberId(memberId).is_like(false).is_dislike(true).is_checked(true).board(board)
+			BoardFeeling bf = BoardFeeling.builder().is_like(false).is_dislike(true).is_checked(true).memberId(memberId).boardId(boardId)
 					.build();
 			boardFeelingRepo.save(bf);
 			board.setBoardDislike(board.getBoardDislike()+1);
@@ -210,6 +216,10 @@ public class BoardServiceImpl implements BoardService {
 	
 	public int updateBoardCnt(long boardSeq) {
 		return boardRepo.updateBoardCnt(boardSeq);
+	}
+	
+	public BoardFeeling getBoardFeeling(String memberId,long boardId) {
+		return boardFeelingRepo.getBoardFeeling(memberId, boardId);
 	}
 
 	

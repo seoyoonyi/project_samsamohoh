@@ -12,5 +12,5 @@ public interface BoardFeelingRepository extends JpaRepository<BoardFeeling,Long>
 	
 	
 	@Query("select count(*) from BoardFeeling b where b.boardId = ?1 and b.is_like = true")
-	public long getBoardLikeNum(Long boardId);
+	public long getBoardLikeNum(long boardId);
 }

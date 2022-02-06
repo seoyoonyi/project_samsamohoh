@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -18,11 +17,9 @@ public class QBoardFeeling extends EntityPathBase<BoardFeeling> {
 
     private static final long serialVersionUID = -1145841374L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QBoardFeeling boardFeeling = new QBoardFeeling("boardFeeling");
 
-    public final QBoard board;
+    public final NumberPath<Long> BoardFeelingId = createNumber("BoardFeelingId", Long.class);
 
     public final NumberPath<Long> boardId = createNumber("boardId", Long.class);
 
@@ -32,32 +29,18 @@ public class QBoardFeeling extends EntityPathBase<BoardFeeling> {
 
     public final BooleanPath is_like = createBoolean("is_like");
 
-    public final QMember member;
-
     public final StringPath memberId = createString("memberId");
 
-    public final NumberPath<Long> seq = createNumber("seq", Long.class);
-
     public QBoardFeeling(String variable) {
-        this(BoardFeeling.class, forVariable(variable), INITS);
+        super(BoardFeeling.class, forVariable(variable));
     }
 
     public QBoardFeeling(Path<? extends BoardFeeling> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QBoardFeeling(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QBoardFeeling(PathMetadata metadata, PathInits inits) {
-        this(BoardFeeling.class, metadata, inits);
-    }
-
-    public QBoardFeeling(Class<? extends BoardFeeling> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.board = inits.isInitialized("board") ? new QBoard(forProperty("board"), inits.get("board")) : null;
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
+        super(BoardFeeling.class, metadata);
     }
 
 }

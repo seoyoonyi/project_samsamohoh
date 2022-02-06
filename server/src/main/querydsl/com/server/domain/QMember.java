@@ -20,8 +20,6 @@ public class QMember extends EntityPathBase<Member> {
 
     public static final QMember member = new QMember("member1");
 
-    public final ListPath<BoardFeeling, QBoardFeeling> boardFeelingList = this.<BoardFeeling, QBoardFeeling>createList("boardFeelingList", BoardFeeling.class, QBoardFeeling.class, PathInits.DIRECT2);
-
     public final ListPath<Board, QBoard> boardList = this.<Board, QBoard>createList("boardList", Board.class, QBoard.class, PathInits.DIRECT2);
 
     public final StringPath email = createString("email");

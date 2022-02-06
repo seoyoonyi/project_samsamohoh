@@ -11,6 +11,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -59,9 +60,5 @@ public class Member {
 	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Board> boardList = new ArrayList<Board>(); 
 	
-	@OneToMany(mappedBy = "member")
-	private List<BoardFeeling> boardFeelingList;
-	
-
  
 }

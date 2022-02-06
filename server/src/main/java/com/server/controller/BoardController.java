@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.domain.Board;
+import com.server.domain.BoardFeeling;
 import com.server.domain.Category;
+import com.server.dto.board.AuthenticatedShowBoardDTO;
 import com.server.dto.board.CreateBoardDTO;
 import com.server.dto.board.ShowBoardDTO;
 import com.server.dto.board.UpdateBoardDTO;
@@ -56,90 +58,99 @@ public class BoardController {
 
 	@ApiOperation(value = "특정 모집글 가져오기")
 	@GetMapping("/{boardId}")
-	public ResponseEntity<?> getBoard(@PathVariable(name = "boardId") long seq, HttpServletRequest req,
-			HttpServletResponse res) {
+	public ResponseEntity<?> getBoard(@PathVariable(name = "boardId") long boardId, @RequestParam(required=false) String memberId,
+			HttpServletRequest req, HttpServletResponse res) {
 
 		Cookie[] cookies = req.getCookies();
 		Cookie viewCookie = null;
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("view" + seq)) {
+				if (cookie.getName().equals("view" + boardId)) {
 					viewCookie = cookie;
 				}
 			}
 		}
 		if (viewCookie == null) {
-			int result = boardService.updateBoardCnt(seq);
-			if(result == 0) {
+			int result = boardService.updateBoardCnt(boardId);
+			if (result == 0) {
 				throw new BoardNotExistException();
 			}
-			Cookie cookie = new Cookie("view" + seq, null);
-			cookie.setMaxAge(60*60*24);
-			res.addCookie(cookie);			
-		} 
-
-		Board findBoard = boardService.getBoard(seq);
-		ShowBoardDTO boardDto = new ShowBoardDTO(findBoard);
-		SuccessfulResponseDTO<ShowBoardDTO> response = SuccessfulResponseDTO.<ShowBoardDTO>builder().code(1)
-				.message("게시글 조회 성공").data(boardDto).build();
-
-		return ResponseEntity.ok().body(response);
-
-	}
-	@PostMapping("/cookies")
-	@ApiOperation(value = "쿠키생성")
-	public ResponseEntity<?> makeCookies(HttpServletRequest req,HttpServletResponse res){
-		
-		for(int i = 101; i<=200; i++) {
-			Cookie cookie = new Cookie("ck"+i,null);
-			cookie.setMaxAge(30*60*50);
+			Cookie cookie = new Cookie("view" + boardId, null);
+			cookie.setMaxAge(60 * 60 * 24);
 			res.addCookie(cookie);
 		}
-		
-		
+		if (memberId == null) {
+			Board findBoard = boardService.getBoard(boardId);
+			ShowBoardDTO boardDto = new ShowBoardDTO(findBoard);
+			SuccessfulResponseDTO<ShowBoardDTO> response = SuccessfulResponseDTO.<ShowBoardDTO>builder().code(1)
+					.message("게시글 조회 성공").data(boardDto).build();
+
+			return ResponseEntity.ok().body(response);
+		} else {
+			Board findBoard = boardService.getBoard(boardId);
+			BoardFeeling bf = boardService.getBoardFeeling(memberId, boardId);
+			AuthenticatedShowBoardDTO dto = new AuthenticatedShowBoardDTO(findBoard,bf);
+			
+			SuccessfulResponseDTO<AuthenticatedShowBoardDTO> response = SuccessfulResponseDTO.<AuthenticatedShowBoardDTO>builder().code(1)
+					.message("게시글 조회 성공").data(dto).build();
+
+			return ResponseEntity.ok().body(response);
+		}
+
+	}
+
+	@PostMapping("/cookies")
+	@ApiOperation(value = "쿠키생성")
+	public ResponseEntity<?> makeCookies(HttpServletRequest req, HttpServletResponse res) {
+
+		for (int i = 101; i <= 200; i++) {
+			Cookie cookie = new Cookie("ck" + i, null);
+			cookie.setMaxAge(30 * 60 * 50);
+			res.addCookie(cookie);
+		}
+
 		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("쿠키 생성 성공").build();
 		return ResponseEntity.ok().body(response);
-		
+
 	}
-	
+
 	@DeleteMapping("/cookies")
 	@ApiOperation(value = "쿠키삭제")
-	public ResponseEntity<?> deleteCookie(HttpServletRequest req,HttpServletResponse res){
+	public ResponseEntity<?> deleteCookie(HttpServletRequest req, HttpServletResponse res) {
 		Cookie[] cookies = req.getCookies();
-		HashMap<String,String> map = new HashMap<String,String>();
-		if(cookies != null) {
-			for(Cookie cookie : cookies) {
-				
-					map.put(cookie.getName(),cookie.getValue());
-					cookie.setMaxAge(0);					
-					res.addCookie(cookie);
-				}
+		HashMap<String, String> map = new HashMap<String, String>();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+
+				map.put(cookie.getName(), cookie.getValue());
+				cookie.setMaxAge(0);
+				res.addCookie(cookie);
 			}
-		
-		
-		SuccessfulResponseDTO<Map<String,String>> response = SuccessfulResponseDTO.<Map<String,String>>builder().code(1)
-				.message("쿠키삭제성공").data(map).build();
+		}
+
+		SuccessfulResponseDTO<Map<String, String>> response = SuccessfulResponseDTO.<Map<String, String>>builder()
+				.code(1).message("쿠키삭제성공").data(map).build();
 		return ResponseEntity.ok().body(response);
-		
+
 	}
+
 	@GetMapping("/cookies")
 	@ApiOperation(value = "쿠키조회")
-	public ResponseEntity<?> searchCookies(HttpServletRequest req,HttpServletResponse res){
+	public ResponseEntity<?> searchCookies(HttpServletRequest req, HttpServletResponse res) {
 		Cookie[] cookies = req.getCookies();
-		HashMap<String,String> map = new HashMap<String,String>();
-		map.put("size", cookies.length+"");
-		if(cookies != null) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("size", cookies.length + "");
+		if (cookies != null) {
 			System.out.println(cookies.length);
-			for(Cookie cookie : cookies) {
-					map.put(cookie.getName(), cookie.getValue());
-				}
+			for (Cookie cookie : cookies) {
+				map.put(cookie.getName(), cookie.getValue());
 			}
-		
-		
-		SuccessfulResponseDTO<Map<String,String>> response = SuccessfulResponseDTO.<Map<String,String>>builder().code(1)
-				.message("쿠키조회성공").data(map).build();
+		}
+
+		SuccessfulResponseDTO<Map<String, String>> response = SuccessfulResponseDTO.<Map<String, String>>builder()
+				.code(1).message("쿠키조회성공").data(map).build();
 		return ResponseEntity.ok().body(response);
-		
+
 	}
 
 	@ApiOperation(value = "전체 모집글목록 가져오기")

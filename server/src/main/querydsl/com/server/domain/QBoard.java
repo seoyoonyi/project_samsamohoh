@@ -24,7 +24,7 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final NumberPath<Long> boardDislike = createNumber("boardDislike", Long.class);
 
-    public final ListPath<BoardFeeling, QBoardFeeling> BoardFeelingList = this.<BoardFeeling, QBoardFeeling>createList("BoardFeelingList", BoardFeeling.class, QBoardFeeling.class, PathInits.DIRECT2);
+    public final NumberPath<Long> boardId = createNumber("boardId", Long.class);
 
     public final NumberPath<Long> boardLike = createNumber("boardLike", Long.class);
 
@@ -39,8 +39,6 @@ public class QBoard extends EntityPathBase<Board> {
     public final QMember member;
 
     public final DateTimePath<java.util.Date> regisDate = createDateTime("regisDate", java.util.Date.class);
-
-    public final NumberPath<Long> seq = createNumber("seq", Long.class);
 
     public final StringPath title = createString("title");
 

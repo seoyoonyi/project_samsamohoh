@@ -1,5 +1,7 @@
 package com.server.persistence;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,10 +15,10 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
 	
 	@Transactional
 	@Modifying
-	@Query("update Board b set b.cnt = b.cnt+1 where b.seq = ?1")
-	public int updateBoardCnt(long boardSeq);
+	@Query("update Board b set b.cnt = b.cnt+1 where b.boardId = ?1")
+	public int updateBoardCnt(long boardId);
 	
-	@Query("select b from Board b left join b.boardFeelingList")
-	public Board getBoard();
+	@Query("select b from Board b where boardId = ?1")
+	public Optional<Board> getBoard(long boardId);
 
 }

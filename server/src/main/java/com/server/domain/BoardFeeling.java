@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,19 +20,13 @@ import lombok.Setter;
 public class BoardFeeling {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	long seq;
-	long boardId;	
-	String memberId;	
+	long BoardFeelingId;	
 	boolean is_like;	
 	boolean is_dislike;
 	boolean is_checked; 
+	long boardId;
+	String memberId;
 	
-	@ManyToOne
-	@JoinColumn(name="id")
-	private Member member;
-	
-	@ManyToOne
-	@JoinColumn(name="seq")
-	private Board board;
+			
 	
 }
