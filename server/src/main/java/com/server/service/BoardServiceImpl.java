@@ -129,7 +129,7 @@ public class BoardServiceImpl implements BoardService {
 		Board board = boardRepo.findById(boardId).get();
 		
 		if (boardFeeling == null) {
-			BoardFeeling bf = BoardFeeling.builder().boardId(boardId).memberId(memberId).is_like(true).is_dislike(false).is_checked(true)
+			BoardFeeling bf = BoardFeeling.builder().boardId(boardId).memberId(memberId).is_like(true).is_dislike(false).is_checked(true).board(board)
 					.build();
 			boardFeelingRepo.save(bf);
 			board.setBoardLike(board.getBoardLike()+1);
@@ -172,7 +172,7 @@ public class BoardServiceImpl implements BoardService {
 		Board board = boardRepo.findById(boardId).get();
 		
 		if (boardFeeling == null) {
-			BoardFeeling bf = BoardFeeling.builder().boardId(boardId).memberId(memberId).is_like(false).is_dislike(true).is_checked(true)
+			BoardFeeling bf = BoardFeeling.builder().boardId(boardId).memberId(memberId).is_like(false).is_dislike(true).is_checked(true).board(board)
 					.build();
 			boardFeelingRepo.save(bf);
 			board.setBoardDislike(board.getBoardDislike()+1);
