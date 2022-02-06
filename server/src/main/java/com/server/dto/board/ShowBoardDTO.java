@@ -25,6 +25,8 @@ public class ShowBoardDTO {
 	private Date regisDate;
 	private String userId;
 	private String nickName;
+	private boolean like_checked;
+	private boolean dislike_checked;
 	
 	public ShowBoardDTO(Board board) {
 		this.seq = board.getSeq();
@@ -37,6 +39,8 @@ public class ShowBoardDTO {
 		this.regisDate = board.getRegisDate();
 		this.userId = board.getMember().getId();
 		this.nickName = board.getMember().getNickName();
+		this.like_checked = board.getBoardFeelingList().get(0).is_like();
+		this.dislike_checked = board.getBoardFeelingList().get(0).is_dislike();
 	}
 	
 }
