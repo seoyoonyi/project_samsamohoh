@@ -22,5 +22,6 @@ yarn-error.log
 out/ 
 
 #aws ignore
-.DS_Store
+application-dev.properties
+application-prod.properties
 
