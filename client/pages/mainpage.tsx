@@ -193,9 +193,9 @@ const Mainpage = ({ roomLists }) => {
                                 <h3 className="title">{title}</h3>
                                 <p className="content">{content}</p>
                                 <p className="date">2022.12.28</p>
-                                {/* 글쓴이 표시 안됨 */}
-                                {/* <p className="member">{name}</p> */}
                                 <div className="inner">
+                                  {/* 글쓴이 표시 안됨 */}
+                                  {/* <p className="member">{name}</p> */}
                                   <p className="member">이재원</p>
                                   <div className="like-list">
                                     <button className="good is-active">

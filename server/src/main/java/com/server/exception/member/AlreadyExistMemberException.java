@@ -1,4 +1,4 @@
-package com.server.exception;
+package com.server.exception.member;
 
 public class AlreadyExistMemberException extends RuntimeException {
 

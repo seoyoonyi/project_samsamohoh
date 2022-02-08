@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum Category {
-	EXERCISE,RESTAURANT,MOVIE,SUTDY,ETC
+	ALL,EXERCISE,RESTAURANT,MOVIE,STUDY,ETC
 }

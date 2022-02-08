@@ -10,9 +10,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.server.aws.S3ImageFileUploader;
 import com.server.domain.Member;
 import com.server.dto.member.MemberLoginDTO;
-import com.server.exception.AlreadyExistMemberException;
-import com.server.exception.LoginFailedException;
-import com.server.exception.MemberNotExistException;
+import com.server.dto.member.UpdateMemberDTO;
+import com.server.exception.member.AlreadyExistMemberException;
+import com.server.exception.member.IdDismatchException;
+import com.server.exception.member.InvalidMemberException;
+import com.server.exception.member.MemberNotExistException;
+import com.server.exception.member.NickNameValidationException;
+import com.server.exception.member.PasswordDismatchException;
 import com.server.persistence.MemberRepository;
 
 @Service
@@ -27,6 +31,10 @@ public class MemberServiceImpl implements MemberService {
 	public Member getMember(String id) {
 		Optional<Member> option = memberRepo.findById(id);
 		if (option.isEmpty()) {
+			if(option.get().isEnabled()==false) {
+				throw new InvalidMemberException();
+			}
+			
 			throw new MemberNotExistException();
 		} else {
 			return option.get();
@@ -34,7 +42,7 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
-	public Member saveMember(Member member) {
+	public Member signup(Member member) {
 
 		Optional<Member> option = memberRepo.findById(member.getId());
 		if (option.isPresent()) {
@@ -44,33 +52,56 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
-	public Member updateMember(String id, MultipartFile file, String nickName) throws IOException {
+	public Member updateMember(String id, MultipartFile file, UpdateMemberDTO dto) throws IOException {
+		
+		if(!dto.getNickName().matches("^[가-힣]{2,8}$")) {
+			throw new NickNameValidationException();
+		}
 
 		Optional<Member> option = memberRepo.findById(id);
 		if (!option.isPresent()) {
+			if(option.get().isEnabled()==false) {
+				throw new InvalidMemberException();
+			}
 			throw new MemberNotExistException();
 		} else {
 			Member findMember = option.get();
 			findMember.setImagePath(s3ImageFileUploader.uplode(file));
-			findMember.setNickName(nickName);
+			findMember.setNickName(dto.getNickName());
 			return memberRepo.save(findMember);
 		}
 
 	}
-	
+
 	public Member signin(MemberLoginDTO dto) {
-		
+
 		Optional<Member> findMember = memberRepo.findById(dto.getId());
-		
-		if(findMember.isEmpty()) {
-			throw new LoginFailedException();
-		}else {
-			if(findMember.get().getPassword().equals(dto.getPassword())) {
-				return findMember.get();
-			}else {
-				throw new LoginFailedException();
+
+		if (findMember.isEmpty()) {
+			
+			throw new IdDismatchException();
+		} else {
+			if (findMember.get().getPassword().equals(dto.getPassword())) {
+				if (findMember.get().isEnabled() == false) {
+					throw new InvalidMemberException();
+				} else {
+					return findMember.get();
+				}
+			} else {
+				
+				throw new PasswordDismatchException();
 			}
 		}
 	}
+	
+	
+	public void deleteMember(String id) {
+		
+		Member findMember = memberRepo.findById(id).get();
+		findMember.setEnabled(false);
+		memberRepo.save(findMember);
+		
+	}
+	
 
 }

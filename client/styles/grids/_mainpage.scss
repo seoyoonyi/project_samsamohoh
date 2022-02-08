@@ -105,10 +105,15 @@
             width: calc(100% / 3 - 16px);
             .room-item {
               margin-bottom: 53px;
+              transition: box-shadow 0.1s ease-out;
+              &:hover {
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                border-radius: 7px;
+              }
               .photo-box {
                 position: relative;
                 overflow: hidden;
-                border-radius: 7px;
+                border-radius: 7px 7px 0 0;
                 margin-bottom: 20px;
 
                 .image {
@@ -125,16 +130,20 @@
                   right: calc(100% - 95%);
                   display: flex;
                   color: $white;
-
+                  transition: color 0.1s ease-out;
                   .material-icons {
                     margin-right: 3px;
                   }
                   .txt {
                     @include text-style(16);
                   }
+                  &:hover {
+                    color: $red;
+                  }
                 }
               }
               .content-box {
+                padding: 0 15px 25px 15px;
                 .title {
                   @include text-style(18, $black);
                   margin-bottom: 7px;
@@ -157,9 +166,13 @@
                     display: flex;
                     button {
                       display: flex;
-                      // align-items: center;
+                      cursor: pointer;
+                      transition: color 0.1s ease-out;
                       .txt {
                         margin-left: 5px;
+                      }
+                      &:hover {
+                        color: $main-color;
                       }
                     }
                     button + button {

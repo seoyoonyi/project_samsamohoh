@@ -9,13 +9,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
 @Builder
 @AllArgsConstructor
 @Getter
 @Setter
 public class ShowBoardDTO {
-	
-	private long seq;
+
+	private long boardId;
 	private Category category;
 	private String title;
 	private String content;
@@ -24,10 +25,11 @@ public class ShowBoardDTO {
 	private long boardDislike;
 	private Date regisDate;
 	private String userId;
-	private String name;
+	private String nickName;
 	
+
 	public ShowBoardDTO(Board board) {
-		this.seq = board.getSeq();
+		this.boardId = board.getBoardId();
 		this.category = board.getCategory();
 		this.title = board.getTitle();
 		this.content = board.getContent();
@@ -36,7 +38,8 @@ public class ShowBoardDTO {
 		this.boardDislike = board.getBoardDislike();
 		this.regisDate = board.getRegisDate();
 		this.userId = board.getMember().getId();
-		this.name = board.getMember().getNickName();
+		this.nickName = board.getMember().getNickName();
+		
 	}
-	
+
 }
