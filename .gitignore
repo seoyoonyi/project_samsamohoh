@@ -21,7 +21,6 @@ yarn-error.log
 # deploy
 out/ 
 
-
 #aws ignore
-src/main/resources/application-dev.properties
-src/main/resources/application-prod.properties
+application-dev.properties
+application-prod.properties
