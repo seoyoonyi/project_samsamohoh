@@ -9,6 +9,8 @@ public enum ExceptionCode {
 	MEMBER_NOT_EXIST_EXCEPTION("1004","존재하지 않는 사용자입니다."),
 	PASSWORD_DISMATCH_EXCEPTOIN("1005","비밀번호가 일치하지 않습니다."),
 	NICK_NAME_VALIDATION_EXCEPTION("1006","닉네임은 2글자이상 8글자이하의 자음과 모음이 갖춰진 한글만 가능합니다."),
+	EMAIL_VALIDATION_EXCEPTION("1007","이메일형식이 올바르지 않습니다."),
+	PASSWORD_VALIDATION_EXCEPTION("1008","비밀번호는 영문소문자,영문대문자,숫자,특수문자를 포함한 8글자이상 15글자 이하입니다."),
 	
 	//Board관련 예외 코드
 	INVALID_BOARD_EXCEPTION("2000","해당 게시글PK에대한 게시글이 존재하지않습니다."),

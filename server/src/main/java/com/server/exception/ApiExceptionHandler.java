@@ -16,12 +16,14 @@ import com.server.exception.board.BoardNotExistException;
 import com.server.exception.board.InvalidBoardException;
 import com.server.exception.board.InvalidPagingParameterException;
 import com.server.exception.member.AlreadyExistMemberException;
+import com.server.exception.member.EmailValidationException;
 import com.server.exception.member.IdDismatchException;
 import com.server.exception.member.InvalidMemberException;
 import com.server.exception.member.LoginFailedException;
 import com.server.exception.member.MemberNotExistException;
 import com.server.exception.member.NickNameValidationException;
 import com.server.exception.member.PasswordDismatchException;
+import com.server.exception.member.PasswordValidationException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
@@ -48,6 +50,26 @@ public class ApiExceptionHandler {
 		ApiException<String> apiException = ApiException.<String>builder()
 				.message(ExceptionCode.NICK_NAME_VALIDATION_EXCEPTION.message)
 				.code(ExceptionCode.NICK_NAME_VALIDATION_EXCEPTION.code).build();
+		return ResponseEntity.status(httpStatus).body(apiException);
+	}
+	
+	@ExceptionHandler(value = {EmailValidationException.class})
+	public ResponseEntity<?> handleEmailValidationException(EmailValidationException e){
+		HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+		
+		ApiException<String> apiException = ApiException.<String>builder().message(ExceptionCode.EMAIL_VALIDATION_EXCEPTION.message)
+				.code(ExceptionCode.EMAIL_VALIDATION_EXCEPTION.code).build();
+		
+		return ResponseEntity.status(httpStatus).body(apiException);
+	}
+	
+	@ExceptionHandler(value = {PasswordValidationException.class})
+	public ResponseEntity<?> handlePasswordValidationException(PasswordValidationException e){
+		HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+		
+		ApiException<String> apiException = ApiException.<String>builder().message(ExceptionCode.PASSWORD_VALIDATION_EXCEPTION.message)
+				.code(ExceptionCode.PASSWORD_VALIDATION_EXCEPTION.code).build();
+		
 		return ResponseEntity.status(httpStatus).body(apiException);
 	}
 
@@ -167,4 +189,6 @@ public class ApiExceptionHandler {
 		
 		return ResponseEntity.status(httpStatus).body(apiException);
 	}
+	
+	
 }
