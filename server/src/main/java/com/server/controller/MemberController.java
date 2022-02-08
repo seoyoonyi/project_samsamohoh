@@ -119,8 +119,8 @@ public class MemberController {
 	}
 
 	@ApiOperation(value = "회원정보 불러오기")
-	@GetMapping("/members")
-	public ResponseEntity<?> getMember(@ApiIgnore @AuthenticationPrincipal String id) {
+	@GetMapping("/members/{id}")
+	public ResponseEntity<?> getMember(@PathVariable String id) {
 
 		SearchMemberDTO dto = new SearchMemberDTO(memberService.getMember(id));
 		SuccessfulResponseDTO<SearchMemberDTO> response = SuccessfulResponseDTO.<SearchMemberDTO>builder().code(1)
