@@ -179,7 +179,7 @@ public class BoardController {
 	}
 
 	@ApiOperation(value = "모집글 생성하기")
-	@PostMapping("/board")
+	@PostMapping
 	public ResponseEntity<?> createBoard(@ApiIgnore @AuthenticationPrincipal String id,
 			@RequestBody @Valid CreateBoardDTO dto) {
 
@@ -190,7 +190,7 @@ public class BoardController {
 	}
 
 	@ApiOperation(value = "모집글 삭제하기")
-	@DeleteMapping("/board/{boardId}")
+	@DeleteMapping("/{boardId}")
 	public ResponseEntity<?> deleteBoard(@PathVariable long boardId) {
 
 		boardService.deleteBoard(boardId);
@@ -199,7 +199,7 @@ public class BoardController {
 	}
 
 	@ApiOperation(value = "모집글 수정하기")
-	@PutMapping("/board/{boardId}")
+	@PutMapping("/{boardId}")
 	public ResponseEntity<?> updateBoard(@PathVariable long boardId, @Valid @RequestBody UpdateBoardDTO dto) {
 
 		boardService.updateBoard(boardId, dto);
@@ -208,7 +208,7 @@ public class BoardController {
 	}
 
 	@ApiOperation(value = "모집글 좋아요 누르기")
-	@PutMapping("board/{boardId}/like")
+	@PutMapping("/{boardId}/like")
 	public ResponseEntity<?> addLike(@RequestParam String memberId, @PathVariable long boardId) {
 		boardService.like(memberId, boardId);
 		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("좋아요 요청 성공").build();
@@ -216,7 +216,7 @@ public class BoardController {
 	}
 
 	@ApiOperation(value = "모집글 싫어요 누르기")
-	@PutMapping("board/{boardId}/dislike")
+	@PutMapping("/{boardId}/dislike")
 	public ResponseEntity<?> addDisLike(@RequestParam String memberId, @PathVariable long boardId) {
 		boardService.disLike(memberId, boardId);
 		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("싫어요 요청 성공").build();

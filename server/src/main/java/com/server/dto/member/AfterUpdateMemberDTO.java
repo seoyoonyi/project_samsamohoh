@@ -1,5 +1,14 @@
 package com.server.dto.member;
 
-public class AfterUpdateMemberDTO {
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+public class AfterUpdateMemberDTO {
+	String nickName;
+	String email;
+	String password;
+	
+	
 }

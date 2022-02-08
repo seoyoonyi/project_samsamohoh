@@ -27,9 +27,9 @@ public class S3ImageFileUploader {
 		return amazonS3Client.getUrl(bucket, fileName).toString();
 	}
 	
-	/*public String deleteFile() {
-		amazonS3Client.deleteObject(bucketName, key);
-	}*/
+	public void deleteFile(String imageName) {
+		amazonS3Client.deleteObject(bucket,imageName);
+	}
 
 	private static String getUuid() {
 		return UUID.randomUUID().toString();

@@ -1,5 +1,6 @@
 package com.server.service;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import com.querydsl.core.BooleanBuilder;
 import com.server.domain.Board;
 import com.server.domain.BoardFeeling;
 import com.server.domain.Category;
-import com.server.domain.Member;
 import com.server.domain.QBoard;
 import com.server.dto.board.UpdateBoardDTO;
 import com.server.exception.board.BoardListNotExistException;
@@ -123,6 +123,7 @@ public class BoardServiceImpl implements BoardService {
 		findBoard.setCategory(Category.valueOf(dto.getCategory()));
 		findBoard.setTitle(dto.getTitle());
 		findBoard.setContent(dto.getContent());
+		findBoard.setUpdateDate(new Date());
 
 		boardRepo.save(findBoard);
 

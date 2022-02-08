@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.domain.Member;
+import com.server.dto.member.AfterUpdateMemberDTO;
 import com.server.dto.member.MemberJoinDTO;
 import com.server.dto.member.MemberLoginDTO;
 import com.server.dto.member.SearchMemberDTO;
@@ -37,7 +38,6 @@ import io.swagger.annotations.ApiOperation;
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
-@RequestMapping("/auth")
 @Api(description = "회원 관련 REST API")
 public class MemberController {
 
@@ -48,7 +48,7 @@ public class MemberController {
 	TokenProvider tokenProvider;
 
 	@ApiOperation(value = "로그인", notes = "아이디와,패스워드를 이용하여 자격증명을 얻는 API")
-	@PostMapping("/signin")
+	@PostMapping("/auth/signin")
 	public ResponseEntity<?> signin(@RequestBody @Valid MemberLoginDTO memberLoginDTO) {
 
 		Member findMember = memberService.signin(memberLoginDTO);
@@ -57,14 +57,13 @@ public class MemberController {
 		loginInfor.put("nickName", findMember.getNickName());
 		loginInfor.put("token", tokenProvider.create(findMember));
 		SuccessfulResponseDTO<HashMap<String, String>> response = SuccessfulResponseDTO
-				.<HashMap<String, String>>builder().code(1).message("로그인 성공").data(loginInfor)
-				.build();
+				.<HashMap<String, String>>builder().code(1).message("로그인 성공").data(loginInfor).build();
 		return ResponseEntity.ok().body(response);
 
 	}
 
 	@ApiOperation(value = "회원가입", notes = "이메일,아이디,비밀번호를 입력하여 회원가입 API")
-	@PostMapping("/signup")
+	@PostMapping("/auth/signup")
 	public ResponseEntity<?> signup(@RequestBody @Valid MemberJoinDTO memberJoinDTO) {
 
 		memberService.signup(memberJoinDTO.toEntity());
@@ -76,8 +75,8 @@ public class MemberController {
 	}
 
 	@ApiOperation(value = "회원의 이미지,닉네임 수정", notes = "초기 회원가입후 사용자의 프로필,닉네임을 설정하는 API")
-	@PutMapping("/member/{id}")
-	public ResponseEntity<?> updateMember(@PathVariable String id, @RequestPart MultipartFile file,
+	@PutMapping("initialization/members/{id}/")
+	public ResponseEntity<?> updateInitMember(@PathVariable String id, @RequestPart MultipartFile file,
 			@RequestPart String userInfor) {
 
 		ObjectMapper om = new ObjectMapper();
@@ -89,10 +88,9 @@ public class MemberController {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 
 		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("회원정보 수정 성공").build();
 
@@ -100,8 +98,28 @@ public class MemberController {
 
 	}
 
+	@ApiOperation(value = "회원의 이미지,닉네임,이메일,패스워드 수정")
+	@PutMapping("members/{id}")
+	public ResponseEntity<?> updateMember(@PathVariable String id, @RequestPart MultipartFile file,
+			@RequestPart String userInfo) {
+		ObjectMapper om = new ObjectMapper();
+
+		try {
+			AfterUpdateMemberDTO dto = om.readValue(userInfo, AfterUpdateMemberDTO.class);
+			memberService.updateMember(id, file, dto);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("회원정보 수정 성공").build();
+		return ResponseEntity.ok().body(response);
+
+	}
+
 	@ApiOperation(value = "회원정보 불러오기")
-	@GetMapping("/member")
+	@GetMapping("/members")
 	public ResponseEntity<?> getMember(@ApiIgnore @AuthenticationPrincipal String id) {
 
 		SearchMemberDTO dto = new SearchMemberDTO(memberService.getMember(id));
@@ -110,16 +128,15 @@ public class MemberController {
 		return ResponseEntity.ok().body(response);
 
 	}
-	
-	@ApiOperation(value="회원정보 삭제하기")
-	@DeleteMapping("/member/{memberId}")
-	public ResponseEntity<?> deleteMember(@PathVariable String memberId){
-		
+
+	@ApiOperation(value = "회원정보 삭제하기")
+	@DeleteMapping("/members/{memberId}")
+	public ResponseEntity<?> deleteMember(@PathVariable String memberId) {
+
 		memberService.deleteMember(memberId);
 		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("회원정보 삭제 성공").build();
 
 		return ResponseEntity.ok().body(response);
 
-		
 	}
 }
