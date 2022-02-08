@@ -1,5 +1,5 @@
-import { Layout } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Layout } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFootballBall,
   faUtensils,
@@ -9,10 +9,10 @@ import {
   faHeart,
   faThumbsUp,
   faThumbsDown,
-} from '@fortawesome/free-solid-svg-icons';
-import Link from 'next/link';
-import { useState } from 'react';
-import getRoomList from '../common/roomList';
+} from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import { useState } from "react";
+import getRoomList from "../common/roomList";
 
 const Mainpage = ({ roomLists }) => {
   const { Header, Footer, Sider, Content } = Layout;
@@ -21,14 +21,14 @@ const Mainpage = ({ roomLists }) => {
   // console.log('rooms', rooms);
 
   const handleOrder = async (_bt) => {
-    let propsName = '';
-    propsName = _bt === 'recent' ? 'regisDate' : 'good';
-    console.log('propsName', propsName);
+    let propsName = "";
+    propsName = _bt === "recent" ? "regisDate" : "good";
+    console.log("propsName", propsName);
     try {
       // const res = await getRoomList(); //전체 글 조회
       let res = [...rooms];
 
-      if (_bt === 'good') {
+      if (_bt === "good") {
         //인기순으로  정렬처리
         res = res.sort((a, b) => {
           return a[propsName] > b[propsName]
@@ -53,7 +53,7 @@ const Mainpage = ({ roomLists }) => {
   };
 
   const handleFileter = async (_category) => {
-    console.log('_category', _category);
+    console.log("_category", _category);
     try {
       let res = await getRoomList(_category); //전체 글 조회
       if (res && res.code === 1) {
@@ -82,14 +82,14 @@ const Mainpage = ({ roomLists }) => {
                       </div>
                       <p
                         className="category-tit"
-                        onClick={() => handleFileter('ALL')}
+                        onClick={() => handleFileter("ALL")}
                       >
                         전체
                       </p>
                     </button>
                   </li>
                   <li className="category-box">
-                    <button onClick={() => handleFileter('EXERCISE')}>
+                    <button onClick={() => handleFileter("EXERCISE")}>
                       <div className="cate-icon">
                         <span className="material-icons">directions_bike</span>
                       </div>
@@ -97,7 +97,7 @@ const Mainpage = ({ roomLists }) => {
                     </button>
                   </li>
                   <li className="category-box">
-                    <button onClick={() => handleFileter('RESTAURANT')}>
+                    <button onClick={() => handleFileter("RESTAURANT")}>
                       <div className="cate-icon">
                         <span className="material-icons">local_dining</span>
                       </div>
@@ -105,7 +105,7 @@ const Mainpage = ({ roomLists }) => {
                     </button>
                   </li>
                   <li className="category-box">
-                    <button onClick={() => handleFileter('MOVIE')}>
+                    <button onClick={() => handleFileter("MOVIE")}>
                       <div className="cate-icon">
                         <span className="material-icons">movie</span>
                       </div>
@@ -113,7 +113,7 @@ const Mainpage = ({ roomLists }) => {
                     </button>
                   </li>
                   <li className="category-box">
-                    <button onClick={() => handleFileter('STUDY')}>
+                    <button onClick={() => handleFileter("STUDY")}>
                       <div className="cate-icon">
                         <span className="material-icons">school</span>
                       </div>
@@ -121,7 +121,7 @@ const Mainpage = ({ roomLists }) => {
                     </button>
                   </li>
                   <li className="category-box">
-                    <button onClick={() => handleFileter('ETC')}>
+                    <button onClick={() => handleFileter("ETC")}>
                       <div className="cate-icon">
                         <span className="material-icons">more</span>
                       </div>
@@ -134,15 +134,15 @@ const Mainpage = ({ roomLists }) => {
                   <li className="filter-btn-box">
                     <button
                       className="filter-btn active-is btn-40 round-btn-outlined"
-                      onClick={() => handleOrder('hot')}
+                      onClick={() => handleOrder("hot")}
                     >
                       인기순
-                    </button>{' '}
+                    </button>{" "}
                   </li>
                   <li className="filter-btn-box">
                     <button
                       className="filter-btn btn-40 round-btn-outlined"
-                      onClick={() => handleOrder('recent')}
+                      onClick={() => handleOrder("recent")}
                     >
                       최신순
                     </button>
@@ -155,22 +155,23 @@ const Mainpage = ({ roomLists }) => {
                   // 생성된 방이 있는 경우
                   rooms?.map((item) => {
                     const {
-                      seq,
-                      title,
-                      content,
-                      regisDate,
-                      cnt,
-                      category,
-                      boardLike,
                       boardDislike,
-                      name,
+                      boardId,
+                      boardLike,
+                      category,
+                      cnt,
+                      content,
+                      nickName,
+                      regisDate,
+                      title,
+                      userId,
                     } = item;
-
+                    console.log("item", item);
                     //import dayjs from "dayjs";
                     // const createDay = dayjs(regisDate).format("YYYY.MM.DD");
                     // 방생성 날짜는 디테일 페이지에서 표기
                     return (
-                      <ul className="room-list" key={seq}>
+                      <ul className="room-list" key={boardId}>
                         {/* {category} >>>>>>>>>> 카테고리 데이터 아이콘으로 표기해주세요 */}
                         <li className="room-item">
                           <Link href="/">
@@ -192,11 +193,11 @@ const Mainpage = ({ roomLists }) => {
                               <div className="content-box">
                                 <h3 className="title">{title}</h3>
                                 <p className="content">{content}</p>
-                                <p className="date">2022.12.28</p>
+                                <p className="date">{regisDate}</p>
+                                {/* TODO: 날짜포맷 형식 변경 */}
+                                {/* TODO: 카테고리 표기할 공간 필요 => 카테고리가 전체일 경우는 구분안되서 필요 */}
                                 <div className="inner">
-                                  {/* 글쓴이 표시 안됨 */}
-                                  {/* <p className="member">{name}</p> */}
-                                  <p className="member">이재원</p>
+                                  <p className="member">{nickName}</p>
                                   <div className="like-list">
                                     <button className="good is-active">
                                       <span className="material-icons">
