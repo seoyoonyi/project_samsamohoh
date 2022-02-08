@@ -22,6 +22,6 @@ yarn-error.log
 out/ 
 
 #aws ignore
-application-dev.properties
-application-prod.properties
+server/src/main/resources/
+
 
