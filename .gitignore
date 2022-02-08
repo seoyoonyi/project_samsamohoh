@@ -22,6 +22,7 @@ yarn-error.log
 out/ 
 
 #aws ignore
-README.md
+server/src/main/resources
+server/target
 
 
