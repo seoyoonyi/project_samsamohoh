@@ -4,7 +4,7 @@ import TokenStorage from "../common/token";
 const tokenStorage = new TokenStorage();
 const saveInfo = tokenStorage.getToken();
 
-axios.defaults.baseURL = "https://api.moleeja.ml";
+axios.defaults.baseURL = "http://api.moleeja.ml";
 
 if (saveInfo) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${saveInfo.token}`;

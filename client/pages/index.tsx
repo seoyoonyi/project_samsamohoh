@@ -44,7 +44,7 @@ const Index = ({ roomLists }: IRoomListProps) => {
 
 export default Index;
 
-export const getStaticProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     let res = await getRoomList("ALL"); //전체 글 조회
     if (res && res.code === 1) {

@@ -1,15 +1,15 @@
-import { Layout } from 'antd';
-import { Input, Button, Form } from 'antd';
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import fetcher from '../common/fetcher';
-import { GetServerSideProps } from 'next';
-import { useRef, useState } from 'react';
-import { useEffect } from 'react';
-import alertInfo, { timer } from '../common/alert';
-import { useRouter } from 'next/router';
-import Headerlayout from '../components/grids/header-layout';
+import { Layout } from "antd";
+import { Input, Button, Form } from "antd";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import fetcher from "../common/fetcher";
+import { GetServerSideProps } from "next";
+import { useRef, useState } from "react";
+import { useEffect } from "react";
+import alertInfo, { timer } from "../common/alert";
+import { useRouter } from "next/router";
+import Headerlayout from "../components/grids/header-layout";
 
 const Profile = ({ nickname }) => {
   const { Content } = Layout;
@@ -31,13 +31,13 @@ const Profile = ({ nickname }) => {
   const ChangeNickname = async () => {
     setChangeLoading(true);
     let clientUrl;
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === "production") {
       clientUrl = process.env.NEXT_PUBLIC_DEPLOY_URL;
     } else {
       clientUrl = process.env.NEXT_PUBLIC_LOCAL_URL;
     }
 
-    let res = await fetcher('get', `${clientUrl}/api/make_nickname`);
+    let res = await fetcher("get", `${clientUrl}/api/make_nickname`);
     setNicnameValue(res.data);
     setChangeLoading(false);
   };
@@ -49,7 +49,7 @@ const Profile = ({ nickname }) => {
   }
 
   const movePage = (loginItem, _msg, _pageName) => {
-    alertInfo(_msg, null, 'info');
+    alertInfo(_msg, null, "info");
     setTimeout(() => {
       setSubmitLoading(false);
       loginItem && router.push(_pageName);
@@ -59,7 +59,7 @@ const Profile = ({ nickname }) => {
   const onImgChange = async (e) => {
     //type이 file인 input에서 onChange 함수에서 event 객체를 통해 파일정보가 넘어오기 때문에 onSubmit에서 처리하지 않고 여기서 처리함
     const imageFile = e.target.files[0];
-    console.log('imageFile', imageFile);
+    console.log("imageFile", imageFile);
     setFile(imageFile);
 
     if (imageFile) {
@@ -78,27 +78,27 @@ const Profile = ({ nickname }) => {
 
     const formData = new FormData();
 
-    formData.append('file', file); //서버에 upload.single(변수명)에 정의한 변수이름과 동일해야함
-    formData.append('userInfor', JSON.stringify({ nickName: name }));
+    formData.append("file", file); //서버에 upload.single(변수명)에 정의한 변수이름과 동일해야함
+    formData.append("userInfor", JSON.stringify({ nickName: name }));
 
     // console.log("userInfo", token.data.userInfo.id);
 
     try {
-      let result = await fetcher('get', `/auth/member`); //토큰을 기준으로 사용자 정보 획득
+      let result = await fetcher("get", `/auth/member`); //토큰을 기준으로 사용자 정보 획득
 
       if (result.code === 1) {
         const userID = result.data.id;
 
         try {
           // Start 사용자 프로필 변경
-          result = await fetcher('put', `/auth/member/${userID}`, formData, {
+          result = await fetcher("put", `/auth/member/${userID}`, formData, {
             headers: {
-              'Content-Type': 'multipart/form-data',
+              "Content-Type": "multipart/form-data",
             },
           });
-          console.log('result', result);
+          console.log("result", result);
           if (result.code === 1) {
-            movePage(result, '메인화면으로 이동합니다.', '/');
+            movePage(result, "메인화면으로 이동합니다.", "/");
           }
         } catch (error) {
           console.warn(error.message);
@@ -141,7 +141,7 @@ const Profile = ({ nickname }) => {
                     <label htmlFor="file">
                       <div className="user-photo">
                         <img
-                          src={imgSrc || '/images/profile-1.jpg'}
+                          src={imgSrc || "/images/profile-1.jpg"}
                           alt="세로형-프로필사진"
                         />
                         {/* <img src="/images/profile-2.jpg" alt="가로형-프로필사진" /> */}
@@ -204,16 +204,16 @@ const Profile = ({ nickname }) => {
 
 export default Profile;
 
-export const getStaticProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     let clientUrl;
-    console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-    if (process.env.NODE_ENV === 'production') {
+    console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+    if (process.env.NODE_ENV === "production") {
       clientUrl = process.env.DEPLOY_URL;
     } else {
       clientUrl = process.env.LOCAL_URL;
     }
-    let res = await fetcher('get', `${clientUrl}/api/make_nickname`);
+    let res = await fetcher("get", `${clientUrl}/api/make_nickname`);
     return { props: { nickname: res.data } };
   } catch (error) {
     console.log(error);
