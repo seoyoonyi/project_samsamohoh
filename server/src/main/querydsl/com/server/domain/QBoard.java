@@ -34,6 +34,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final StringPath content = createString("content");
 
+    public final DateTimePath<java.util.Date> deleteDate = createDateTime("deleteDate", java.util.Date.class);
+
     public final BooleanPath enabled = createBoolean("enabled");
 
     public final QMember member;

@@ -55,6 +55,9 @@ public class Board {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateDate;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date deleteDate;
+	
 	@Column(columnDefinition= "bigint default 0",insertable=false)
 	private long cnt;
 	

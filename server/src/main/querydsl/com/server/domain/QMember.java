@@ -22,6 +22,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final ListPath<Board, QBoard> boardList = this.<Board, QBoard>createList("boardList", Board.class, QBoard.class, PathInits.DIRECT2);
 
+    public final DateTimePath<java.util.Date> deleteDate = createDateTime("deleteDate", java.util.Date.class);
+
     public final StringPath email = createString("email");
 
     public final BooleanPath enabled = createBoolean("enabled");

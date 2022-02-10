@@ -56,6 +56,9 @@ public class Member {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateDate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date deleteDate;
 
 	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Board> boardList = new ArrayList<Board>(); 
