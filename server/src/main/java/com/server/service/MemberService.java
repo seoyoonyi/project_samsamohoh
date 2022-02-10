@@ -23,4 +23,6 @@ public interface MemberService {
 	public Member signin(MemberLoginDTO dto);
 	
 	public void deleteMember(String id);
+	
+	
 }
