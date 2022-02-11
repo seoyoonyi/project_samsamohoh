@@ -15,6 +15,7 @@ import com.server.exception.board.BoardListNotExistException;
 import com.server.exception.board.BoardNotExistException;
 import com.server.exception.board.InvalidBoardException;
 import com.server.exception.board.InvalidPagingParameterException;
+import com.server.exception.comment.CommentNotExistException;
 import com.server.exception.member.AlreadyExistMemberException;
 import com.server.exception.member.EmailValidationException;
 import com.server.exception.member.IdDismatchException;
@@ -24,6 +25,7 @@ import com.server.exception.member.MemberNotExistException;
 import com.server.exception.member.NickNameValidationException;
 import com.server.exception.member.PasswordDismatchException;
 import com.server.exception.member.PasswordValidationException;
+import com.server.exception.reply.ReplyNotExistException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
@@ -190,5 +192,22 @@ public class ApiExceptionHandler {
 		return ResponseEntity.status(httpStatus).body(apiException);
 	}
 	
+	@ExceptionHandler(value = {CommentNotExistException.class})
+	public ResponseEntity<?> handleCommentNotExistException(CommentNotExistException e){
+		HttpStatus httpStatus = HttpStatus.OK;
+		
+		ApiException<String> apiException = ApiException.<String>builder().code(ExceptionCode.COMMENT_NOT_EXIST_EXCEPTION.code).message(ExceptionCode.COMMENT_NOT_EXIST_EXCEPTION.message).build();
+		
+		return ResponseEntity.status(httpStatus).body(apiException);
+	}
+	
+	@ExceptionHandler(value = {ReplyNotExistException.class})
+	public ResponseEntity<?> handleReplyNotExistException(){
+		HttpStatus httpStatus = HttpStatus.OK;
+		
+		ApiException<String> apiException = ApiException.<String>builder().code(ExceptionCode.REPLY_NOT_EXIST_EXCEPTION.code).message(ExceptionCode.REPLY_NOT_EXIST_EXCEPTION.message).build();
+		
+		return ResponseEntity.status(httpStatus).body(apiException);
+	}
 	
 }

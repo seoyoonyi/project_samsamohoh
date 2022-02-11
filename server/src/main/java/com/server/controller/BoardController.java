@@ -31,12 +31,16 @@ import com.server.dto.board.AuthenticatedShowBoardDTO;
 import com.server.dto.board.CreateBoardDTO;
 import com.server.dto.board.ShowBoardDTO;
 import com.server.dto.board.UpdateBoardDTO;
+import com.server.dto.comment.CreateCommentDTO;
+import com.server.dto.comment.UpdateCommentDTO;
 import com.server.dto.response.SimpleResponseDTO;
 import com.server.dto.response.SuccessfulResponseDTO;
 import com.server.exception.board.BoardNotExistException;
 import com.server.securityconfig.TokenProvider;
 import com.server.service.BoardService;
+import com.server.service.CommentService;
 import com.server.service.MemberService;
+import com.server.service.ReplyService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -55,6 +59,12 @@ public class BoardController {
 
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	CommentService commentService;
+	
+	@Autowired
+	ReplyService replyService;
 
 	@ApiOperation(value = "특정 모집글 가져오기")
 	@GetMapping("/{boardId}")
@@ -222,5 +232,6 @@ public class BoardController {
 		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("싫어요 요청 성공").build();
 		return ResponseEntity.ok().body(response);
 	}
-
+	
+	
 }

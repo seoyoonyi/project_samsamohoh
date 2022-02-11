@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.server.domain.Member;
 
-
+@Repository
 public interface MemberRepository extends JpaRepository<Member, String> {
 
 }

@@ -2,9 +2,11 @@ package com.server.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.server.domain.BoardFeeling;
 
+@Repository
 public interface BoardFeelingRepository extends JpaRepository<BoardFeeling,Long>{
 	
 	@Query("select b from BoardFeeling b where b.memberId = ?1 and b.boardId = ?2")

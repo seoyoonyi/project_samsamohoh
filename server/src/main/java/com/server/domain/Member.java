@@ -1,8 +1,8 @@
 package com.server.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,10 +11,12 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -59,9 +61,17 @@ public class Member {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date deleteDate;
-
-	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<Board> boardList = new ArrayList<Board>(); 
 	
- 
+	@JsonIgnore
+	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Board> boardList;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "member",fetch = FetchType.EAGER)
+	private Set<Comment> commentList;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "member",fetch = FetchType.EAGER)
+	private Set<Reply> replyList;
+  
 }

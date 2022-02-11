@@ -22,6 +22,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final ListPath<Board, QBoard> boardList = this.<Board, QBoard>createList("boardList", Board.class, QBoard.class, PathInits.DIRECT2);
 
+    public final SetPath<Comment, QComment> commentList = this.<Comment, QComment>createSet("commentList", Comment.class, QComment.class, PathInits.DIRECT2);
+
     public final DateTimePath<java.util.Date> deleteDate = createDateTime("deleteDate", java.util.Date.class);
 
     public final StringPath email = createString("email");
@@ -37,6 +39,8 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath password = createString("password");
 
     public final DateTimePath<java.util.Date> regisDate = createDateTime("regisDate", java.util.Date.class);
+
+    public final SetPath<Reply, QReply> replyList = this.<Reply, QReply>createSet("replyList", Reply.class, QReply.class, PathInits.DIRECT2);
 
     public final EnumPath<Role> role = createEnum("role", Role.class);
 

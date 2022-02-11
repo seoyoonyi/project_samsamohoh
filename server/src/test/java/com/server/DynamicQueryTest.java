@@ -49,6 +49,6 @@ public class DynamicQueryTest {
 	}*/
 	@Test
 	public void updateTest() {
-		boardRepo.updateBoardCnt(1L);
+		System.out.println(boardRepo.findById(1L).get().toString());
 	}
 }

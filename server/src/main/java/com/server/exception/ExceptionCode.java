@@ -17,6 +17,14 @@ public enum ExceptionCode {
 	BOARD_NOT_EXIST_EXCEPTION("2001","조회된 게시글이 없습니다."),
 	BOARDLIST_NOT_EXIST_EXCEPTION("2003","조회된 게시글리스트가 없습니다."),
 	INVALID_PAGING_PARAMETER_EXCEPTION("2004","유효하지 않은 페이징 파라미터입니다."),
+	
+	
+	//Comment관련 예외 코드
+	COMMENT_NOT_EXIST_EXCEPTION("3001","해당 댓글이 존재하지 않습니다."),
+	
+	//Reply관련 예외 코드
+	REPLY_NOT_EXIST_EXCEPTION("4001","해당 답글 존재하지 않습니다."),
+	
 	//유효성 검사 예외 코드
 	METHOD_ARGUMENT_NOT_VALID_EXCEPTION("-1","유효성 검사 실패"),
 	

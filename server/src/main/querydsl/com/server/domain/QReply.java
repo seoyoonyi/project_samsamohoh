@@ -11,22 +11,18 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QComment is a Querydsl query type for Comment
+ * QReply is a Querydsl query type for Reply
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QComment extends EntityPathBase<Comment> {
+public class QReply extends EntityPathBase<Reply> {
 
-    private static final long serialVersionUID = 1395524723L;
+    private static final long serialVersionUID = 645176830L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QComment comment1 = new QComment("comment1");
+    public static final QReply reply = new QReply("reply");
 
-    public final QBoard board;
-
-    public final StringPath comment = createString("comment");
-
-    public final NumberPath<Long> commentId = createNumber("commentId", Long.class);
+    public final QComment comment;
 
     public final DateTimePath<java.util.Date> deleteDate = createDateTime("deleteDate", java.util.Date.class);
 
@@ -36,29 +32,31 @@ public class QComment extends EntityPathBase<Comment> {
 
     public final DateTimePath<java.util.Date> regisDate = createDateTime("regisDate", java.util.Date.class);
 
-    public final ListPath<Reply, QReply> replyList = this.<Reply, QReply>createList("replyList", Reply.class, QReply.class, PathInits.DIRECT2);
+    public final StringPath replyComment = createString("replyComment");
+
+    public final NumberPath<Long> replyId = createNumber("replyId", Long.class);
 
     public final DateTimePath<java.util.Date> updateDate = createDateTime("updateDate", java.util.Date.class);
 
-    public QComment(String variable) {
-        this(Comment.class, forVariable(variable), INITS);
+    public QReply(String variable) {
+        this(Reply.class, forVariable(variable), INITS);
     }
 
-    public QComment(Path<? extends Comment> path) {
+    public QReply(Path<? extends Reply> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QComment(PathMetadata metadata) {
+    public QReply(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QComment(PathMetadata metadata, PathInits inits) {
-        this(Comment.class, metadata, inits);
+    public QReply(PathMetadata metadata, PathInits inits) {
+        this(Reply.class, metadata, inits);
     }
 
-    public QComment(Class<? extends Comment> type, PathMetadata metadata, PathInits inits) {
+    public QReply(Class<? extends Reply> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.board = inits.isInitialized("board") ? new QBoard(forProperty("board"), inits.get("board")) : null;
+        this.comment = inits.isInitialized("comment") ? new QComment(forProperty("comment"), inits.get("comment")) : null;
         this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
     }
 
