@@ -185,14 +185,16 @@ const SignUp = () => {
                   </ul>
 
                   {/* button에서 앤트디자인 버튼으로 바꿔서 호버시 버튼색상 꺠지니 scss 조절해주세요 */}
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    loading={submitLoading}
-                    className="btn-50 btn-main"
-                  >
-                    다음
-                  </Button>
+                  <Link href="/profile">
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      loading={submitLoading}
+                      className="btn-50 btn-main"
+                    >
+                      다음
+                    </Button>
+                  </Link>
 
                   {/* <button className="btn-40 btn-main" onClick={handleBack}>
                   돌아가기

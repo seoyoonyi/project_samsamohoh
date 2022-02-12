@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import TokenStorage from "../../common/token";
-import Link from "next/link";
-import { Layout } from "antd";
-import { useRecoilState } from "recoil";
-import { tokenAtrom } from "../../atoms/token";
-import { onLoginOut } from "../../common/logout";
+import React, { useEffect } from 'react';
+import TokenStorage from '../../common/token';
+import Link from 'next/link';
+import { Layout } from 'antd';
+import { useRecoilState } from 'recoil';
+import { tokenAtrom } from '../../atoms/token';
+import { onLoginOut } from '../../common/logout';
 
 const Headerlayout = () => {
   const tokenStorage = new TokenStorage();
@@ -78,13 +78,19 @@ const Headerlayout = () => {
                     )}
                   </div>
                   <div className="register">
-                    <Link href="/register">
-                      <a>회원가입</a>
-                    </Link>
+                    {token ? (
+                      <Link href="/my_page">
+                        <a>히라</a>
+                      </Link>
+                    ) : (
+                      <Link href="/register">
+                        <a>회원가입</a>
+                      </Link>
+                    )}
                   </div>
                 </li>
                 <li className="new-writing">
-                  <Link href="/">
+                  <Link href="/new_write">
                     <a>새글쓰기</a>
                   </Link>
                 </li>
