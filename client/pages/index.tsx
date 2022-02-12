@@ -9,25 +9,19 @@ enum Role {
 }
 
 interface IRoomList {
-  seq: number;
+  boardId: number;
+  category: string;
   title: string;
   content: string;
-  regisDate: string;
   cnt: number;
-  good: number;
-  bad: number;
-  member: {
-    id: string;
-    password: string;
-    name: string;
-    email: string;
-    role: Role;
-    enabled: boolean;
-    regisDate: string;
-  };
+  boardLike: number;
+  boardDislike: number;
+  regisDate: string;
+  userId: string;
+  nickName: string;
 }
 
-interface IRoomListProps {
+export interface IRoomListProps {
   roomLists: IRoomList[];
 }
 
