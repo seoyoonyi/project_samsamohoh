@@ -49,7 +49,7 @@ public class Comment {
 	Board board;	
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="comment",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="comment",fetch=FetchType.LAZY)
 	List<Reply> replyList;
 	
 	@Column(insertable=false,columnDefinition = "boolean default 1")

@@ -73,7 +73,7 @@ public class Board {
 	private Member member;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="board",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="board",fetch = FetchType.LAZY)
 	private Set<Comment> commentList;
 	
 	 

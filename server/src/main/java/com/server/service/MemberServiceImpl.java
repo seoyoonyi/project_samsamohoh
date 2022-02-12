@@ -36,10 +36,10 @@ public class MemberServiceImpl implements MemberService {
 	public Member getMember(String id) {
 		Optional<Member> option = memberRepo.findById(id);
 		if (option.isEmpty()) {
-			if(option.get().isEnabled()==false) {
+			if (option.get().isEnabled() == false) {
 				throw new InvalidMemberException();
 			}
-			
+
 			throw new MemberNotExistException();
 		} else {
 			return option.get();
@@ -58,14 +58,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	public Member updateMember(String id, MultipartFile file, UpdateMemberDTO dto) throws IOException {
-		
-		if(!dto.getNickName().matches("^[가-힣]{2,8}$")) {
+
+		if (!dto.getNickName().matches("^[가-힣]{2,8}$")) {
 			throw new NickNameValidationException();
 		}
 
 		Optional<Member> option = memberRepo.findById(id);
 		if (!option.isPresent()) {
-			if(option.get().isEnabled()==false) {
+			if (option.get().isEnabled() == false) {
 				throw new InvalidMemberException();
 			}
 			throw new MemberNotExistException();
@@ -77,42 +77,45 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 	}
-	
-	public Member updateMember(String id,MultipartFile file,AfterUpdateMemberDTO dto) throws IOException{
-		
-		if(!dto.getEmail().matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$")) {
+
+	public Member updateMember(String id, MultipartFile file, AfterUpdateMemberDTO dto) throws IOException {
+
+		if (!dto.getEmail().matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$")) {
 			throw new EmailValidationException();
 		}
-		
-		if(!dto.getNickName().matches("^[가-힣]{2,8}$")) {
+
+		if (!dto.getNickName().matches("^[가-힣]{2,8}$")) {
 			throw new NickNameValidationException();
 		}
-		
-		if(dto.getPassword().matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,15}$"))
+
+		if (dto.getPassword().matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,15}$"))
 			System.out.println("비밀번호 일치");
 		else
 			System.out.println("비밀번호 불일치");
-		
-		if(!dto.getPassword().matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,15}$")) {
+
+		if (!dto.getPassword()
+				.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,15}$")) {
 			throw new PasswordValidationException();
 		}
-		
+
 		Optional<Member> option = memberRepo.findById(id);
-		
-		if(option.isEmpty()) {
+
+		if (option.isEmpty()) {
 			throw new MemberNotExistException();
-		}else {
+		} else {
 			Member findMember = option.get();
-			s3ImageFileUploader.deleteFile(URLDecoder.decode(findMember.getImagePath().replace("https://moleeja-user-profile-bucket.s3.ap-northeast-2.amazonaws.com/", ""),"UTF-8"));
+			if (findMember.getImagePath() != null) {
+				s3ImageFileUploader.deleteFile(URLDecoder.decode(findMember.getImagePath()
+						.replace("https://moleeja-user-profile-bucket.s3.ap-northeast-2.amazonaws.com/", ""), "UTF-8"));
+			}
 			findMember.setImagePath(s3ImageFileUploader.uplode(file));
 			findMember.setNickName(dto.getNickName());
 			findMember.setPassword(dto.getPassword());
 			findMember.setEmail(dto.getEmail());
 			findMember.setUpdateDate(new Date());
-			return memberRepo.save(findMember);			
+			return memberRepo.save(findMember);
 		}
-		
-		
+
 	}
 
 	public Member signin(MemberLoginDTO dto) {
@@ -120,7 +123,7 @@ public class MemberServiceImpl implements MemberService {
 		Optional<Member> findMember = memberRepo.findById(dto.getId());
 
 		if (findMember.isEmpty()) {
-			
+
 			throw new IdDismatchException();
 		} else {
 			if (findMember.get().getPassword().equals(dto.getPassword())) {
@@ -130,22 +133,18 @@ public class MemberServiceImpl implements MemberService {
 					return findMember.get();
 				}
 			} else {
-				
+
 				throw new PasswordDismatchException();
 			}
 		}
 	}
-	
-	
+
 	public void deleteMember(String id) {
-		
+
 		Member findMember = memberRepo.findById(id).get();
 		findMember.setEnabled(false);
 		memberRepo.save(findMember);
-		
+
 	}
-	
-	
-	
 
 }
