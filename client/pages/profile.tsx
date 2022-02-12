@@ -32,7 +32,7 @@ const Profile = ({ nickname }: IProfileProps) => {
     setUserInfo(result.data);
     setImgSrc(result.data.imagePath);
     form.setFieldsValue({ name: result.data.nickName || nickname });
-  }, [userInfo, imgSrc]);
+  }, [nickname]);
 
   useEffect(() => {
     getUserInfo();
