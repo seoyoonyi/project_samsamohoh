@@ -1,32 +1,32 @@
-import React, { useCallback, useState } from 'react';
-import { Layout, Input, Form, Button, Checkbox } from 'antd';
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { UserOutlined } from '@ant-design/icons';
-import Link from 'next/link';
-import fetcher from '../common/fetcher';
-import TokenStorage from '../common/token';
-import { useRouter } from 'next/router';
-import alertInfo, { timer } from '../common/alert';
-import { validateID, validatePW } from '../common/validate_check';
-import { useRecoilState } from 'recoil';
-import { tokenAtrom } from '../atoms/token';
-import { useEffect } from 'react';
-import { onLoginOut } from '../common/logout';
-import Headerlayout from '../components/grids/header-layout';
+import React, { useCallback, useState } from "react";
+import { Layout, Input, Form, Button, Checkbox } from "antd";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
+import Link from "next/link";
+import fetcher from "../common/fetcher";
+import TokenStorage from "../common/token";
+import { useRouter } from "next/router";
+import alertInfo, { timer } from "../common/alert";
+import { validateID, validatePW } from "../common/validate_check";
+import { useRecoilState } from "recoil";
+import { tokenAtrom } from "../atoms/token";
+import { useEffect } from "react";
+import { onLoginOut } from "../common/logout";
+import Headerlayout from "../components/grids/header-layout";
 
 const Login = () => {
-  const { Header, Footer, Sider, Content } = Layout;
+  const { Content } = Layout;
   const router = useRouter();
   const tokenStorage = new TokenStorage();
   const [submitLoading, setSubmitLoading] = useState(false);
   const [_, setToken] = useRecoilState(tokenAtrom);
 
   useEffect(() => {
-    onLoginOut(_, setToken);
+    onLoginOut(_, setToken, router);
   }, []);
 
   const movePage = (loginItem, _msg, _pageName) => {
-    alertInfo(_msg, null, 'info');
+    alertInfo(_msg, null, "info");
     setTimeout(() => {
       setSubmitLoading(false);
       loginItem && router.push(_pageName);
@@ -41,8 +41,8 @@ const Login = () => {
     };
 
     try {
-      const loginItem = await fetcher('post', '/auth/signin', loginForm);
-      console.log('loginItem', loginItem);
+      const loginItem = await fetcher("post", "/auth/signin", loginForm);
+      console.log("loginItem", loginItem);
       if (loginItem.code === 1) {
         tokenStorage.saveToken(loginItem.data); // 브라우저 종료 후에도 로그인 유지하기 위함
 
@@ -50,39 +50,39 @@ const Login = () => {
         const { nickName } = loginItem.data;
 
         if (nickName) {
-          movePage(loginItem, loginItem.message, '/');
+          movePage(loginItem, loginItem.message, "/");
         } else {
           //닉네임이 없는 경우
-          movePage(loginItem, '프로필 작성 페이지로 이동합니다.', '/profile');
+          movePage(loginItem, "프로필 작성 페이지로 이동합니다.", "/profile");
         }
       } else {
-        alertInfo(loginItem.message, null, 'warning');
+        alertInfo(loginItem.message, null, "warning");
       }
     } catch (error) {
       // axios에서 에러발생시 처리
       setSubmitLoading(false);
-      console.error('error', error.response);
+      console.error("error", error.response);
       if (error.response) {
         const { status, statusText } = error.response;
         switch (status) {
           case 401:
             return alertInfo(
-              '오류',
-              '닉네임 또는 비밀번호를 잘못 입력하였습니다.',
-              'error',
+              "오류",
+              "닉네임 또는 비밀번호를 잘못 입력하였습니다.",
+              "error"
             );
           case 400:
-            return alertInfo('오류', '올바르게 입력해주세요.', 'error');
+            return alertInfo("오류", "올바르게 입력해주세요.", "error");
           case 404:
-            return alertInfo('오류', '사용자를 찾을 수 없습니다.', 'error');
+            return alertInfo("오류", "사용자를 찾을 수 없습니다.", "error");
           case 409:
-            return alertInfo('오류', '이 사용자는 이미 존재합니다.', 'wraning');
+            return alertInfo("오류", "이 사용자는 이미 존재합니다.", "wraning");
           case 415:
           case 500:
-            return alertInfo('서버에서 오류가 발생하였습니다.', null, 'error');
+            return alertInfo("서버에서 오류가 발생하였습니다.", null, "error");
           default:
-            alertInfo('안내', '관리자에게 문의해주세요.', 'info');
-            console.log('매개변수가 잘못되었습니다!');
+            alertInfo("안내", "관리자에게 문의해주세요.", "info");
+            console.log("매개변수가 잘못되었습니다!");
         }
       }
     }

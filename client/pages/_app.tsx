@@ -1,6 +1,6 @@
-import Head from 'next/head';
-import { RecoilRoot } from 'recoil';
-import '../styles/main.scss';
+import Head from "next/head";
+import { RecoilRoot } from "recoil";
+import "../styles/main.scss";
 
 const App = ({ Component, pageProps }) => {
   return (
@@ -22,6 +22,7 @@ const App = ({ Component, pageProps }) => {
 
 App.getInitialProps = async ({ ctx, Component }) => {
   const pageProps = await Component.getInitialProps?.(ctx);
+  // TODO : 로그인안한 상태에서 프로필 페이지 접근 막기
   return { pageProps };
 };
 

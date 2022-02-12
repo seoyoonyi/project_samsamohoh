@@ -1,6 +1,5 @@
 import { Layout } from "antd";
 import { Input, Button, Form } from "antd";
-import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import fetcher from "../common/fetcher";
@@ -11,22 +10,33 @@ import alertInfo, { timer } from "../common/alert";
 import { useRouter } from "next/router";
 import Headerlayout from "../components/grids/header-layout";
 
-const Profile = ({ nickname }) => {
+interface IProfileProps {
+  nickname: string;
+}
+
+const Profile = ({ nickname }: IProfileProps) => {
   const { Content } = Layout;
-  const [nicknameValue, setNicnameValue] = useState(nickname);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [changeLoading, setChangeLoading] = useState(false);
+  const [imgSrc, setImgSrc] = useState(null); // 이미지 미리보기
+  const [userInfo, setUserInfo] = useState(null);
   const [file, setFile] = useState(null);
   const inputRef = useRef(null);
-  const [imgSrc, setImgSrc] = useState(null); // 이미지 미리보기
+
   const [form] = Form.useForm();
   const router = useRouter();
 
   useEffect(() => {
-    form.setFieldsValue({ name: nicknameValue });
+    async function getUserInfo() {
+      const result = await fetcher("get", `/member`);
+      setUserInfo(result.data);
+      setImgSrc(result.data.imagePath);
+      form.setFieldsValue({ name: result.data.nickName || nickname });
+    }
+    getUserInfo();
 
     //  프로필 페이지 진입시 사용자정보 조회해서 등록된 정보 뿌리기
-  });
+  }, []);
 
   const ChangeNickname = async () => {
     setChangeLoading(true);
@@ -38,7 +48,9 @@ const Profile = ({ nickname }) => {
     }
 
     let res = await fetcher("get", `${clientUrl}/api/make_nickname`);
-    setNicnameValue(res.data);
+    console.log("res", res);
+    // setNicnameValue(res.data);
+    form.setFieldsValue({ name: res.data });
     setChangeLoading(false);
   };
 
@@ -48,18 +60,19 @@ const Profile = ({ nickname }) => {
     setImgSrc(null);
   }
 
-  const movePage = (loginItem, _msg, _pageName) => {
-    alertInfo(_msg, null, "info");
+  const movePage = (loginItem: any, msg: string, pageName: string) => {
+    alertInfo(msg, null, "info");
     setTimeout(() => {
       setSubmitLoading(false);
-      loginItem && router.push(_pageName);
+      loginItem && router.push(pageName);
     }, timer);
   };
 
-  const onImgChange = async (e) => {
+  const onImgChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     //type이 file인 input에서 onChange 함수에서 event 객체를 통해 파일정보가 넘어오기 때문에 onSubmit에서 처리하지 않고 여기서 처리함
     const imageFile = e.target.files[0];
     console.log("imageFile", imageFile);
+    // TODO: 사용자가 이미지 선택안한경우 기본이미지 적용하기
     setFile(imageFile);
 
     if (imageFile) {
@@ -81,32 +94,20 @@ const Profile = ({ nickname }) => {
     formData.append("file", file); //서버에 upload.single(변수명)에 정의한 변수이름과 동일해야함
     formData.append("userInfor", JSON.stringify({ nickName: name }));
 
-    // console.log("userInfo", token.data.userInfo.id);
-
     try {
-      let result = await fetcher("get", `/auth/member`); //토큰을 기준으로 사용자 정보 획득
-
+      // Start 사용자 프로필 변경
+      const result = await fetcher("put", `/initialization/member`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      // console.log("result", result);
       if (result.code === 1) {
-        const userID = result.data.id;
-
-        try {
-          // Start 사용자 프로필 변경
-          result = await fetcher("put", `/auth/member/${userID}`, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
-          console.log("result", result);
-          if (result.code === 1) {
-            movePage(result, "메인화면으로 이동합니다.", "/");
-          }
-        } catch (error) {
-          console.warn(error.message);
-        } // End 사용자 프로필 변경
+        movePage(result, "메인화면으로 이동합니다.", "/");
       }
     } catch (error) {
       console.warn(error.message);
-    }
+    } // End 사용자 프로필 변경
 
     setSubmitLoading(false);
   };
@@ -207,13 +208,13 @@ export default Profile;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     let clientUrl;
-    console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+    // console.log("process.env.NODE_ENV", process.env.NODE_ENV);
     if (process.env.NODE_ENV === "production") {
       clientUrl = process.env.DEPLOY_URL;
     } else {
       clientUrl = process.env.LOCAL_URL;
-    }
-    let res = await fetcher("get", `${clientUrl}/api/make_nickname`);
+    } //토큰을 기준으로 사용자 정보 획득
+    let res = await fetcher("get", `${clientUrl}/api/make_nickname`); // 랜덤닉네임 만들어주는 오픈 API
     return { props: { nickname: res.data } };
   } catch (error) {
     console.log(error);

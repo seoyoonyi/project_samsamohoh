@@ -1,32 +1,26 @@
-import { Layout } from 'antd';
-import { Input } from 'antd';
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { Button, Radio, Form } from 'antd';
-import { Row, Col } from 'antd';
-import Router, { useRouter } from 'next/router';
-import { useCallback, useRef, useState } from 'react';
-import fetcher from '../common/fetcher';
-import alertInfo, { timer } from '../common/alert';
-import Link from 'next/link';
+import { Layout } from "antd";
+import { Input } from "antd";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { Button, Radio, Form } from "antd";
+import { Row, Col } from "antd";
+import Router, { useRouter } from "next/router";
+import { useCallback, useRef, useState } from "react";
+import fetcher from "../common/fetcher";
+import alertInfo, { timer } from "../common/alert";
+import Link from "next/link";
 import {
   validateEmail,
   validateID,
   validateName,
   validatePW,
   validatePWCheck,
-} from '../common/validate_check';
-import Headerlayout from '../components/grids/header-layout';
+} from "../common/validate_check";
+import Headerlayout from "../components/grids/header-layout";
 
 const SignUp = () => {
-  const { Header, Footer, Sider, Content } = Layout;
-  const createSignUp = useRef<HTMLInputElement>(null);
-  const router = useRouter();
-  const [submitLoading, setSubmitLoading] = useState(false);
+  const { Content } = Layout;
 
-  const handleBack = (e) => {
-    e.preventDefault();
-    Router.back();
-  };
+  const [submitLoading, setSubmitLoading] = useState(false);
 
   const handleFinish = async (values) => {
     setSubmitLoading(true);
@@ -40,34 +34,34 @@ const SignUp = () => {
 
     try {
       // console.log("회원가입", data);
-      const result = await fetcher('post', '/auth/signup', data);
-      console.log('result2222', result);
+      const result = await fetcher("post", "/auth/signup", data);
+      console.log("result2222", result);
 
       if (result.code === 1) {
         alertInfo(
-          '축하드립니다.',
-          '회원가입이 완료되었습니다. \n 로그인해주세요.',
-          'success',
+          "축하드립니다.",
+          "회원가입이 완료되었습니다. \n 로그인해주세요.",
+          "success"
         );
         setTimeout(() => {
           setSubmitLoading(false);
-          Router.push('/login');
+          Router.push("/login");
         }, timer);
       } else {
-        console.log('result.code', result.code);
+        console.log("result.code", result.code);
 
         switch (result.code) {
           case 1001:
-            return alertInfo(result.message, null, 'error');
+            return alertInfo(result.message, null, "error");
 
           default:
-            alertInfo('안내', '관리자에게 문의해주세요.', 'info');
-            console.log('매개변수가 잘못되었습니다!');
+            alertInfo("안내", "관리자에게 문의해주세요.", "info");
+            console.log("매개변수가 잘못되었습니다!");
         }
       }
     } catch (error) {
       setSubmitLoading(false);
-      console.log('error', error);
+      console.log("error", error);
     }
   };
 
@@ -124,7 +118,7 @@ const SignUp = () => {
                       <Form.Item
                         className="form-item"
                         name="pwRe"
-                        dependencies={['password']}
+                        dependencies={["password"]}
                         hasFeedback
                         rules={[
                           validatePWCheck.options,
@@ -132,7 +126,7 @@ const SignUp = () => {
                             validator(_, value) {
                               return validatePWCheck.validate(
                                 getFieldValue,
-                                value,
+                                value
                               );
                             },
                           }),
@@ -185,16 +179,15 @@ const SignUp = () => {
                   </ul>
 
                   {/* button에서 앤트디자인 버튼으로 바꿔서 호버시 버튼색상 꺠지니 scss 조절해주세요 */}
-                  <Link href="/profile">
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      loading={submitLoading}
-                      className="btn-50 btn-main"
-                    >
-                      다음
-                    </Button>
-                  </Link>
+
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    loading={submitLoading}
+                    className="btn-50 btn-main"
+                  >
+                    다음
+                  </Button>
 
                   {/* <button className="btn-40 btn-main" onClick={handleBack}>
                   돌아가기

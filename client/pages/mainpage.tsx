@@ -158,7 +158,7 @@ const Mainpage = ({ roomLists }: IRoomListProps) => {
                       title,
                       // userId,
                     } = item;
-
+                    console.log("item", item);
                     regisDate = dayjs(regisDate).format("YYYY.MM.DD"); // 방생성 날짜 포맷 변경
 
                     // 방생성 날짜는 디테일 페이지에서 표기
