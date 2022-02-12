@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import alertInfo, { timer } from "../common/alert";
 import { useRouter } from "next/router";
 import Headerlayout from "../components/grids/header-layout";
+import { useCallback } from "react";
 
 interface IProfileProps {
   nickname: string;
@@ -26,13 +27,14 @@ const Profile = ({ nickname }: IProfileProps) => {
   const [form] = Form.useForm();
   const router = useRouter();
 
+  const getUserInfo = useCallback(async () => {
+    const result = await fetcher("get", `/member`);
+    setUserInfo(result.data);
+    setImgSrc(result.data.imagePath);
+    form.setFieldsValue({ name: result.data.nickName || nickname });
+  }, [userInfo, imgSrc]);
+
   useEffect(() => {
-    async function getUserInfo() {
-      const result = await fetcher("get", `/member`);
-      setUserInfo(result.data);
-      setImgSrc(result.data.imagePath);
-      form.setFieldsValue({ name: result.data.nickName || nickname });
-    }
     getUserInfo();
 
     //  프로필 페이지 진입시 사용자정보 조회해서 등록된 정보 뿌리기
