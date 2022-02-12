@@ -20,7 +20,7 @@ const Profile = ({ nickname }: IProfileProps) => {
   const [submitLoading, setSubmitLoading] = useState(false);
   const [changeLoading, setChangeLoading] = useState(false);
   const [imgSrc, setImgSrc] = useState(null); // 이미지 미리보기
-  const [userInfo, setUserInfo] = useState(null);
+
   const [file, setFile] = useState(null);
   const inputRef = useRef(null);
 
@@ -29,7 +29,6 @@ const Profile = ({ nickname }: IProfileProps) => {
 
   const getUserInfo = useCallback(async () => {
     const result = await fetcher("get", `/member`);
-    setUserInfo(result.data);
     setImgSrc(result.data.imagePath);
     form.setFieldsValue({ name: result.data.nickName || nickname });
   }, [nickname]);
