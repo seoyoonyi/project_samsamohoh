@@ -1,9 +1,14 @@
 package com.server.dto.board;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 import com.server.domain.Board;
 import com.server.domain.Category;
+import com.server.domain.Comment;
+import com.server.domain.Reply;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,20 +31,25 @@ public class ShowBoardDTO {
 	private Date regisDate;
 	private String userId;
 	private String nickName;
-	
+	//private HashMap<Comment,List<>> comment = null;
+	private HashMap<String, Object> reply = null;
 
-	public ShowBoardDTO(Board board) {
-		this.boardId = board.getBoardId();
-		this.category = board.getCategory();
-		this.title = board.getTitle();
-		this.content = board.getContent();
-		this.cnt = board.getCnt();
-		this.boardLike = board.getBoardLike();
-		this.boardDislike = board.getBoardDislike();
-		this.regisDate = board.getRegisDate();
-		this.userId = board.getMember().getId();
-		this.nickName = board.getMember().getNickName();
+	public ShowBoardDTO(List<Object[]> findBoard) {
+		this.boardId = ((Board)(findBoard.get(0)[0])).getBoardId();
+		this.category = ((Board)(findBoard.get(0)[0])).getCategory();
+		this.title = ((Board)(findBoard.get(0)[0])).getTitle();
+		this.content = ((Board)(findBoard.get(0)[0])).getContent();
+		this.cnt = ((Board)(findBoard.get(0)[0])).getCnt();
+		this.boardLike = ((Board)(findBoard.get(0)[0])).getBoardLike();
+		this.boardDislike = ((Board)(findBoard.get(0)[0])).getBoardDislike();
+		this.regisDate = ((Board)(findBoard.get(0)[0])).getRegisDate();
+		this.userId = ((Board)(findBoard.get(0)[0])).getMember().getId();
+		this.nickName = ((Board)(findBoard.get(0)[0])).getMember().getNickName();
+		//for(Comment c : ((Board)(findBoard.get(0)[0])).getCommentList()) {
+			//comment.put("", value)
+		//}
 		
+		//this.comment.put("reply",reply);
 	}
 
 }

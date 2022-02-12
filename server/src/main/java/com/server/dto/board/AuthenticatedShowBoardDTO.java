@@ -1,6 +1,7 @@
 package com.server.dto.board;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import com.server.domain.Board;
 import com.server.domain.BoardFeeling;
@@ -23,6 +24,8 @@ public class AuthenticatedShowBoardDTO {
 	private String nickName;
 	private boolean likeChecked;
 	private boolean dislikeChecked;
+	private HashMap<String,String> commentList;
+	
 
 	public AuthenticatedShowBoardDTO(Board board, BoardFeeling boardFeeling) {
 		this.boardId = board.getBoardId();

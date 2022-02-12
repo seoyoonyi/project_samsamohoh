@@ -28,8 +28,10 @@ import lombok.ToString;
 @Builder
 @Getter
 @Setter
+@ToString(exclude= {"replyList","member","board"})
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Comment {
 	
 	@Id
@@ -62,5 +64,6 @@ public class Comment {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	Date deleteDate;
+	
 	
 }

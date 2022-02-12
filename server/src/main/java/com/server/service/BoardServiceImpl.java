@@ -1,6 +1,7 @@
 package com.server.service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,14 +89,14 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board getBoard(long BoardSeq) {
-		Optional<Board> findBoard = boardRepo.getBoard(BoardSeq);
+	public List<Object[]> getBoard(long BoardSeq) {
+		List<Object[]> findBoard = boardRepo.getBoard(BoardSeq);
 
-		if (findBoard.isEmpty() || findBoard.get().isEnabled() == false) {
+		if (findBoard.size()==0 || ((Board)(findBoard.get(0)[0])).isEnabled() == false) {
 			throw new BoardNotExistException();
 		}
 
-		return findBoard.get();
+		return findBoard;
 
 	}
 

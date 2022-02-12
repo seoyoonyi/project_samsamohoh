@@ -89,23 +89,23 @@ public class BoardController {
 			cookie.setMaxAge(60 * 60 * 24);
 			res.addCookie(cookie);
 		}
-		if (memberId == null) {
-			Board findBoard = boardService.getBoard(boardId);
+		//if (memberId == null) {
+			List<Object[]> findBoard = boardService.getBoard(boardId);
 			ShowBoardDTO boardDto = new ShowBoardDTO(findBoard);
 			SuccessfulResponseDTO<ShowBoardDTO> response = SuccessfulResponseDTO.<ShowBoardDTO>builder().code(1)
 					.message("게시글 조회 성공").data(boardDto).build();
 
 			return ResponseEntity.ok().body(response);
-		} else {
-			Board findBoard = boardService.getBoard(boardId);
+	/*	} else {
+			Object[] findBoard = boardService.getBoard(boardId);
 			BoardFeeling bf = boardService.getBoardFeeling(memberId, boardId);
-			AuthenticatedShowBoardDTO dto = new AuthenticatedShowBoardDTO(findBoard,bf);
+			//AuthenticatedShowBoardDTO dto = new AuthenticatedShowBoardDTO(findBoard,bf);
 			
 			SuccessfulResponseDTO<AuthenticatedShowBoardDTO> response = SuccessfulResponseDTO.<AuthenticatedShowBoardDTO>builder().code(1)
 					.message("게시글 조회 성공").data(dto).build();
 
 			return ResponseEntity.ok().body(response);
-		}
+		}*/
 
 	}
 
@@ -173,7 +173,7 @@ public class BoardController {
 		Map<String, Integer> pageInfo = new HashMap<String, Integer>();
 		List<ShowBoardDTO> boardDtoList = new ArrayList<ShowBoardDTO>();
 		for (Board b : boardList.getContent()) {
-			boardDtoList.add(new ShowBoardDTO(b));
+			//boardDtoList.add(new ShowBoardDTO(b));
 
 			map.put("items", boardDtoList);
 			pageInfo.put("currentPage", boardList.getNumber() + 1);

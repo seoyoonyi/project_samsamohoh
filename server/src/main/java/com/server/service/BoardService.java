@@ -1,5 +1,7 @@
 package com.server.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.server.domain.Board;
@@ -11,7 +13,7 @@ public interface BoardService {
 	
 	public Page<Board> getBoardList(Category category,int page,int pageSize);
 	
-	public Board getBoard(long BoardSeq);
+	public List<Object[]> getBoard(long BoardSeq);
 		
 	public void createBoard(Board board);
 	

@@ -18,6 +18,7 @@ import lombok.ToString;
 
 @Entity
 @Getter
+@ToString(exclude= {"comment","member"})
 @Setter
 public class Reply {
 	@Id
