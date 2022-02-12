@@ -50,12 +50,10 @@ public class CommentRepositoryTest {
 		 * replyRepo.save(reply);
 		 */
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		List<Object[]> o = boardRepo.getBoard(1l);
-		System.out.println(((Board)((o.get(0)[0]))).getCommentList().size());
-		System.out.println(((Board)((o.get(1)[0]))).getCommentList().size());
+		List<Object[]> o = boardRepo.getBoardList();
+		
 		
 		for(Object[] o1 : o) {
-			System.out.println(o1[1].hashCode());
 			System.out.println(Arrays.toString(o1));
 		}
 		/*map.put("board", (Board) o[0]);

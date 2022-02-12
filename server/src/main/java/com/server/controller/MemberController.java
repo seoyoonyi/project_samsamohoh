@@ -7,14 +7,13 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +34,6 @@ import com.server.service.MemberService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @Api(description = "회원 관련 REST API")
@@ -46,6 +44,7 @@ public class MemberController {
 
 	@Autowired
 	TokenProvider tokenProvider;
+	
 
 	@ApiOperation(value = "로그인", notes = "아이디와,패스워드를 이용하여 자격증명을 얻는 API")
 	@PostMapping("/auth/signin")
@@ -75,15 +74,16 @@ public class MemberController {
 	}
 
 	@ApiOperation(value = "회원의 이미지,닉네임 수정", notes = "초기 회원가입후 사용자의 프로필,닉네임을 설정하는 API")
-	@PutMapping("initialization/members/{id}/")
-	public ResponseEntity<?> updateInitMember(@PathVariable String id, @RequestPart MultipartFile file,
+	@PutMapping("initialization/member")
+	public ResponseEntity<?> updateInitMember(@RequestHeader(value="Authorization") String token,@RequestPart MultipartFile file,
 			@RequestPart String userInfor) {
-
+		
 		ObjectMapper om = new ObjectMapper();
 
 		try {
+			String memberId = tokenProvider.getMemberId(token.substring(7));
 			UpdateMemberDTO dto = om.readValue(userInfor, UpdateMemberDTO.class);
-			memberService.updateMember(id, file, dto);
+			memberService.updateMember(memberId, file, dto);
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
@@ -99,17 +99,20 @@ public class MemberController {
 	}
 
 	@ApiOperation(value = "회원의 이미지,닉네임,이메일,패스워드 수정")
-	@PutMapping("members/{id}")
-	public ResponseEntity<?> updateMember(@PathVariable String id, @RequestPart MultipartFile file,
+	@PutMapping("/member")
+	public ResponseEntity<?> updateMember(@RequestHeader(value="Authorization") String token, @RequestPart MultipartFile file,
 			@RequestPart String userInfo) {
 		ObjectMapper om = new ObjectMapper();
-
+		
 		try {
+			String memberId = tokenProvider.getMemberId(token.substring(7));
 			AfterUpdateMemberDTO dto = om.readValue(userInfo, AfterUpdateMemberDTO.class);
-			memberService.updateMember(id, file, dto);
+			memberService.updateMember(memberId, file, dto);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -119,10 +122,10 @@ public class MemberController {
 	}
 
 	@ApiOperation(value = "회원정보 불러오기")
-	@GetMapping("/members/{id}")
-	public ResponseEntity<?> getMember(@PathVariable String id) {
-
-		SearchMemberDTO dto = new SearchMemberDTO(memberService.getMember(id));
+	@GetMapping("/member")
+	public ResponseEntity<?> getMember(@RequestHeader(value="Authorization") String token) {
+		String memberId = tokenProvider.getMemberId(token.substring(7));
+		SearchMemberDTO dto = new SearchMemberDTO(memberService.getMember(memberId));
 		SuccessfulResponseDTO<SearchMemberDTO> response = SuccessfulResponseDTO.<SearchMemberDTO>builder().code(1)
 				.message("회원조회 성공").data(dto).build();
 		return ResponseEntity.ok().body(response);
@@ -130,9 +133,9 @@ public class MemberController {
 	}
 
 	@ApiOperation(value = "회원정보 삭제하기")
-	@DeleteMapping("/members/{memberId}")
-	public ResponseEntity<?> deleteMember(@PathVariable String memberId) {
-
+	@DeleteMapping("/member")
+	public ResponseEntity<?> deleteMember(@RequestHeader(value="Authorization") String token) {
+		String memberId = tokenProvider.getMemberId(token.substring(7));
 		memberService.deleteMember(memberId);
 		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("회원정보 삭제 성공").build();
 

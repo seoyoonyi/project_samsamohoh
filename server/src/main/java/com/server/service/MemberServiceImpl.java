@@ -35,11 +35,7 @@ public class MemberServiceImpl implements MemberService {
 
 	public Member getMember(String id) {
 		Optional<Member> option = memberRepo.findById(id);
-		if (option.isEmpty()) {
-			if (option.get().isEnabled() == false) {
-				throw new InvalidMemberException();
-			}
-
+		if (option.isEmpty() || option.get().isEnabled() == false) {			
 			throw new MemberNotExistException();
 		} else {
 			return option.get();

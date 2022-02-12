@@ -30,7 +30,6 @@ public class ShowBoardDTO {
 	private Date regisDate;
 	private String userId;
 	private String nickName;
-	// private HashMap<Comment,List<>> comment = null;
 	private List<ShowCommentDTO> comment = new ArrayList<ShowCommentDTO>();
 
 	public ShowBoardDTO(List<Object[]> findBoard) {
@@ -46,7 +45,9 @@ public class ShowBoardDTO {
 		this.nickName = ((Board) (findBoard.get(0)[0])).getMember().getNickName();
 		System.out.println(((Board) (findBoard.get(0)[0])).getCommentList().size());
 		for (Comment c : ((Board) (findBoard.get(0)[0])).getCommentList()) {
-			this.comment.add(new ShowCommentDTO(c));
+			if (c.isEnabled() == true) {
+				this.comment.add(new ShowCommentDTO(c));
+			}
 		}
 
 		// this.comment.put("reply",reply);

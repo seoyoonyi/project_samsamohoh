@@ -21,8 +21,7 @@ public class SearchMemberDTO {
 	String nickName;
 	Date regisDate;
 	Role role;
-	List<String> commentId = new ArrayList<String>();
-	List<String> comment = new ArrayList<String>();
+	
 	
 	public SearchMemberDTO(Member member) {
 		this.id = member.getId();
@@ -31,12 +30,6 @@ public class SearchMemberDTO {
 		this.nickName = member.getNickName();
 		this.regisDate = member.getRegisDate();
 		this.role = member.getRole();
-		for(Comment c : member.getCommentList()) {
-			commentId.add(c.getCommentId()+"");
-		}
-		for(Comment c : member.getCommentList()) {
-			comment.add(c.getComment());
-		}
 	}
 	
 }

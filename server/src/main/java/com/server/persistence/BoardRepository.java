@@ -25,7 +25,7 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
 	@Query("select b,c from Board b left join b.commentList c left join c.replyList r  where b.id = ?1 order by c.regisDate desc")
 	public List<Object[]> getBoard(long boardId);
 	
-	@Query("select  b,c,r from Board b left join b.commentList c left join c.replyList r order by c.regisDate desc")
+	@Query("select  b,c,r,count(b),count(c) from Board b left join b.commentList c left join c.replyList r")
 	public List<Object[]> getBoardList();
 	
 	

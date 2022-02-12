@@ -29,9 +29,8 @@ public class AuthenticatedShowBoardDTO {
 	private boolean likeChecked;
 	private boolean dislikeChecked;
 	private List<ShowCommentDTO> comment = new ArrayList<ShowCommentDTO>();
-	
 
-	public AuthenticatedShowBoardDTO(List<Object[]> findBoard,BoardFeeling boardFeeling) {
+	public AuthenticatedShowBoardDTO(List<Object[]> findBoard, BoardFeeling boardFeeling) {
 		this.boardId = ((Board) (findBoard.get(0)[0])).getBoardId();
 		this.category = ((Board) (findBoard.get(0)[0])).getCategory();
 		this.title = ((Board) (findBoard.get(0)[0])).getTitle();
@@ -42,14 +41,21 @@ public class AuthenticatedShowBoardDTO {
 		this.regisDate = ((Board) (findBoard.get(0)[0])).getRegisDate();
 		this.userId = ((Board) (findBoard.get(0)[0])).getMember().getId();
 		this.nickName = ((Board) (findBoard.get(0)[0])).getMember().getNickName();
-		System.out.println(((Board) (findBoard.get(0)[0])).getCommentList().size());
 		for (Comment c : ((Board) (findBoard.get(0)[0])).getCommentList()) {
-			this.comment.add(new ShowCommentDTO(c));
+			if (c.isEnabled() == true) {
+				this.comment.add(new ShowCommentDTO(c));
+			}
 		}
+		
+		if(comment.size()==0) {
+			comment = null;
+		}
+		
+		
 		if (boardFeeling == null) {
 			this.likeChecked = false;
 			this.dislikeChecked = false;
-		}else {
+		} else {
 			this.likeChecked = boardFeeling.is_like();
 			this.dislikeChecked = boardFeeling.is_dislike();
 		}

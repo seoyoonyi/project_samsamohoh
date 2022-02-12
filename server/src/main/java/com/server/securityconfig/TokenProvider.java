@@ -37,6 +37,11 @@ public class TokenProvider {
 
 	}
 	
+	public String getMemberId(String token) {
+		Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+		return claims.getSubject();
+	}
+	
 	public Authentication getAuthnetication(String token) {
 		Claims claims = this.validateAndGetPayload(token);
 		//User user = new User(claims.getSubject(),claims.get("password").toString(),AuthorityUtils.createAuthorityList(claims.get("role").toString()));

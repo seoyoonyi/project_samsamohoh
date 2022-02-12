@@ -13,7 +13,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,9 +29,8 @@ import com.server.domain.Category;
 import com.server.dto.board.AuthenticatedShowBoardDTO;
 import com.server.dto.board.CreateBoardDTO;
 import com.server.dto.board.ShowBoardDTO;
+import com.server.dto.board.ShowBoardListDTO;
 import com.server.dto.board.UpdateBoardDTO;
-import com.server.dto.comment.CreateCommentDTO;
-import com.server.dto.comment.UpdateCommentDTO;
 import com.server.dto.response.SimpleResponseDTO;
 import com.server.dto.response.SuccessfulResponseDTO;
 import com.server.exception.board.BoardNotExistException;
@@ -44,7 +42,6 @@ import com.server.service.ReplyService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/boards")
@@ -108,7 +105,7 @@ public class BoardController {
 
 	}
 
-	@PostMapping("/cookies")
+	/*@PostMapping("/cookies")
 	@ApiOperation(value = "쿠키생성")
 	public ResponseEntity<?> makeCookies(HttpServletRequest req, HttpServletResponse res) {
 
@@ -121,9 +118,9 @@ public class BoardController {
 		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("쿠키 생성 성공").build();
 		return ResponseEntity.ok().body(response);
 
-	}
+	}*/
 
-	@DeleteMapping("/cookies")
+	/*@DeleteMapping("/cookies")
 	@ApiOperation(value = "쿠키삭제")
 	public ResponseEntity<?> deleteCookie(HttpServletRequest req, HttpServletResponse res) {
 		Cookie[] cookies = req.getCookies();
@@ -141,9 +138,9 @@ public class BoardController {
 				.code(1).message("쿠키삭제성공").data(map).build();
 		return ResponseEntity.ok().body(response);
 
-	}
+	}*/
 
-	@GetMapping("/cookies")
+	/*@GetMapping("/cookies")
 	@ApiOperation(value = "쿠키조회")
 	public ResponseEntity<?> searchCookies(HttpServletRequest req, HttpServletResponse res) {
 		Cookie[] cookies = req.getCookies();
@@ -160,19 +157,19 @@ public class BoardController {
 				.code(1).message("쿠키조회성공").data(map).build();
 		return ResponseEntity.ok().body(response);
 
-	}
+	}*/
 
 	@ApiOperation(value = "전체 모집글목록 가져오기")
 	@GetMapping
 	public ResponseEntity<?> getBoardList(@RequestParam String category, @RequestParam("page") int page,
-			@RequestParam("pageSize") int pageNum) {
-		Page<Board> boardList = boardService.getBoardList(Category.valueOf(category), page, pageNum);
+			@RequestParam("pageSize") int pageSize) {
+		Page<Board> boardList = boardService.getBoardList(Category.valueOf(category), page, pageSize);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		Map<String, Integer> pageInfo = new HashMap<String, Integer>();
-		List<ShowBoardDTO> boardDtoList = new ArrayList<ShowBoardDTO>();
+		List<ShowBoardListDTO> boardDtoList = new ArrayList<ShowBoardListDTO>();
 		for (Board b : boardList.getContent()) {
-			// boardDtoList.add(new ShowBoardDTO(b));
+		    boardDtoList.add(new ShowBoardListDTO(b));
 
 			map.put("items", boardDtoList);
 			pageInfo.put("currentPage", boardList.getNumber() + 1);
@@ -189,10 +186,10 @@ public class BoardController {
 
 	@ApiOperation(value = "모집글 생성하기")
 	@PostMapping
-	public ResponseEntity<?> createBoard(@ApiIgnore @AuthenticationPrincipal String id,
+	public ResponseEntity<?> createBoard(String memberId,
 			@RequestBody @Valid CreateBoardDTO dto) {
 
-		boardService.createBoard(dto.toEntity(memberService.getMember(id)));
+		boardService.createBoard(dto.toEntity(memberService.getMember(memberId)));
 		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("글 생성 성공").build();
 		return ResponseEntity.ok().body(response);
 
