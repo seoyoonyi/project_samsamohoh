@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,6 +63,8 @@ public class BoardController {
 
 	@Autowired
 	ReplyService replyService;
+	
+
 
 	@ApiOperation(value = "특정 모집글 가져오기")
 	@GetMapping("/{boardId}")
@@ -161,9 +164,9 @@ public class BoardController {
 
 	@ApiOperation(value = "전체 모집글목록 가져오기")
 	@GetMapping
-	public ResponseEntity<?> getBoardList(@RequestParam String category, @RequestParam("page") int page,
+	public ResponseEntity<?> getBoardList(@RequestParam Category category, @RequestParam("page") int page,
 			@RequestParam("pageSize") int pageSize) {
-		Page<Board> boardList = boardService.getBoardList(Category.valueOf(category), page, pageSize);
+		Page<Board> boardList = boardService.getBoardList(category, page, pageSize);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		Map<String, Integer> pageInfo = new HashMap<String, Integer>();
@@ -186,10 +189,11 @@ public class BoardController {
 
 	@ApiOperation(value = "모집글 생성하기")
 	@PostMapping
-	public ResponseEntity<?> createBoard(String memberId,
+	public ResponseEntity<?> createBoard(@RequestHeader(value="Authorization") String token,
 			@RequestBody @Valid CreateBoardDTO dto) {
-
+		String memberId = tokenProvider.getMemberId(token.substring(7));
 		boardService.createBoard(dto.toEntity(memberService.getMember(memberId)));
+		
 		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("글 생성 성공").build();
 		return ResponseEntity.ok().body(response);
 

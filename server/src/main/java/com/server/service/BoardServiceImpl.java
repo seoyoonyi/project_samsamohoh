@@ -121,7 +121,7 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 		Board findBoard = option.get();
-		findBoard.setCategory(Category.valueOf(dto.getCategory()));
+		findBoard.setCategory(dto.getCategory()/*Category.valueOf(dto.getCategory())*/);
 		findBoard.setTitle(dto.getTitle());
 		findBoard.setContent(dto.getContent());
 		findBoard.setUpdateDate(new Date());

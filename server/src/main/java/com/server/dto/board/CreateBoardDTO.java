@@ -6,6 +6,7 @@ import javax.validation.constraints.Pattern;
 import com.server.domain.Board;
 import com.server.domain.Category;
 import com.server.domain.Member;
+import com.server.validation.EnumPattern;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,8 +19,10 @@ import lombok.Data;
 public class CreateBoardDTO {
 	
 	@ApiModelProperty(notes ="모집글 카테고리")
-	@Pattern(regexp="(ALL|EXERCISE|RESTAURANT|MOVIE|STUDY|ETC)",message="카테고리값은 ALL,EXERCISE,RESTAURANT,MOVIE,STUDY,ETC 중 하나입니다.")
-	private String category;
+	
+	
+	@EnumPattern(regexp="(ALL|EXERCISE|RESTAURANT|MOVIE|STUDY|ETC)",message="카테고리값은 (ALL|EXERCISE|RESTAURANT|MOVIE|STUDY|ETC)중 하나입니다.")
+	private Category category;
 	
 	@ApiModelProperty(notes="모집글 제목")
 	@NotEmpty(message="빈값은 입력할 수 없습니다.")
@@ -36,6 +39,6 @@ public class CreateBoardDTO {
 	
 
 	public Board toEntity(Member member) {
-		return Board.builder().category(Category.valueOf(this.category)).title(this.title).content(this.content).member(member).build();
+		return Board.builder().category(category).title(this.title).content(this.content).member(member).build();
 	}
 }

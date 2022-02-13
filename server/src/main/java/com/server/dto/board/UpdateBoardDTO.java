@@ -5,6 +5,7 @@ import javax.validation.constraints.Pattern;
 
 import com.server.domain.Board;
 import com.server.domain.Category;
+import com.server.validation.EnumPattern;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -15,8 +16,8 @@ import lombok.Setter;
 @Builder
 public class UpdateBoardDTO {
 	
-	@Pattern(regexp="(ALL|EXERCISE|RESTAURANT|MOVIE|STUDY|ETC)",message="카테고리값은 ALL,EXERCISE,RESTAURANT,MOVIE,STUDY,ETC 중 하나입니다.")
-	String category;
+	@EnumPattern(regexp="(ALL|EXERCISE|RESTAURANT|MOVIE|STUDY|ETC)",message="카테고리값은 (ALL|EXERCISE|RESTAURANT|MOVIE|STUDY|ETC)중 하나입니다.")
+	Category category;
 	
 	@NotEmpty(message="빈값은 입력할 수 없습니다.")
 	@Pattern(regexp=".{0,255}",message="제목은 1글자이상 255글자 이하입니다.")
@@ -27,7 +28,7 @@ public class UpdateBoardDTO {
 	String content;
 
 	public Board toEntity() {
-		return Board.builder().category(Category.valueOf(category)).title(title).content(content).build();
+		return Board.builder().category(category).title(title).content(content).build();
 	}
 
 }

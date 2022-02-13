@@ -37,7 +37,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
 				securityContext.setAuthentication(authentication);
 				SecurityContextHolder.setContext(securityContext);
-				System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
 			}else {
 				request.setAttribute("exception", ExceptionCode.DO_NOT_EXIST_TOKEN_EXCEPTION.code);
 			}
