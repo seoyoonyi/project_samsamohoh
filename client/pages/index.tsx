@@ -9,25 +9,19 @@ enum Role {
 }
 
 interface IRoomList {
-  seq: number;
+  boardId: number;
+  category: string;
   title: string;
   content: string;
-  regisDate: string;
   cnt: number;
-  good: number;
-  bad: number;
-  member: {
-    id: string;
-    password: string;
-    name: string;
-    email: string;
-    role: Role;
-    enabled: boolean;
-    regisDate: string;
-  };
+  boardLike: number;
+  boardDislike: number;
+  regisDate: string;
+  userId: string;
+  nickName: string;
 }
 
-interface IRoomListProps {
+export interface IRoomListProps {
   roomLists: IRoomList[];
 }
 
@@ -47,6 +41,7 @@ export default Index;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     let res = await getRoomList("ALL"); //전체 글 조회
+    // console.log("res", res);
     if (res && res.code === 1) {
       return { props: { roomLists: res.data.items } }; // 데이터가 존재하는 경우 리스트를 전달
     } else if (res.code === -1) {

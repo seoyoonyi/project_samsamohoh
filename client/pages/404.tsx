@@ -1,11 +1,8 @@
-import { Layout } from 'antd';
-import Headerlayout from '../components/grids/header-layout';
-import Head from 'next/head';
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import Router, { useRouter } from 'next/router';
-import { Row, Col } from 'antd';
+import { Layout } from "antd";
+import Headerlayout from "../components/grids/header-layout";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 
 const Error404 = () => {
   const { Header, Footer, Sider, Content } = Layout;
@@ -18,7 +15,7 @@ const Error404 = () => {
 
   const goToHome = (e) => {
     e.preventDefault();
-    router.push('/');
+    router.push("/");
   };
 
   //404 page 가로스크롤 생김

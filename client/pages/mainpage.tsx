@@ -1,34 +1,26 @@
+import React from "react";
 import { Layout } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFootballBall,
-  faUtensils,
-  faFilm,
-  faPencilAlt,
-  faCloud,
-  faHeart,
-  faThumbsUp,
-  faThumbsDown,
-} from "@fortawesome/free-solid-svg-icons";
+import dayjs from "dayjs";
 import Link from "next/link";
 import { useState } from "react";
+import { IRoomListProps } from ".";
 import getRoomList from "../common/roomList";
 
-const Mainpage = ({ roomLists }) => {
-  const { Header, Footer, Sider, Content } = Layout;
+const Mainpage = ({ roomLists }: IRoomListProps) => {
+  const { Content } = Layout;
 
   const [rooms, setRooms] = useState(roomLists);
-  // console.log('rooms', rooms);
+  //console.log("rooms", rooms);
 
-  const handleOrder = async (_bt) => {
+  const handleOrder = async (bt: string) => {
+    //TODO 필터기능 점검
     let propsName = "";
-    propsName = _bt === "recent" ? "regisDate" : "good";
-    console.log("propsName", propsName);
+    propsName = bt === "recent" ? "regisDate" : "good";
+    // console.log("propsName", propsName);
     try {
-      // const res = await getRoomList(); //전체 글 조회
       let res = [...rooms];
 
-      if (_bt === "good") {
+      if (bt === "good") {
         //인기순으로  정렬처리
         res = res.sort((a, b) => {
           return a[propsName] > b[propsName]
@@ -52,10 +44,10 @@ const Mainpage = ({ roomLists }) => {
     }
   };
 
-  const handleFileter = async (_category) => {
-    console.log("_category", _category);
+  const handleFileter = async (category: string) => {
+    console.log("category", category);
     try {
-      let res = await getRoomList(_category); //전체 글 조회
+      let res = await getRoomList(category); //전체 글 조회
       if (res && res.code === 1) {
         setRooms(res.data.items);
       }
@@ -154,8 +146,8 @@ const Mainpage = ({ roomLists }) => {
                 {Array.isArray(rooms) ? ( // 데이터가 없어서 에러메세지로 넘어오는 경우는 문자열로 전달되서 false로 떨어짐
                   // 생성된 방이 있는 경우
                   rooms?.map((item) => {
-                    const {
-                      boardDislike,
+                    let {
+                      // boardDislike, 싫어요 수는 표기안함
                       boardId,
                       boardLike,
                       category,
@@ -164,11 +156,11 @@ const Mainpage = ({ roomLists }) => {
                       nickName,
                       regisDate,
                       title,
-                      userId,
+                      // userId,
                     } = item;
                     console.log("item", item);
-                    //import dayjs from "dayjs";
-                    // const createDay = dayjs(regisDate).format("YYYY.MM.DD");
+                    regisDate = dayjs(regisDate).format("YYYY.MM.DD"); // 방생성 날짜 포맷 변경
+
                     // 방생성 날짜는 디테일 페이지에서 표기
                     return (
                       <ul className="room-list" key={boardId}>
@@ -194,8 +186,8 @@ const Mainpage = ({ roomLists }) => {
                                 <h3 className="title">{title}</h3>
                                 <p className="content">{content}</p>
                                 <p className="date">{regisDate}</p>
-                                {/* TODO: 날짜포맷 형식 변경 */}
-                                {/* TODO: 카테고리 표기할 공간 필요 => 카테고리가 전체일 경우는 구분안되서 필요 */}
+                                <p className="category">{category}</p>
+                                {/* TODO: 카테고리 표기할 공간 필요 => 카테고리가 전체일 경우는 구분안되서 필요 아이콘으로 표기하면 더 좋음 */}
                                 <div className="inner">
                                   <p className="member">{nickName}</p>
                                   <div className="like-list">
@@ -233,4 +225,4 @@ const Mainpage = ({ roomLists }) => {
   );
 };
 
-export default Mainpage;
+export default React.memo(Mainpage);

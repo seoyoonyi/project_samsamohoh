@@ -5,11 +5,12 @@ import { Layout } from "antd";
 import { useRecoilState } from "recoil";
 import { tokenAtrom } from "../../atoms/token";
 import { onLoginOut } from "../../common/logout";
-
+import { useRouter } from "next/router";
 const Headerlayout = () => {
   const tokenStorage = new TokenStorage();
   const [token, setToken] = useRecoilState(tokenAtrom);
-  const { Header, Footer, Sider, Content } = Layout;
+  const { Header } = Layout;
+  const router = useRouter();
   useEffect(() => {
     const getToken = tokenStorage.getToken();
     setToken(getToken);
@@ -33,7 +34,9 @@ const Headerlayout = () => {
                   <div className="login">
                     {token ? (
                       <Link href="/login">
-                        <a onClick={(e) => onLoginOut(e, setToken)}>로그아웃</a>
+                        <a onClick={(e) => onLoginOut(e, setToken, router)}>
+                          로그아웃
+                        </a>
                       </Link>
                     ) : (
                       <Link href="/login">
@@ -67,24 +70,30 @@ const Headerlayout = () => {
               <ul>
                 <li className="user-group">
                   <div className="login">
+                    <Link href="/login">
+                      {token ? (
+                        <a onClick={(e) => onLoginOut(e, setToken, router)}>
+                          로그아웃
+                        </a>
+                      ) : (
+                        <a>로그인</a>
+                      )}
+                    </Link>
+                  </div>
+                  <div className="register">
                     {token ? (
-                      <Link href="/login">
-                        <a onClick={(e) => onLoginOut(e, setToken)}>로그아웃</a>
+                      <Link href="/my_page">
+                        <a>히라</a>
                       </Link>
                     ) : (
-                      <Link href="/login">
-                        <a>로그인</a>
+                      <Link href="/register">
+                        <a>회원가입</a>
                       </Link>
                     )}
                   </div>
-                  <div className="register">
-                    <Link href="/register">
-                      <a>회원가입</a>
-                    </Link>
-                  </div>
                 </li>
                 <li className="new-writing">
-                  <Link href="/">
+                  <Link href="/new_write">
                     <a>새글쓰기</a>
                   </Link>
                 </li>
