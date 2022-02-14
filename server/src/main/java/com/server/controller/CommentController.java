@@ -15,19 +15,19 @@ import com.server.dto.comment.UpdateCommentDTO;
 import com.server.dto.response.SimpleResponseDTO;
 import com.server.service.CommentService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/comments")
-@Api(description = "댓글 관련 REST API")
+@Tag(name="Comment", description="댓글 API")
 public class CommentController {
 	
 
 	@Autowired
 	CommentService commentService;
 	
-	@ApiOperation(value = "모집글 댓글 달기")
+	@Operation(summary="댓글 생성",description="")
 	@PostMapping
 	public ResponseEntity<?> createComment(@RequestBody CreateCommentDTO dto){
 		commentService.createComment(dto);
@@ -36,7 +36,7 @@ public class CommentController {
 		
 	}
 	
-	@ApiOperation(value="모집글 댓글 수정")
+	//@ApiOperation(value="모집글 댓글 수정")
 	@PutMapping("/{commentId}")
 	public ResponseEntity<?> updateComment(@PathVariable long commentId,@RequestBody UpdateCommentDTO dto){
 		commentService.updateComment(commentId, dto);
@@ -45,7 +45,7 @@ public class CommentController {
 	}
 	
 	
-	@ApiOperation(value="모집글 댓글 삭제")
+	//@ApiOperation(value="모집글 댓글 삭제")
 	@DeleteMapping("/{commentId}")
 	public ResponseEntity<?> deleteComment(@PathVariable long commentId){
 		commentService.deleteComment(commentId);

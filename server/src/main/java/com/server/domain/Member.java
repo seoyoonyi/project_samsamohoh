@@ -63,15 +63,15 @@ public class Member {
 	private Date deleteDate;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Board> boardList;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "member",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
 	private Set<Comment> commentList;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "member",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
 	private Set<Reply> replyList;
   
 }

@@ -68,7 +68,7 @@ public class Board {
 	@Column(columnDefinition = "bigint default 0", insertable = false)
 	private long boardDislike;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id", nullable = false)
 	private Member member;
 	

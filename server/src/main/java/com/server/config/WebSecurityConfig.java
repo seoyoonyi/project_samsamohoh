@@ -26,8 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().httpBasic().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers("/", "/auth/signin", "/auth/signup", "/auth/member/{id}", "/swagger-ui.html", "/api/v2/**",
-						"/swagger/**", "/swagger-resources/**", "/v2/api-docs", "/webjars/**","/boards","/boards/{boardId:[0-9]+}")
+				.antMatchers("/", "/auth/signin", "/auth/signup", "/auth/member/{id}","/api/v1/**", "/test/**","/v/users","/v", "/v/**",
+						"/swagger-ui.html","/swagger-ui/**","/api-docs","/api-docs/**","/boards/{boardId:[0-9]+}")
 				.permitAll().anyRequest().hasRole("MEMBER").and().exceptionHandling()
 				.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
 				.accessDeniedHandler(new CustomAccessDeniedHandler());

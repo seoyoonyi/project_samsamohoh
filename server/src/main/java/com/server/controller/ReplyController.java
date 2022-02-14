@@ -15,18 +15,15 @@ import com.server.dto.reply.UpdateReplyDTO;
 import com.server.dto.response.SimpleResponseDTO;
 import com.server.service.ReplyService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-
 @RestController
 @RequestMapping("/replys")
-@Api(description = "답글 관련 REST API")
+//@Api(description = "답글 관련 REST API")
 public class ReplyController {
 
 	@Autowired
 	ReplyService replyService;
 
-	@ApiOperation(value = "모집글 답글 생성")
+	//@ApiOperation(value = "모집글 답글 생성")
 	@PostMapping
 	public ResponseEntity<?> createReply(@RequestBody CreateReplyDTO dto) {
 		
@@ -36,7 +33,7 @@ public class ReplyController {
 		return ResponseEntity.ok().body(response);
 	}
 	
-	@ApiOperation(value="모집글 답글 수정")
+	//@ApiOperation(value="모집글 답글 수정")
 	@PutMapping("/{replyId}")
 	public ResponseEntity<?> updateReply(@PathVariable long replyId,UpdateReplyDTO dto){
 		replyService.updateReply(replyId, dto);
@@ -45,7 +42,7 @@ public class ReplyController {
 		return ResponseEntity.ok().body(response);
 	}
 	
-	@ApiOperation(value="모집글 답글 삭제")
+	//@ApiOperation(value="모집글 답글 삭제")
 	@DeleteMapping("/{replyId}")
 	public ResponseEntity<?> deleteReply(@PathVariable long replyId){
 		replyService.deleteReply(replyId);

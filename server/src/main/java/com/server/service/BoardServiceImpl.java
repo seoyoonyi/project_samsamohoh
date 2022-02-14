@@ -89,10 +89,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Object[]> getBoard(long BoardSeq) {
-		List<Object[]> findBoard = boardRepo.getBoard(BoardSeq);
+	public Board getBoard(long boardId) {
+		Board findBoard = boardRepo.getBoardWithCommentAndReply(boardId);
 
-		if (findBoard.size()==0 || ((Board)(findBoard.get(0)[0])).isEnabled() == false) {
+		if (findBoard==null || findBoard.isEnabled() == false) {
 			throw new BoardNotExistException();
 		}
 

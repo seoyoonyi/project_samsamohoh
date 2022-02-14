@@ -13,7 +13,7 @@ public interface BoardService {
 	
 	public Page<Board> getBoardList(Category category,int page,int pageSize);
 	
-	public List<Object[]> getBoard(long BoardSeq);
+	public Board getBoard(long BoardSeq);
 		
 	public void createBoard(Board board);
 	

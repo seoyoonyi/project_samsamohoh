@@ -40,11 +40,11 @@ public class Comment {
 	
 	String comment;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id",nullable=false)
 	Member member;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="boardId",nullable=false)
 	Board board;	
 	

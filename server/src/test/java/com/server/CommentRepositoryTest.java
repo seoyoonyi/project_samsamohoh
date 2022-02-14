@@ -21,7 +21,7 @@ import com.server.persistence.ReplyRepository;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CommentRepositoryTest {
-	
+
 	@Autowired
 	MemberRepository memberRepo;
 
@@ -49,22 +49,38 @@ public class CommentRepositoryTest {
 		 * reply.setComment(comment); reply.setMember(findMember);
 		 * replyRepo.save(reply);
 		 */
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		List<Object[]> o = boardRepo.getBoardList();
-		
-		
-		for(Object[] o1 : o) {
-			System.out.println(Arrays.toString(o1));
+		// List<Board> boardList = boardRepo.getBoardWithCommentAndReply(1l);
+		Board board = boardRepo.getBoardWithCommentAndReply(1L);
+		/*
+		 * for(Board b : boardList) { System.out.println(boardList.size());
+		 * System.out.println(b.toString()); for(Comment c : b.getCommentList()) {
+		 * System.out.println(b.getCommentList().size());
+		 * System.out.println(c.toString());
+		 * 
+		 * for(Reply r : c.getReplyList()) {
+		 * System.out.println(c.getReplyList().size());
+		 * System.out.println(r.toString()); }
+		 * 
+		 * System.out.println(
+		 * "============================================================================"
+		 * ); }
+		 */
+		System.out.println(board.toString());
+		for(Comment c : board.getCommentList()) {
+			System.out.println(c.toString());
+			
+			for(Reply r : c.getReplyList()) {
+				System.out.println(r.toString());
+			}
 		}
-		/*map.put("board", (Board) o[0]);
-		map.put("comment", (Comment) o[1]);
-		map.put("reply", (Reply) o[2]);
-
-		System.out.println(((Board) map.get("board")).getContent());
-		System.out.println(((Comment) map.get("comment")).getComment());
-		System.out.println(((Reply) map.get("reply")).getReplyComment());*/
-		
-
-
 	}
+	/*
+	 * map.put("board", (Board) o[0]); map.put("comment", (Comment) o[1]);
+	 * map.put("reply", (Reply) o[2]);
+	 * 
+	 * System.out.println(((Board) map.get("board")).getContent());
+	 * System.out.println(((Comment) map.get("comment")).getComment());
+	 * System.out.println(((Reply) map.get("reply")).getReplyComment());
+	 */
+
 }

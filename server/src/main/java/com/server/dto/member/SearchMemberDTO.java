@@ -1,12 +1,8 @@
 package com.server.dto.member;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import com.server.domain.Comment;
 import com.server.domain.Member;
-import com.server.domain.Reply;
 import com.server.domain.Role;
 
 import lombok.Getter;

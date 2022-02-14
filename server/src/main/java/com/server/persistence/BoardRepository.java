@@ -1,7 +1,6 @@
 package com.server.persistence;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -12,9 +11,10 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 import com.server.domain.Board;
+import com.server.persistence.customrepo.CustomBoardRepository;
 
 @Repository
-public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPredicateExecutor<Board> {
+public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPredicateExecutor<Board>,CustomBoardRepository {
 	
 	
 	@Transactional
