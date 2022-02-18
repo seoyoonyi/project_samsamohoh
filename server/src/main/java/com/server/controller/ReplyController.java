@@ -29,7 +29,7 @@ public class ReplyController {
 		
 		replyService.createReply(dto);
 		
-		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("답글 생성 완료").build();
+		SimpleResponseDTO response = SimpleResponseDTO.builder().code("1").message("답글 생성 완료").build();
 		return ResponseEntity.ok().body(response);
 	}
 	
@@ -38,7 +38,7 @@ public class ReplyController {
 	public ResponseEntity<?> updateReply(@PathVariable long replyId,UpdateReplyDTO dto){
 		replyService.updateReply(replyId, dto);
 		
-		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("답글 수정 완료").build();
+		SimpleResponseDTO response = SimpleResponseDTO.builder().code("1").message("답글 수정 완료").build();
 		return ResponseEntity.ok().body(response);
 	}
 	
@@ -47,7 +47,7 @@ public class ReplyController {
 	public ResponseEntity<?> deleteReply(@PathVariable long replyId){
 		replyService.deleteReply(replyId);
 		
-		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("답글 삭제 완료").build();
+		SimpleResponseDTO response = SimpleResponseDTO.builder().code("1").message("답글 삭제 완료").build();
 		return ResponseEntity.ok().body(response);
 	}
 }

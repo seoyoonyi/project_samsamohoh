@@ -1,7 +1,6 @@
 package com.server.exception;
 
-import org.springframework.http.HttpStatus;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +10,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
+@Schema(description="예외 발생 응답 DTO")
 public class ApiException<T> {
-	private T message;
+	@Schema(description="예외 코드",example="예외 코드")
 	private String code;
+	
+	@Schema(description="예외 메시지",example="예외 메시지")
+	private T message;
+	
 }

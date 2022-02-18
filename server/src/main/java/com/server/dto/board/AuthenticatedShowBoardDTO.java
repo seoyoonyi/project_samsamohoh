@@ -17,31 +17,31 @@ import lombok.Data;
 @Schema(description="로그인된 사용자가 게시글을 조회할때의 DTO")
 public class AuthenticatedShowBoardDTO {
 	
-	@Schema(description="게시글 아이디")
+	@Schema(description="게시글 아이디",example="게시글아이디")
 	private long boardId;
-	@Schema(description="게시글 카테고리")
+	@Schema(description="게시글 카테고리",example="게시글카테고리")
 	private Category category;
-	@Schema(description="게시글 제목")
+	@Schema(description="게시글 제목",example="게시글제목")
 	private String title;
-	@Schema(description="게시글 내용")
+	@Schema(description="게시글 내용",example="게시글내용")
 	private String content;
-	@Schema(description="게시글 조회수")
+	@Schema(description="게시글 조회수",example="게시글조회수")
 	private long cnt;
-	@Schema(description="게시글 좋아요 갯수")
+	@Schema(description="게시글 좋아요 갯수",example="게시글 좋아요 갯수")
 	private long boardLike;
-	@Schema(description="게시글 싫어요 갯수")
+	@Schema(description="게시글 싫어요 갯수",example="게시글 싫어요 갯수")
 	private long boardDislike;
-	@Schema(description="게시글 생성 날짜")
+	@Schema(description="게시글 생성 날짜",example="게시글 생성 날짜")
 	private Date regisDate;
-	@Schema(description="게시글을 작성한 사용자 아이디")
+	@Schema(description="게시글을 작성한 사용자 아이디",example="게시글을 작성한 사용자 아이디")
 	private String userId;
-	@Schema(description="게시글을 작성한 사용자 닉네임")
+	@Schema(description="게시글을 작성한 사용자 닉네임",example="게시글을 작성한 사용자 닉네임")
 	private String nickName;
-	@Schema(description="해당 게시글을 조회한 사용자가 게시글의 좋아요를 눌렀는지의 여부")
+	@Schema(description="해당 게시글을 조회한 사용자가 게시글의 좋아요를 눌렀는지의 여부",example="해당 게시글을 조회한 사용자가 게시글의 좋아요를 눌렀는지의 여부")
 	private boolean likeChecked;
-	@Schema(description="해당 게시글을 조회한 사용자가 게시글의 싫어요를 눌렀는지의 여부")
+	@Schema(description="해당 게시글을 조회한 사용자가 게시글의 싫어요를 눌렀는지의 여부",example="해당 게시글을 조회한 사용자가 게시글의 싫어요를 눌렀는지의 여부")
 	private boolean dislikeChecked;
-	@Schema(description="게시글에 달린 댓글과 답글")
+	@Schema(description="게시글에 달린 댓글과 답글",example="게시글에 달린 댓글과 답글")
 	private List<ShowCommentDTO> comment = new ArrayList<ShowCommentDTO>();
 
 	public AuthenticatedShowBoardDTO(Board findBoard, BoardFeeling boardFeeling) {

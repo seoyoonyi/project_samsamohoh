@@ -79,7 +79,7 @@ public class MemberServiceImpl implements MemberService {
 		if (!dto.getEmail().matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$")) {
 			throw new EmailValidationException();
 		}
-
+		
 		if (!dto.getNickName().matches("^[가-힣]{2,8}$")) {
 			throw new NickNameValidationException();
 		}

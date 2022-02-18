@@ -31,7 +31,7 @@ public class CommentController {
 	@PostMapping
 	public ResponseEntity<?> createComment(@RequestBody CreateCommentDTO dto){
 		commentService.createComment(dto);
-		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("댓글 생성 완료").build();
+		SimpleResponseDTO response = SimpleResponseDTO.builder().code("1").message("댓글 생성 완료").build();
 		return ResponseEntity.ok().body(response);
 		
 	}
@@ -40,7 +40,7 @@ public class CommentController {
 	@PutMapping("/{commentId}")
 	public ResponseEntity<?> updateComment(@PathVariable long commentId,@RequestBody UpdateCommentDTO dto){
 		commentService.updateComment(commentId, dto);
-		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("댓글 수정 완료").build();
+		SimpleResponseDTO response = SimpleResponseDTO.builder().code("1").message("댓글 수정 완료").build();
 		return ResponseEntity.ok().body(response);
 	}
 	
@@ -49,7 +49,7 @@ public class CommentController {
 	@DeleteMapping("/{commentId}")
 	public ResponseEntity<?> deleteComment(@PathVariable long commentId){
 		commentService.deleteComment(commentId);
-		SimpleResponseDTO response = SimpleResponseDTO.builder().code(1).message("댓글 삭제 완료").build();
+		SimpleResponseDTO response = SimpleResponseDTO.builder().code("1").message("댓글 삭제 완료").build();
 		return ResponseEntity.ok().body(response);
 	}
 
