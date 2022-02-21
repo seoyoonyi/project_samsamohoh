@@ -53,13 +53,13 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
-	public Member updateMember(String id, MultipartFile file, UpdateMemberDTO dto) throws IOException {
+	public Member updateProfileMember(String memberId, MultipartFile file, UpdateMemberDTO dto) throws IOException {
 
 		if (!dto.getNickName().matches("^[가-힣]{2,8}$")) {
 			throw new NickNameValidationException();
 		}
 
-		Optional<Member> option = memberRepo.findById(id);
+		Optional<Member> option = memberRepo.findById(memberId);
 		if (!option.isPresent()) {
 			if (option.get().isEnabled() == false) {
 				throw new InvalidMemberException();
@@ -67,6 +67,10 @@ public class MemberServiceImpl implements MemberService {
 			throw new MemberNotExistException();
 		} else {
 			Member findMember = option.get();
+			if(findMember.getImagePath()!=null) {
+				s3ImageFileUploader.deleteFile(URLDecoder.decode(findMember.getImagePath()
+						.replace("https://moleeja-user-profile-bucket.s3.ap-northeast-2.amazonaws.com/", ""), "UTF-8"));
+			}
 			findMember.setImagePath(s3ImageFileUploader.uplode(file));
 			findMember.setNickName(dto.getNickName());
 			return memberRepo.save(findMember);

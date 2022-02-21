@@ -1,7 +1,5 @@
 package com.server.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,6 +38,8 @@ import com.server.service.ReplyService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -72,7 +72,7 @@ public class BoardController {
 	@GetMapping("/{boardId}")
 	public ResponseEntity<SuccessfulResponseDTO<ShowBoardDTO>> getBoard(
 			@Parameter(description = "게시글의 아이디(PK)") @PathVariable(name = "boardId") long boardId,
-			@Parameter(description = "Bearer {token}") @RequestHeader(value = "Authorization", required = false) String token,
+			@Parameter(description = "Bearer {token}") @RequestHeader(value = "x-api-key", required = false) String token,
 			HttpServletRequest req, HttpServletResponse res) {
 
 		Cookie[] cookies = req.getCookies();
@@ -182,7 +182,7 @@ public class BoardController {
 	@Operation(summary = "게시글 생성", description = "토큰과 게시글 생성 DTO이용하여 게시글 생성")
 	@PostMapping
 	public ResponseEntity<SimpleResponseDTO> createBoard(
-			@Parameter(description = "Bearer {토큰}") @RequestHeader(value = "Authorization") String token,
+			@Parameter(description = "Bearer {토큰}") @RequestHeader(value = "x-api-key") String token,
 			@Parameter(description = "카테고리,게시글 제목,게시글 내용 입력") @RequestBody @Valid CreateBoardDTO dto) {
 		String memberId = tokenProvider.getMemberId(token.substring(7));
 		boardService.createBoard(dto.toEntity(memberService.getMember(memberId)));
@@ -195,6 +195,10 @@ public class BoardController {
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "게시글 삭제 성공"),
 			@ApiResponse(responseCode = "400", description = "예외 발생", content = @Content(schema = @Schema(implementation = ApiException.class))) })
 	@Operation(summary = "게시글 삭제", description = "게시판 아이디(PK)를 이용하여 게시글 삭제")
+	@Parameters(
+			
+			@Parameter(name="x-api-key",description="Bearer {token}",in=ParameterIn.HEADER,required=true)
+		)
 	@DeleteMapping("/{boardId}")
 	public ResponseEntity<SimpleResponseDTO> deleteBoard(
 			@Parameter(description = "게시글 아이디(PK)") @PathVariable long boardId) {
@@ -207,6 +211,10 @@ public class BoardController {
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "게시글 수정 성공"),
 			@ApiResponse(responseCode = "400", description = "예외 발생", content = @Content(schema = @Schema(implementation = ApiException.class))) })
 	@Operation(summary = "게시글 수정", description = "게시글 아이디(PK)와 카테고리,게시글 제목,게시글 내용을 포함하는 DTO를 이용하여 게시글 삭제")
+	@Parameters(
+			
+			@Parameter(name="x-api-key",description="Bearer {token}",in=ParameterIn.HEADER,required=true)
+		)
 	@PutMapping("/{boardId}")
 	public ResponseEntity<SimpleResponseDTO> updateBoard(
 			@Parameter(description = "게시글 아이디(PK)") @PathVariable long boardId,
@@ -220,9 +228,13 @@ public class BoardController {
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "게시글 좋아요 누르기 성공"),
 			@ApiResponse(responseCode = "400", description = "예외 발생", content = @Content(schema = @Schema(implementation = ApiException.class))) })
 	@Operation(summary = "게시글 좋아요 누르기", description = "토큰과 게시글 아이디(PK)를 이용하여 게시글에 좋아요누르기")
+	@Parameters(
+			
+			@Parameter(name="x-api-key",description="Bearer {token}",in=ParameterIn.HEADER,required=true)
+		)
 	@PutMapping("/{boardId}/like")
 	public ResponseEntity<SimpleResponseDTO> addLike(
-			@Parameter(description = "Bearer {token}") @RequestHeader(value = "Authorization") String token,
+			@Parameter(description = "Bearer {token}") @RequestHeader(value = "x-api-key") String token,
 			@Parameter(description = "게시글 아이디(PK)") @PathVariable long boardId) {
 		String memberId = tokenProvider.getMemberId(token.substring(7));
 		boardService.like(memberId, boardId);
@@ -232,10 +244,17 @@ public class BoardController {
 
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "게시글 실허오 누르기 성공"),
 			@ApiResponse(responseCode = "400", description = "예외 발생", content = @Content(schema = @Schema(implementation = ApiException.class))) })
+	
+	@Parameters(
+			
+				@Parameter(name="x-api-key",description="Bearer {token}",in=ParameterIn.HEADER,required=true)
+			)
+	
+	
 	@Operation(summary = "게시글 실어요 누르기", description = "토큰과 게시글 아이디(PK)를 이용하여 게시글에 싫어요 누르기")
 	@PutMapping("/{boardId}/dislike")
 	public ResponseEntity<SimpleResponseDTO> addDisLike(
-			@Parameter(description = "Bearer {token}") @RequestHeader String token,
+			@Parameter(description = "Bearer {token}") @RequestHeader(value="x-api-key") String token,
 			@Parameter(description = "게시글 아이디(PK)") @PathVariable long boardId) {
 		String memberId = tokenProvider.getMemberId(token.substring(7));
 		boardService.disLike(memberId, boardId);

@@ -59,7 +59,7 @@ public class MemberController {
 	@Operation(summary = "로그인", description = "사용자 아이디와 비밀번호를 입력")
 	@PostMapping("/auth/signin")
 	public ResponseEntity<SuccessfulResponseDTO<SignInDTO>> signin(
-			@Parameter(description = "아이디와 비밀번호 입력") @RequestBody @Valid MemberLoginDTO memberLoginDTO) {
+			@Parameter(description = "아이디와 비밀번호 입력",name="memberLoginDTO") @RequestBody @Valid MemberLoginDTO memberLoginDTO) {
 
 		Member findMember = memberService.signin(memberLoginDTO);
 
@@ -107,7 +107,7 @@ public class MemberController {
 		try {
 			String memberId = tokenProvider.getMemberId(token.substring(7));
 			UpdateMemberDTO dto = om.readValue(userInfor, UpdateMemberDTO.class);
-			memberService.updateMember(memberId, file, dto);
+			memberService.updateProfileMember(memberId, file, dto);
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {

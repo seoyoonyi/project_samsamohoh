@@ -16,7 +16,7 @@ public interface MemberService {
 
 	public Member signup(Member member);
 
-	public Member updateMember(String id, MultipartFile file, UpdateMemberDTO dto)throws IOException;
+	public Member updateProfileMember(String id, MultipartFile file, UpdateMemberDTO dto)throws IOException;
 	
 	public Member updateMember(String id,MultipartFile file,AfterUpdateMemberDTO dto) throws IOException;
 	
