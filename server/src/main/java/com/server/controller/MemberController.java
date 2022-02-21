@@ -97,7 +97,7 @@ public class MemberController {
 			)
 	@PutMapping(path = "initialization/member",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<SimpleResponseDTO> updateMemberProfile(
-			@Parameter(description = "Bearer {token}",in=ParameterIn.HEADER)@RequestHeader("Authorization") String token,
+			@Parameter(description = "Bearer {token}",in=ParameterIn.HEADER)@RequestHeader("x-api-key") String token,
 			@Parameter(description = "이미지 파일") @RequestPart MultipartFile file,
 			@Parameter(description = "닉네임") @RequestPart String userInfor) {
 		
@@ -126,7 +126,7 @@ public class MemberController {
 	@Operation(summary = "사용자 정보 변경", description = "사용자 이메일,비밀번호 변경")
 	@PutMapping(path = "/member", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<SimpleResponseDTO> updateMember(
-			@Parameter(description = "Bearer {token}") @RequestHeader(value = "Authorization") String token,
+			@Parameter(description = "Bearer {token}") @RequestHeader(value = "x-api-key") String token,
 			@RequestPart MultipartFile file, @RequestPart String userInfo) {
 		ObjectMapper om = new ObjectMapper();
 
@@ -153,7 +153,7 @@ public class MemberController {
 	@Operation(summary = "사용자 정보 가져오기", description = "사용자의 아이디,이메일,이미지 파일 경로,닉네임,아이디 생성일,권한을 조회")
 	@GetMapping("/member")
 	public ResponseEntity<SuccessfulResponseDTO<SearchMemberDTO>> getMember(
-			@Parameter(description = "Bearer {token}") @RequestHeader(value = "Authorization") String token) {
+			@Parameter(description = "Bearer {token}") @RequestHeader(value = "x-api-key") String token) {
 		 
 		String memberId = tokenProvider.getMemberId(token.substring(7));
 		SearchMemberDTO dto = new SearchMemberDTO(memberService.getMember(memberId));
@@ -168,7 +168,7 @@ public class MemberController {
 	@Operation(summary = "사용자 계정 삭제", description = "토큰값을 이용하여 사용자 계정 삭제")
 	@DeleteMapping("/member")
 	public ResponseEntity<SimpleResponseDTO> deleteMember(
-			@Parameter(description = "Bearer {token}") @RequestHeader(value = "Authorization") String token) {
+			@Parameter(description = "Bearer {token}") @RequestHeader(value = "x-api-key") String token) {
 		String memberId = tokenProvider.getMemberId(token.substring(7));
 		memberService.deleteMember(memberId);
 		SimpleResponseDTO response = SimpleResponseDTO.builder().code("1").message("회원정보 삭제 성공").build();
