@@ -31,13 +31,13 @@ public class SwaggerConfig {
 						.name("Apache License Version 2.0").url("http://www.apache.org/licenses/LICENSE-2.0"));
 		
 		
-		Server httpServer = new Server();
-		httpServer.setUrl("http://"+hostname);
+	//	Server httpServer = new Server();
+	//	httpServer.setUrl("http://"+hostname);
 		
 		Server httpsServer = new Server();
 		httpsServer.setUrl("https://"+hostname);
 		
-		return new OpenAPI().servers(Arrays.asList(httpServer,httpsServer)).components(new Components()).info(info);
+		return new OpenAPI().servers(Arrays.asList(httpsServer)).components(new Components()).info(info);
 	}
 
 }
